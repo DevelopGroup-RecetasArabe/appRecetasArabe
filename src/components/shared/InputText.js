@@ -3,12 +3,25 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Input } from "react-native-elements";
 
 const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
 
-const InputText = ({ title, icon, border, borderBottom, color }) => {
+const InputText = ({
+  title,
+  icon,
+  border,
+  borderBottom,
+  color,
+  value,
+  set,
+  input,
+  error,
+  menssageError,
+  secureText,
+  callback,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.inputText}>{title}</Text>
+
       <Input
         color={"#245071"}
         style={
@@ -20,6 +33,13 @@ const InputText = ({ title, icon, border, borderBottom, color }) => {
           borderColor: "#245071",
         }}
         leftIcon={{ type: "font-awesome", name: icon }}
+        value={value}
+        onChangeText={set}
+        secureTextEntry={secureText}
+        onBlur={() => {
+          callback(input);
+        }}
+        errorMessage={error ? menssageError : null}
       />
     </View>
   );
@@ -37,7 +57,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     marginLeft: width * 0.025,
-    marginBottom: 5,
+    marginBottom: 10,
     fontSize: 16,
     color: "#245071",
   },

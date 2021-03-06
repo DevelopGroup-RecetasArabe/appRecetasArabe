@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { color } from "react-native-reanimated";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -25,9 +26,11 @@ const SharedButton = ({ title, size, colors, callback }) => {
 
 const styles = StyleSheet.create({
   boton: {
+    justifyContent: "center",
+    alignContent: "center",
     textAlign: "center",
     color: "#fff",
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 15,
     shadowColor: "black",
     shadowOffset: { width: 4, height: 4 },
