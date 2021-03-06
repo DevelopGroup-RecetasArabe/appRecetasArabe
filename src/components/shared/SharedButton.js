@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
         color:"#fff",
         borderRadius:10,
         padding:15,
+        shadowColor: "black",
+        shadowOffset: { width: 4, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3.84,
     },
     txtBoton: {
         textAlign:"center",
