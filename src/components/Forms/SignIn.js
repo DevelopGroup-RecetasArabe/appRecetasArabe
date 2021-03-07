@@ -29,7 +29,7 @@ const SignIn = ({ navigation }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => console.log(response))
+      .then((response) => navigation.navigate("tab"))
       .catch((error) => {
         setError(error.message);
       });
@@ -72,7 +72,7 @@ const SignIn = ({ navigation }) => {
       </View>
       <View style={styles.but}>
         <SharedButton
-          title="Sign In"
+          title="Iniciar Sesión"
           colors={"#7c3593"}
           size={0.5}
           callback={handleSignin}

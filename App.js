@@ -9,6 +9,8 @@ import Load from "./src/components/screens/Load";
 import Login from "./src/components/screens/Login";
 import ChangePassword from "./src/components/screens/ChangePassword";
 import NewUser from "./src/components/screens/NewUser";
+import NavigationTab from "./src/components/navigation/NavigationTab";
+import Recipes from "./src/components/screens/Recipes";
 
 const Stack = createStackNavigator();
 
@@ -39,7 +41,6 @@ export default function App() {
                 headerTintColor: "#ebecf2",
                 headerTitleStyle: {
                   fontWeight: "bold",
-                  textAlign: "center",
                 },
               }}
             />
@@ -54,10 +55,11 @@ export default function App() {
                 headerTintColor: "#ebecf2",
                 headerTitleStyle: {
                   fontWeight: "bold",
-                  textAlign: "center",
                 },
               }}
             />
+            <Stack.Screen name="tab" component={NavigationTab} />
+            <Stack.Screen name="Recipes" component={Recipes} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    flex: 1,
+    alignContent: "center",
     justifyContent: "center",
   },
 });

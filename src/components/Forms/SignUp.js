@@ -154,7 +154,7 @@ const SignUp = ({ navigation }) => {
       </View>
       <View style={styles.but}>
         <SharedButton
-          title="Sign Up"
+          title="Registrarse"
           colors={"#7c3593"}
           size={0.5}
           callback={handleSignup}
