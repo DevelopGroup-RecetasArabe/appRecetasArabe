@@ -11,7 +11,7 @@ const Login = ({ navigation }) => {
       <View style={styles.mini}>
         <Image
           style={styles.logo}
-          source={{ uri: require("../../assets/logo.png") }}
+          source={{ uri: String(require("../../assets/logo.png")) }}
         />
         <SignIn navigation={navigation} />
       </View>

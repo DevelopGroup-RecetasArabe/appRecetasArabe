@@ -29,7 +29,9 @@ const SignIn = ({ navigation }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => navigation.navigate("tab"))
+      .then((response) => {
+        navigation.navigate("tab");
+      })
       .catch((error) => {
         setError(error.message);
       });

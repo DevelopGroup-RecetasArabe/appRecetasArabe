@@ -4,6 +4,11 @@ import { Input } from "react-native-elements";
 
 const width = Dimensions.get("window").width;
 
+/*El motivo de este componente es para que todos los inputs tenga el mismo estilo y
+se pueda modificar el texto, el icono, los border, tambien si se quiere tener el border bottom, se quiera
+modificar el color y otras funciones que nos permitan un mejor control de estilo.
+*/
+
 const InputText = ({
   title,
   icon,

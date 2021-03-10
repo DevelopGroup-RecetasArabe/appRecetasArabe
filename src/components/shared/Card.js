@@ -16,7 +16,7 @@ const Card = ({ image, title, description, icon, navigation }) => {
       <View style={styles.card}>
         <TouchableOpacity onPress={() => navigation.navigate("Recipes")}>
           <Text style={styles.title}>{title}</Text>
-          <Image source={{ uri: image }} style={styles.cardImage} />
+          <Image source={{ uri: String(image) }} style={styles.cardImage} />
           <Text style={styles.description}>{description}</Text>
         </TouchableOpacity>
       </View>
