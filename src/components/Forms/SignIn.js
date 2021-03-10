@@ -75,7 +75,7 @@ const SignIn = ({ navigation }) => {
           title="Iniciar Sesión"
           colors={"#7c3593"}
           size={0.5}
-          callback={handleSignin}
+          callback={handleSignin} 
         />
         <Enlace
           title="Registrate"
