@@ -5,13 +5,15 @@ import { firebase } from "../../Firebase";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import Enlace from "../shared/Enlace";
-
+import ShowModal from "../shared/ShowModal"
+import { set } from "react-native-reanimated";
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [error, setError] = useState("");
+  const [modalOpen, setmodalOpen] = useState(false); 
 
   // Verifica que se ingresan los datos del email y el password
   const handleVerify = (input) => {
@@ -29,14 +31,21 @@ const SignIn = ({ navigation }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => navigation.navigate("tab"))
+      .then((response) =>{
+        setmodalOpen(false)
+        navigation.navigate("tab")
+      })
       .catch((error) => {
+        setmodalOpen(true)
         setError(error.message);
       });
   };
 
   return (
     <View>
+      {
+        modalOpen ? < ShowModal set={setmodalOpen} open={modalOpen}/>:null 
+      }
       <View style={styles.inputs}>
         <InputText
           title="Correo Electronico:"
