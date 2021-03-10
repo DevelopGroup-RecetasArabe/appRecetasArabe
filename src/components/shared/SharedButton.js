@@ -11,6 +11,8 @@ import { color } from "react-native-reanimated";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
+//Recibe un titulo, el tamaño del boton, el color del boton y una funcion callback
+
 const SharedButton = ({ title, size, colors, callback }) => {
   return (
     <View>

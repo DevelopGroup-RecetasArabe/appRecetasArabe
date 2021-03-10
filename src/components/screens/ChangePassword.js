@@ -1,22 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import SharedButton from "../shared/SharedButton";
-import InputText from "../shared/InputText";
 import ChangePasswordForm from "../Forms/ChamgePasswordForm";
 
 const ChangePassword = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputs}>
-        <ChangePasswordForm />
-      </View>
-      <View style={styles.but}>
-        <SharedButton
-          title="Guardar"
-          size={0.5}
-          colors={"#7c3593"}
-          callback={() => navigation.navigate("Login")}
-        />
+        <ChangePasswordForm navigation={navigation} />
       </View>
     </View>
   );
