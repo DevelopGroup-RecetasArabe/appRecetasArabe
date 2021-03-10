@@ -1,11 +1,10 @@
 import React from "react";
-import { Dimensions, StyleSheet, View, Image } from "react-native";
-
+import { Dimensions, StyleSheet, View, Image} from "react-native";
 import SignIn from "../Forms/SignIn";
 
 const { width, height } = Dimensions.get("screen");
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.mini}>

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text} from "react-native";
 import { validate } from "email-validator";
 import { firebase } from "../../Firebase";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import Enlace from "../shared/Enlace";
+import Alert from "../shared/Alert";
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,8 @@ const SignIn = ({ navigation }) => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [error, setError] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [confirmar, setConfit] = useState(false);
 
   // Verifica que se ingresan los datos del email y el password
   const handleVerify = (input) => {
@@ -29,14 +32,22 @@ const SignIn = ({ navigation }) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((response) => navigation.navigate("tab"))
+      .then((response) => {
+        setAlert(false);
+        setConfit(true);
+        navigation.navigate("tab")
+      })
       .catch((error) => {
+        setAlert(true);
+        setConfit(false);
         setError(error.message);
       });
   };
 
   return (
     <View>
+      {alert ? <Alert type="error" title="Datos Incorrectos" />:null}
+      {confirmar ? <Alert type="success" title="Bienvenido" />:null}
       <View style={styles.inputs}>
         <InputText
           title="Correo Electronico:"
@@ -52,7 +63,7 @@ const SignIn = ({ navigation }) => {
           menssageError={"Por favor ingrese su correo"}
         />
         <InputText
-          title="Contraseña: "
+          title="Contraseña:"
           borderBottom={1}
           color={"#245071"}
           icon="lock"

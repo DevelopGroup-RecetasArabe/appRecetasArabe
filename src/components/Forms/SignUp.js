@@ -4,6 +4,7 @@ import { firebase } from "../../Firebase";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
+import Alert from "../shared/Alert";
 
 const SignUp = ({ navigation }) => {
   const [fullname, setFullname] = useState("");
@@ -17,6 +18,8 @@ const SignUp = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [error, setError] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [confirmar, setConfit] = useState(false);
 
   // Verifica que los datos ingresados sean correctos
   const handleVerify = (input) => {
@@ -51,6 +54,8 @@ const SignUp = ({ navigation }) => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
+        setAlert(false);
+        setConfit(true);
         // Obtener el Unique Identifier generado para cada usuario
         // Firebase -> Authentication
         const uid = response.user.uid;
@@ -75,14 +80,22 @@ const SignUp = ({ navigation }) => {
           })
           .catch((error) => {
             console.log(error);
+            setAlert(true);
+            setConfit(false);
             setError(error.message);
           });
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setAlert(true);
+        setConfit(false);
+        setError(error.message)
+      });
   };
 
   return (
     <View>
+      {alert ? <Alert type="error" title="Datos Incorrectos" />:null}
+      {confirmar ? <Alert type="success" title="Usuario Creado" />:null}
       <View style={styles.inputs}>
         <InputText
           title="Nombre Completo:"
