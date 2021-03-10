@@ -33,9 +33,9 @@ const SignIn = ({ navigation }) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
+        navigation.navigate("tab");
         setAlert(false);
         setConfit(true);
-        navigation.navigate("tab")
       })
       .catch((error) => {
         setAlert(true);
