@@ -11,6 +11,7 @@ import ChangePassword from "./src/components/screens/ChangePassword";
 import NewUser from "./src/components/screens/NewUser";
 import NavigationTab from "./src/components/navigation/NavigationTab";
 import Recipes from "./src/components/screens/Recipes";
+import LogoBar from "./src/components/shared/LogoBar.js";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,8 @@ export default function App() {
               component={NewUser}
               options={{
                 title: "Nuevo Usuario",
+                headerLeft: () => <LogoBar />,
+                headerTitleAlign: "center",
                 headerStyle: {
                   backgroundColor: "#7c3593",
                 },
@@ -49,6 +52,8 @@ export default function App() {
               component={ChangePassword}
               options={{
                 title: "Cambiar Contraseña",
+                headerLeft: () => <LogoBar />,
+                headerTitleAlign: "center",
                 headerStyle: {
                   backgroundColor: "#7c3593",
                 },
@@ -58,7 +63,19 @@ export default function App() {
                 },
               }}
             />
-            <Stack.Screen name="tab" component={NavigationTab} />
+            <Stack.Screen name="tab" component={NavigationTab} options={{
+              title: "Recetas Arabes",
+              headerLeft: () => <LogoBar />,
+              //headerLeft: "" 
+              headerStyle: {
+                backgroundColor: "#7c3593",
+              },
+              headerTitleAlign: "center",
+              headerTintColor: "#ebecf2",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+              }}/>
             <Stack.Screen name="Recipes" component={Recipes} />
           </Stack.Navigator>
         </NavigationContainer>
