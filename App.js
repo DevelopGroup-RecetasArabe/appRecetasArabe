@@ -20,7 +20,7 @@ export default function App() {
     <ThemeProvider>
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="Recipes">
             <Stack.Screen
               name="Load"
               component={Load}
