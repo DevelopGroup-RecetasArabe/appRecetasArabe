@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
   },
+  iconview: {
+    position: "left",
+  },
 });
 
 export default Card;
