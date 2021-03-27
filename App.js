@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import Load from "./src/components/screens/Load";
 import Login from "./src/components/screens/Login";
 import ChangePassword from "./src/components/screens/ChangePassword";
@@ -58,7 +58,16 @@ export default function App() {
                 },
               }}
             />
-            <Stack.Screen name="tab" component={NavigationTab} />
+            <Stack.Screen
+              name="tab"
+              component={NavigationTab}
+              headerTitleStyle={{}}
+              options={{
+                title: "Home",
+                headerLeft: "",
+                headerTitleAlign: "center",
+              }}
+            />
             <Stack.Screen name="Recipes" component={Recipes} />
           </Stack.Navigator>
         </NavigationContainer>
