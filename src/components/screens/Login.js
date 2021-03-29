@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, View, Image} from "react-native";
+import { Dimensions, StyleSheet, View, Image } from "react-native";
 import SignIn from "../Forms/SignIn";
 
 const { width, height } = Dimensions.get("screen");

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text} from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, View, Button } from "react-native";
 import { validate } from "email-validator";
 import { firebase } from "../../Firebase";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import Enlace from "../shared/Enlace";
 import Alert from "../shared/Alert";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const SignIn = ({ navigation }) => {
+  const { state, signin, signInWithFacebook } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -29,25 +32,13 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleSignin = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        navigation.navigate("tab");
-        setAlert(false);
-        setConfit(true);
-      })
-      .catch((error) => {
-        setAlert(true);
-        setConfit(false);
-        setError(error.message);
-      });
+    signin(email, password);
   };
 
   return (
     <View>
-      {alert ? <Alert type="error" title="Datos Incorrectos" />:null}
-      {confirmar ? <Alert type="success" title="Bienvenido" />:null}
+      {alert ? <Alert type="error" title="Datos Incorrectos" /> : null}
+      {confirmar ? <Alert type="success" title="Bienvenido" /> : null}
       <View style={styles.inputs}>
         <InputText
           title="Correo Electronico:"
@@ -93,6 +84,12 @@ const SignIn = ({ navigation }) => {
           callback={() => navigation.navigate("NewUser")}
         />
       </View>
+      <Button
+        title={"Facebook"}
+        onPress={() => {
+          signInWithFacebook();
+        }}
+      />
     </View>
   );
 };

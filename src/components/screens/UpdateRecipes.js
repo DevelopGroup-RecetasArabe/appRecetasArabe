@@ -14,30 +14,31 @@ import { Input, Icon } from "react-native-elements";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
-const AddRecipes = ({ navigation }) => {
+const UpdateRecipes = ({ route, navigation }) => {
+  const { arrayRecipes } = route.params;
+
   /*Funcion de crear la receta  */
-  const { createRecipe } = useContext(RecipeContext);
+  const { updateRecipes } = useContext(RecipeContext);
   const { state } = useContext(AuthContext);
 
   /*Variable para almacenar la imagen */
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(arrayRecipes.getImage);
 
   /*Variables controlar el agregar y destruit los text inputs*/
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
+  const [count, setCount] = useState(arrayRecipes.arrayIngredients.length);
+  const [count2, setCount2] = useState(arrayRecipes.arrayPreparations.length);
   const [deleteIngredient, setDeleteIngredient] = useState(false);
   const [deletePreparation, setDeletePreparation] = useState(false);
 
   /*Variables para el formulario*/
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(arrayRecipes.title);
   const [titleError, setTitleError] = useState(false);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(arrayRecipes.description);
   const [descriptionError, setDescriptionError] = useState(false);
 
   /*Objeto de ingrediente y de preparaciones*/
-  const [arrayIngredients] = useState([]);
-  const [ingredientError] = useState([]);
-  const [arrayPreparations] = useState([]);
+  const [arrayIngredients] = useState(arrayRecipes.arrayIngredients);
+  const [arrayPreparations] = useState(arrayRecipes.arrayPreparations);
 
   /*Permiso para la acceder a la carpeta*/
   useEffect(() => {
@@ -76,7 +77,6 @@ const AddRecipes = ({ navigation }) => {
   /*Agregar inputs de los ingredientes por medio de un boton */
   const handleAddInputIngredient = () => {
     arrayIngredients[count] = "";
-    ingredientError[count] = false;
     const increment = count + 1;
     setCount(increment);
   };
@@ -86,7 +86,6 @@ const AddRecipes = ({ navigation }) => {
     setCount(decrement);
     setDeleteIngredient(!deleteIngredient);
     arrayIngredients.pop();
-    ingredientError.pop();
   };
 
   /*Agregar inputs por medio de la preparacion de un boton */
@@ -120,9 +119,7 @@ const AddRecipes = ({ navigation }) => {
       <View>
         <ImageButton image={image} callback={pickImage} />
       </View>
-
       {/*Formulario de recetas*/}
-
       <View style={styles.formRecipes}>
         <View style={styles.styleForm}>
           <Text>Nombre de la receta</Text>
@@ -160,7 +157,7 @@ const AddRecipes = ({ navigation }) => {
             {arrayIngredients.map((arr, i) => (
               <Input
                 key={`ingredients${i}`}
-                placeholder={"Ej: 1 kilo de harina"}
+                placeholder={arrayIngredients[i]}
                 color={"#245071"}
                 onChangeText={(val) => {
                   arrayIngredients[i] = val;
@@ -192,11 +189,11 @@ const AddRecipes = ({ navigation }) => {
             {arrayPreparations.map((arr, j) => (
               <Input
                 key={`preparacion${j}`}
-                placeholder={`Ej: Paso # ${j + 1}`}
                 color={"#245071"}
+                placeholder={arrayPreparations[j]}
+                placeholder={arrayPreparations[j]}
                 onChangeText={(val) => {
                   arrayPreparations[j] = val;
-                  console.log(arrayPreparations);
                 }}
               />
             ))}
@@ -217,27 +214,18 @@ const AddRecipes = ({ navigation }) => {
 
         <View style={styles.button}>
           <Button
-            title="Guardar"
+            title="Actualizar"
             color="#7c3593"
             onPress={() => {
-              if (
-                image &&
-                title &&
-                description &&
-                arrayIngredients &&
-                arrayPreparations
-              ) {
-                createRecipe(
-                  image,
-                  title,
-                  description,
-                  arrayIngredients,
-                  arrayPreparations,
-                  state.user.id,
-                  state.user.fullname
-                );
-                navigation.navigate("Home");
-              }
+              updateRecipes(
+                title,
+                arrayRecipes.id,
+                description,
+                arrayIngredients,
+                arrayPreparations,
+                image
+              );
+              navigation.navigate("MyRecipes");
             }}
           />
         </View>
@@ -276,4 +264,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddRecipes;
+export default UpdateRecipes;
