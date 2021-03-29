@@ -13,6 +13,7 @@ import NavigationTab from "./src/components/navigation/NavigationTab";
 import Recipes from "./src/components/screens/Recipes";
 import LogoBar from "./src/components/shared/LogoBar.js";
 
+import LoginAnimated from "./src/components/screens/LoginAnimated";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
     <ThemeProvider>
       <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Recipes">
+          <Stack.Navigator initialRouteName="LoginAnimated">
             <Stack.Screen
               name="Load"
               component={Load}
@@ -29,6 +30,11 @@ export default function App() {
             <Stack.Screen
               name="Login"
               component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="LoginAnimated"
+              component={LoginAnimated}
               options={{ headerShown: false }}
             />
             <Stack.Screen

@@ -1,0 +1,58 @@
+import React, {Component} from "react";
+import { Dimensions, StyleSheet, View,Text, Image} from "react-native";
+const { width, height } = Dimensions.get('window')
+
+const LoginAnimated = () => {
+  return (
+    <View style={{flex: 1, backgroundColor:'white', justifyContent: 'flex-end'}}>
+      <View style={styles.todo}>
+        <Image
+          source={ require('../../assets/logo.png')}
+          style={styles.fondo}
+        />
+      </View>
+      <View style={{ height: height / 3, justifyContent: 'center' }}>
+          <View style={styles.but}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+              SIGN IN
+            </Text>
+          </View>
+          <View style={styles.but}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold'}}>
+              SIGN IN WITH FACEBOOK
+            </Text>
+          </View> 
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  todo : {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
+  },
+  container: {
+    flex: 1,
+    alingItem: 'center',
+    justifyContent: 'center'
+  },
+  but: {
+    backgroundColor: 'white',
+    height: 70,
+    marginHorizontal: 20,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 5
+  },
+  fondo: {
+    flex: 1, 
+    width:null,
+    height: null
+  }
+});
+export default LoginAnimated;

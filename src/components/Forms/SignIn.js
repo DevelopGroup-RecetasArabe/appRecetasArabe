@@ -82,16 +82,32 @@ const SignIn = ({ navigation }) => {
         />
       </View>
       <View style={styles.but}>
-        <SharedButton
-          title="Iniciar Sesión"
-          colors={"#7c3593"}
-          size={0.5}
-          callback={handleSignin}
-        />
-        <Enlace
-          title="Registrate"
-          callback={() => navigation.navigate("NewUser")}
-        />
+        <View style={styles.row}>
+          <View>
+          <SharedButton
+            title="Iniciar Sesión"
+            colors={"#7c3593"}
+            size={0.37}
+            callback={handleSignin}
+          />
+          </View>
+          <View style={styles.medio} />
+          <View>
+          <SharedButton
+            title="Facebook"
+            colors={"#3b5998"}
+            size={0.37}
+            callback={handleSignin}
+          />
+          </View>
+        </View>
+        <View style={styles.enlace}>
+          <Enlace
+            title="Registrate"
+            callback={() => navigation.navigate("NewUser")}
+          />
+        </View>
+        
       </View>
     </View>
   );
@@ -99,14 +115,26 @@ const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   but: {
-    paddingTop: 20,
-    marginBottom: 5,
+    paddingTop: 10,
+    marginBottom: 15,
     alignItems: "center",
   },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  medio: {
+    flex:1,
+    width: 20,
+  },
   inputs: {
-    paddingTop: 15,
+    paddingTop: 10,
     justifyContent: "center",
   },
+  enlace: {
+    paddingTop: 10
+  }
 });
 
 export default SignIn;
