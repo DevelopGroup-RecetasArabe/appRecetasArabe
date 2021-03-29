@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { firebase } from "../../Firebase";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
+import { Context as AuthContext } from "../../providers/AuthContext";
 import Alert from "../shared/Alert";
 
 const SignUp = ({ navigation }) => {
+  const { signup } = useContext(AuthContext);
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,42 +47,7 @@ const SignUp = ({ navigation }) => {
   };
 
   const handleSignup = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        setAlert(false);
-        setConfit(true);
-
-        const uid = response.user.uid;
-
-        //Mi objeto data
-        const data = {
-          id: uid,
-          fullname,
-          username,
-          email,
-        };
-        const usersRef = firebase.firestore().collection("users");
-
-        usersRef
-          .doc(uid)
-          .set(data)
-          .then(() => {
-            navigation.navigate("Login");
-          })
-          .catch((error) => {
-            console.log(error);
-            setAlert(true);
-            setConfit(false);
-            setError(error.message);
-          });
-      })
-      .catch((error) => {
-        setAlert(true);
-        setConfit(false);
-        setError(error.message);
-      });
+    signup(fullname, email, password, navigation);
   };
 
   return (

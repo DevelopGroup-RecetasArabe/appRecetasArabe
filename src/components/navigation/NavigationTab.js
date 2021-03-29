@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Home from "../screens/Home";
-import Favorites from "../screens/Favorites";
+import MyRecipes from "../screens/MyRecipes";
 import Profile from "../screens/Profile";
 import AddRecipes from "../screens/AddRecipes";
+import { Context as AuthContext } from "../../providers/AuthContext";
+import Login from "../screens/Login";
 
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
+  const { signout } = useContext(AuthContext);
+
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="MyRecipes"
       tabBarOptions={{
-        activeTintColor: "#fff",
+        activeTintColor: "#7c3593",
         style: {
-          backgroundColor: "#7c3593",
-          borderRadius: 20,
-          margin: 8,
+          backgroundColor: "#fff",
         },
       }}
     >
@@ -25,19 +27,19 @@ const NavigationTab = () => {
         name={"Home"}
         component={Home}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
           ),
         }}
       />
       <Tab.Screen
-        name={"Favorites"}
-        component={Favorites}
+        name={"MyRecipes"}
+        component={MyRecipes}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Mis recetas",
           tabBarIcon: ({ color }) => (
-            <Icon name="heart" color={color} size={25} />
+            <Icon name="spoon" color={color} size={25} />
           ),
         }}
       />
@@ -45,19 +47,26 @@ const NavigationTab = () => {
         name={"AddRecipes"}
         component={AddRecipes}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Add",
           tabBarIcon: ({ color }) => (
             <Icon name="plus-circle" color={color} size={25} />
           ),
         }}
       />
       <Tab.Screen
-        name={"Profiles"}
-        component={Profile}
+        name={"Login"}
+        component={Login}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <Icon name="user" color={color} size={25} />
+            <Icon
+              name="sign-out"
+              color={color}
+              size={25}
+              onPress={() => {
+                signout();
+              }}
+            />
           ),
         }}
       />
