@@ -55,8 +55,10 @@ const NavigationStack = () => {
                 component={Recipes}
                 options={{
                   headerTitle: "",
-                  headerTransparent: true,
-                  headerTintColor: "#fff",
+                  headerStyle: { backgroundColor: "#fff" },
+                  //headerStyle: { backgroundColor: "#ea8e4f" },
+                  //headerTransparent: true,
+                  headerTintColor: "#7c3593",
                 }}
               />
               <Stack.Screen
