@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
     if (state.recipes) {
       getRecipes(state.recipes);
     }
-  }, [state.recipes]);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
