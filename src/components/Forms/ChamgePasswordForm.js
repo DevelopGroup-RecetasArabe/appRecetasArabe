@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import { validate } from "email-validator";
 import { firebase } from "../../Firebase";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const ChangePasswordForm = ({ navigation }) => {
+  const { changePassword } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [error, setError] = useState("");
@@ -21,11 +24,9 @@ const ChangePasswordForm = ({ navigation }) => {
 
   //Manda la opcion de reset password por medio del correo
   const handleChangePassword = () => {
-    firebase
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => navigation.navigate("Login"))
-      .catch((error) => console.log(error.message));
+    if (email) {
+      changePassword(email, navigation);
+    }
   };
   return (
     <View>

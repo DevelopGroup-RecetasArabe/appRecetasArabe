@@ -1,7 +1,7 @@
 import createDataContext from "./createDataContext";
 import { firebase } from "../Firebase";
-import * as Facebook from "expo-facebook";
-import { appIdFacebook } from "../../enviroment";
+import * as Google from "expo-google-app-auth";
+import { appIdGoogleIOS, appIdGoogleAndroid } from "../../enviroment";
 
 // Acciones disponibles para el reducer
 const authReducer = (state, action) => {
@@ -12,6 +12,8 @@ const authReducer = (state, action) => {
       return { ...state, user: action.payload, loggedIn: true };
     case "signout":
       return { ...state, user: action.payload, loggedIn: false };
+    case "changePassword":
+      return { ...state, user: action.payload };
     case "persistLogin":
       return {
         ...state,
@@ -19,7 +21,7 @@ const authReducer = (state, action) => {
         loggedIn: action.payload.loggedIn,
         loading: false,
       };
-    case "signInWithFacebook":
+    case "signInWithGoogle":
       return { ...state, user: action.payload, loggedIn: true };
     case "signup":
       return { ...state, user: action.payload };
@@ -107,46 +109,43 @@ const persistLogin = (dispatch) => () => {
   });
 };
 
-//Entrar con facebook
-const signInWithFacebook = (dispatch) => async () => {
-  await Facebook.initializeAsync({
-    appId: appIdFacebook,
-  });
-  const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-    permissions: ["public_profile"],
+//Entrar con Google
+const signInWithGoogle = (dispatch) => async () => {
+  const result = await Google.logInAsync({
+    androidClientId: appIdGoogleAndroid,
+    iosClientId: appIdGoogleIOS,
+    scopes: ["profile", "email"],
   });
 
-  if (type === "success") {
-    // Get the user's name using Facebook's Graph API
-    const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
+  if (result.type === "success") {
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      result.idToken
+    );
     firebase
       .auth()
       .signInWithCredential(credential)
       .then((response) => {
-        console.log(response);
         const uid = response.user.uid;
         const name = response.user.displayName;
-
+        console.log(uid);
+        console.log(name);
         const data = {
           id: uid,
           fullname: name,
         };
 
-        const userRef = firebase.firestore().collection("users");
-
-        userRef
+        firebase
+          .firestore()
+          .collection("users")
           .doc(uid)
           .set(data)
           .then(() => {
-            dispatch({
-              type: "signInWithFacebook ",
-              payload: data,
-            });
+            console.log("hola");
+            dispatch({ type: "signInWithGoogle", payload: data });
+          })
+          .catch((error) => {
+            dispatch({ type: "errorMessage", payload: error.message });
           });
-      })
-      .catch((error) => {
-        dispatch({ type: "errorMessage", payload: error.message });
       });
   }
 };
@@ -196,15 +195,33 @@ const signup = (dispatch) => (fullname, email, password, navigation) => {
     });
 };
 
+//Cambiar la contraseña
+const changePassword = (dispatch) => (email, navigation) => {
+  firebase
+    .auth()
+    .sendPasswordResetEmail(email)
+    .then(() => {
+      dispatch({
+        type: "changePassword",
+        payload: "Se envio a su correo la contraseña",
+      });
+      navigation.navigate("Login");
+    })
+    .catch((error) => {
+      dispatch({ type: "errorMessage", payload: error.message });
+    });
+};
+
 // Exportar las funcionalidades requeridas al contexto
 export const { Provider, Context } = createDataContext(
   authReducer,
   {
     signin,
     signup,
+    changePassword,
     signout,
     persistLogin,
-    signInWithFacebook,
+    signInWithGoogle,
   },
   {
     user: {},

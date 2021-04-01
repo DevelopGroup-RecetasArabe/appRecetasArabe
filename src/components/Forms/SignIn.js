@@ -9,7 +9,7 @@ import Alert from "../shared/Alert";
 import { Context as AuthContext } from "../../providers/AuthContext";
 
 const SignIn = ({ navigation }) => {
-  const { state, signin, signInWithFacebook } = useContext(AuthContext);
+  const { state, signin, signInWithGoogle } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,9 +85,9 @@ const SignIn = ({ navigation }) => {
         />
       </View>
       <Button
-        title={"Facebook"}
+        title={"Google"}
         onPress={() => {
-          signInWithFacebook();
+          signInWithGoogle();
         }}
       />
     </View>
