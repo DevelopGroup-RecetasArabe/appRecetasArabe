@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions, StyleSheet, View, Image } from "react-native";
 import SignIn from "../Forms/SignIn";
+import Logo from "../../assets/logo.png";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -10,7 +11,7 @@ const Login = ({ navigation, route }) => {
       <View style={styles.mini}>
         <Image
           style={styles.logo}
-          source={{ uri: String(require("../../assets/logo.png")) }}
+          source={Logo}
         />
         <SignIn navigation={navigation} />
       </View>
