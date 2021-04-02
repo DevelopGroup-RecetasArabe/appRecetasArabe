@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 import {
   StyleSheet,
   Text,
@@ -32,22 +33,42 @@ const Recipes = ({ route }) => {
       </View>
 
       <View style={styles.formIngredient}>
-        <View style={styles.FontingPre}><Text style={styles.ingPre}>Ingredientes</Text></View>
+        
+        <View >
+          <LinearGradient
+          colors={["#245071","#9921e8"]}
+          start={{ x: 0, y: 0.2 }}
+          end={{ x: 1, y: 0.2 }}
+          style={styles.FontingPre}
+          >
+            <Text style={styles.ingPre}>Ingredientes</Text>
+          </LinearGradient>
+        </View>
+        
         {arrayIngredients.map((ing, i) => (
           <Text key={i} style={styles.list}>
             <View style={styles.circle}>
-              <Text style={{ textAlign: "center" , color:"#fff", marginTop:5}}>{i + 1}</Text>
+              <Text style={{ textAlign: "center", fontWeight: 'bold', color:"#fff", marginTop:5}}>{i + 1}</Text>
             </View>
             <Text style={styles.text}>{" " +ing}</Text>
           </Text>
         ))}
       </View>
       <View style={styles.formPreparation}>
-        <View style={styles.FontingPre}><Text style={styles.ingPre}>Preparacion</Text></View>
+      <View >
+          <LinearGradient
+          colors={["#245071","#9921e8"]}
+          start={{ x: 0, y: 0.2 }}
+          end={{ x: 1, y: 0.2 }}
+          style={styles.FontingPre}
+          >
+            <Text style={styles.ingPre}>Preparación</Text>
+          </LinearGradient>
+        </View>
         {arrayPreparations.map((prepa, i) => (
           <Text key={i} style={styles.list}>
             <View style={styles.circle}>
-              <Text style={{textAlign: "center", color:"#fff", marginTop:5}}>{i + 1}</Text>
+              <Text style={{textAlign: "center", fontWeight: 'bold', color:"#fff", marginTop:5}}>{i + 1}</Text>
             </View >
             <Text style={styles.text}>{" " +prepa}</Text>
           </Text>
@@ -61,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#ebecf2',
     //backgroundColor: '#b580ba',
     //backgroundColor: '#b4b5c8',
     padding: 15
@@ -82,17 +103,20 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     marginTop: 12,
-    marginBottom: 5
+    marginBottom: 5,
+    //fontFamily:'SansitaSwashed-Light'
   },
   h1: {
-    fontSize: 30,
+    fontSize: 33,
     fontWeight: 'bold',
     color: '#245071',
     marginLeft: width * 0.03,
     paddingBottom: 4,
+    //fontFamily:'Roboto'
   },
   p: {
-    fontSize: 18,
+    fontSize: 19,
+    fontStyle: 'italic',
     marginLeft: width * 0.03,
     paddingBottom: 20,
   },
@@ -100,15 +124,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     fontSize: 18,
     textAlign: "center",
+    color: "#ebecf2"
   },
   FontingPre: {
     flex:1,
-    backgroundColor: '#24507198',
+    //backgroundColor: '#7c3593',
     borderRadius: 10,
     paddingBottom:5,
     paddingTop:5,
-    marginLeft: width * 0.05,
-    marginRight:width * 0.05,
+    marginLeft: width * 0.12,
+    marginRight:width * 0.12,
     marginTop: 9, 
     marginBottom: 16,
     //Sombra
@@ -118,31 +143,31 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   circle: {
-    backgroundColor: "#7c3593",
+    //backgroundColor: "#7c3593",
+    backgroundColor: "#ea8e4f",
     alignItems: "center",
     padding: 2,
-    width: 30,
+    width: 20,
     height: 30,
-    borderRadius: 40,
+    borderRadius: 50,
     marginLeft: width * 0.03
-    //textAlignVertical: "center"
   },
   text: { 
-    fontSize: 18,
-    textAlignVertical: "center",
-    //marginLeft: 12
+    fontSize: 20,
+    textAlignVertical: "center"
   },
   list: {
     marginBottom: 15,
   },
   formIngredient: {
-    borderTopWidth: 0.8,
-    borderColor: "#7c3593",
+    borderTopWidth: 1.2,
+    borderColor: "#245071",
+    marginBottom: 15
   },
   formPreparation: {
-    borderTopWidth: 0.8,
-    borderColor: "#7c3593",
-    paddingBottom: 20
+    borderTopWidth: 1.2,
+    borderColor: "#245071",
+    paddingBottom: 40
   },
 });
 

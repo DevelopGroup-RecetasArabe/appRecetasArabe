@@ -14,7 +14,7 @@ const MyRecipes = ({ navigation }) => {
     if (state.recipesByUserID) {
       getRecipesByUserID(userState.user.id);
     }
-  }, [state.recipesByUserID]);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>

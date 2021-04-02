@@ -88,8 +88,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    borderBottomColor: "#b4b5c8",
-    borderBottomWidth: 0.3,
     textAlign: "center",
     //color: "#7f71a0",
     color: "#ebecf2", //"#a5a4a4"
