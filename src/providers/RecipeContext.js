@@ -5,19 +5,36 @@ const recipeReducer = (state, action) => {
   switch (action.type) {
     case "errorMessage":
       return { ...state, error: action.payload };
+    case "setCurrentRecipe":
+      return { ...state, currentRecipe: action.payload };
     case "createRecipe":
-      return { ...state, recipes: action.payload, created: true };
+      return {
+        ...state,
+        recipes: [...recipes, action.payload],
+      };
     case "getRecipes":
       return { ...state, recipes: action.payload };
     case "getRecipesByUserID ":
       return { ...state, recipesByUserID: action.payload };
     case "updateRecipe ":
-      return { ...state, recipesByUserID: action.payload };
-    case "deleteRecipe":
       return {
         ...state,
-        recipesByUSerID: action.payload,
-        recipes: action.payload,
+        recipesByUserID: state.recipesByUserID.map((recipe) => {
+          if (recipe.id === action.payload.recipe.id) {
+            return {
+              ...recipe,
+              title: action.payload.recipe.title,
+              description: action.payload.recipe.description,
+              arrayIngredients: action.payload.recipe.arrayIngredients,
+              arrayPreparations: action.payload.recipe.arrayPreparations,
+              getImage: action.payload.recipe.getImage,
+            };
+          }
+        }),
+      };
+    case "deleteRecipe":
+      return {
+        state,
       };
     default:
       return state;
@@ -39,6 +56,7 @@ const createRecipe = (dispatch) => async (
 
   /*Proceso para guardar la imagen en firebase storage*/
   let ref = firebase.storage().ref().child(`images/${title}`);
+
   ref
     .put(blob)
     .then(async () => {
@@ -64,7 +82,7 @@ const createRecipe = (dispatch) => async (
         })
         .then(() => {
           dispatch({
-            type: "createRecipe",
+            type: "CreateRecipe",
             payload: "Se creo la nueva receta",
           });
         })
@@ -83,7 +101,7 @@ const createRecipe = (dispatch) => async (
     });
 };
 
-/*Traer los datos de firebase segun el user id*/
+/*Traer los datos de firebase en general*/
 const getRecipes = (dispatch) => async () => {
   let recipes = [];
   const snapshot = await firebase
@@ -99,6 +117,7 @@ const getRecipes = (dispatch) => async () => {
   dispatch({
     type: "getRecipes",
     payload: recipes,
+    confirm: true,
   });
 };
 
@@ -130,19 +149,21 @@ const updateRecipes = (dispatch) => (
   arrayPreparations,
   getImage
 ) => {
+  const data = {
+    title,
+    description,
+    arrayIngredients,
+    arrayPreparations,
+    getImage,
+  };
   firebase
     .firestore()
     .collection("recipes")
     .doc(id)
-    .update({
-      title,
-      description,
-      arrayIngredients,
-      arrayPreparations,
-      getImage,
-    })
+    .update(data)
     .then(() => {
       console.log("Recetas Actualizadas");
+      dispatch({ type: "updateRecipe", payload: data });
     });
 };
 
@@ -153,24 +174,41 @@ const deleteRecipe = (dispatch) => (id) => {
     .doc(id)
     .delete()
     .then(() => {
-      console.log("Se borra la receta");
+      console.log("Se borra esa mierda");
     })
     .catch((error) => {
       console.log(error.message);
     });
 };
 
+const setCurrentRecipe = (dispatch) => (recipe) => {
+  dispatch({ type: "setCurrentRecipe", payload: recipe });
+};
+
 //Exportar las funcionalidades del contexto
 
 export const { Provider, Context } = createDataContext(
   recipeReducer,
-  { createRecipe, getRecipesByUserID, getRecipes, updateRecipes, deleteRecipe },
+  {
+    createRecipe,
+    getRecipesByUserID,
+    getRecipes,
+    updateRecipes,
+    deleteRecipe,
+    setCurrentRecipe,
+  },
   {
     recipes: [],
     recipesByUserID: [],
+
     error: "",
-    created: false,
-    updated: false,
-    deleted: false,
+    currentRecipe: {
+      id: "",
+      title: "",
+      description: "",
+      arrayIngredients: [],
+      arrayPreparations: [],
+      getImage: "",
+    },
   }
 );
