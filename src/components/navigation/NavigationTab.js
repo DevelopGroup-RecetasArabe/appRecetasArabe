@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Home from "../screens/Home";
 import MyRecipes from "../screens/MyRecipes";
-import Profile from "../screens/Profile";
 import AddRecipes from "../screens/AddRecipes";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Login from "../screens/Login";
 
 const Tab = createBottomTabNavigator();
 
-const NavigationTab = () => {
+const NavigationTab = ({ navigation }) => {
   const { signout } = useContext(AuthContext);
+  const [refresh, setRefresh] = useState(false);
 
   return (
     <Tab.Navigator
-      initialRouteName="MyRecipes"
+      initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: "#7c3593",
         style: {
@@ -32,6 +32,10 @@ const NavigationTab = () => {
             <Icon name="home" color={color} size={30} />
           ),
         }}
+        onPress={() => {
+          setRefresh(!refresh);
+        }}
+        initialParams={{ refresh: refresh }}
       />
       <Tab.Screen
         name={"MyRecipes"}
@@ -42,6 +46,10 @@ const NavigationTab = () => {
             <Icon name="spoon" color={color} size={25} />
           ),
         }}
+        onPress={() => {
+          setRefresh(!refresh);
+        }}
+        initialParams={{ refresh: refresh }}
       />
       <Tab.Screen
         name={"AddRecipes"}

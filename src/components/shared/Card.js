@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollView } from "react-native";
 import {
   Dimensions,
   StyleSheet,
@@ -10,28 +9,26 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
 
-const Card = ({ navigation, array, recipeID, callbackDelete }) => {
+const Card = ({ navigation, array }) => {
+  const { setCurrentRecipe } = useContext(RecipeContext);
+
   return (
     <View style={styles.container}>
       <FlatList
         data={array}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         renderItem={({ item, i }) => (
           <>
             <TouchableOpacity
-              key={item.id}
               style={styles.card}
               onPress={() => {
-                navigation.navigate("Recipes", {
-                  arrayPreparations: item.arrayPreparations,
-                  description: item.description,
-                  title: item.title,
-                  arrayIngredients: item.arrayIngredients,
-                  image: item.getImage,
-                });
+                setCurrentRecipe(item);
+                navigation.navigate("Recipes");
               }}
             >
               <View>
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     marginBottom: 10,
     textAlign: "center",
-    color: "black", //"#a5a4a4"
+    color: "red",
   },
   card: {
     backgroundColor: "#fff",
