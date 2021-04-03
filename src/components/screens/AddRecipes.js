@@ -112,8 +112,7 @@ const AddRecipes = ({ navigation }) => {
       if (!description) setDescriptionError(true);
       else setDescriptionError(false);
     }
-  };
-
+  }; 
   return (
     <ScrollView style={styles.container}>
       {/*Image Picker*/}

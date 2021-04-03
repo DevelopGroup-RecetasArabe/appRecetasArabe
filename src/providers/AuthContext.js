@@ -1,6 +1,6 @@
 import createDataContext from "./createDataContext";
 import { firebase } from "../Firebase";
-import * as Facebook from "expo-facebook";
+import * as Google from "expo-google-app-auth";
 import { appIdFacebook } from "../../enviroment";
 
 // Acciones disponibles para el reducer
@@ -19,7 +19,7 @@ const authReducer = (state, action) => {
         loggedIn: action.payload.loggedIn,
         loading: false,
       };
-    case "signInWithFacebook":
+    case "signInWithGoogle":
       return { ...state, user: action.payload, loggedIn: true };
     case "signup":
       return { ...state, user: action.payload };
@@ -107,46 +107,45 @@ const persistLogin = (dispatch) => () => {
   });
 };
 
-//Entrar con facebook
-const signInWithFacebook = (dispatch) => async () => {
-  await Facebook.initializeAsync({
-    appId: appIdFacebook,
-  });
-  const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-    permissions: ["public_profile"],
+//Entrar con Google
+const signInWithGoogle = (dispatch) => async () => {
+  const result = await Google.logInAsync({
+    androidClientId:
+      "198345664289-p51k9hk8a6drfuj0j6no2bbfnn9bui1g.apps.googleusercontent.com",
+    iosClientId:
+      "198345664289-esbbq6do7ln6e0golrn29mt0g70rc54j.apps.googleusercontent.com",
+    scopes: ["profile", "email"],
   });
 
-  if (type === "success") {
-    // Get the user's name using Facebook's Graph API
-    const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
+  if (result.type === "success") {
+    const credential = firebase.auth.GoogleAuthProvider.credential(
+      result.idToken
+    );
     firebase
       .auth()
       .signInWithCredential(credential)
       .then((response) => {
-        console.log(response);
         const uid = response.user.uid;
         const name = response.user.displayName;
-
+        console.log(uid);
+        console.log(name);
         const data = {
           id: uid,
           fullname: name,
         };
 
-        const userRef = firebase.firestore().collection("users");
-
-        userRef
+        firebase
+          .firestore()
+          .collection("users")
           .doc(uid)
           .set(data)
           .then(() => {
-            dispatch({
-              type: "signInWithFacebook ",
-              payload: data,
-            });
+            console.log("hola");
+            dispatch({ type: "signInWithGoogle", payload: data });
+          })
+          .catch((error) => {
+            dispatch({ type: "errorMessage", payload: error.message });
           });
-      })
-      .catch((error) => {
-        dispatch({ type: "errorMessage", payload: error.message });
       });
   }
 };
@@ -204,7 +203,7 @@ export const { Provider, Context } = createDataContext(
     signup,
     signout,
     persistLogin,
-    signInWithFacebook,
+    signInWithGoogle,
   },
   {
     user: {},

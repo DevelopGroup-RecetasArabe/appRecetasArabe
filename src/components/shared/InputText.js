@@ -8,7 +8,6 @@ const width = Dimensions.get("window").width;
 se pueda modificar el texto, el icono, los border, tambien si se quiere tener el border bottom, se quiera
 modificar el color y otras funciones que nos permitan un mejor control de estilo.
 */
-
 const InputText = ({
   title,
   icon,
@@ -28,6 +27,7 @@ const InputText = ({
       <Text style={styles.inputText}>{title}</Text>
 
       <Input
+        
         color={"#245071"}
         style={
           (styles.input,
