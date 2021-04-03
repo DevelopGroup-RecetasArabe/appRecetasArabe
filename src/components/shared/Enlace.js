@@ -6,16 +6,29 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import { colors } from "react-native-elements";
 
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
-
-const Enlace = ({ title, callback }) => {
+const Enlace = ({
+  title,
+  flexDirection,
+  color,
+  paddingTop,
+  size,
+  callback,
+}) => {
   return (
     <View>
-      <TouchableOpacity style={styles.enlace} onPress={callback}>
-        <Text style={styles.txtEnlace}>{title}</Text>
+      <TouchableOpacity
+        style={[styles.enlace, { flexDirection: flexDirection }]}
+        onPress={callback}
+      >
+        <Text
+          style={[
+            styles.txtEnlace,
+            { color: color, paddingTop: paddingTop, fontSize: size },
+          ]}
+        >
+          {title}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -23,14 +36,14 @@ const Enlace = ({ title, callback }) => {
 
 const styles = StyleSheet.create({
   enlace: {
-    marginBottom: 0,
+    marginBottom: 30,
+    paddingBottom: 10,
   },
 
   txtEnlace: {
     textAlign: "center",
     fontSize: 15,
-    textDecorationLine: "underline",
-    color: "#245071",
+    fontWeight: "bold",
   },
 });
 

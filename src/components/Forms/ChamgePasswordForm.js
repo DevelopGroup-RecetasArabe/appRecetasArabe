@@ -1,19 +1,18 @@
-import React, { useContext, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import { validate } from "email-validator";
 import { firebase } from "../../Firebase";
-import { Context as AuthContext } from "../../providers/AuthContext";
+import Enlace from "../shared/Enlace";
+
+const { width, height } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
-  const { changePassword } = useContext(AuthContext);
-
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [error, setError] = useState("");
 
-  //Verifica el correo electronico
   const handleVerify = (input) => {
     if (input === "email") {
       if (!email) setEmailError(true);
@@ -21,20 +20,25 @@ const ChangePasswordForm = ({ navigation }) => {
       else setEmailError(false);
     }
   };
-
-  //Manda la opcion de reset password por medio del correo
   const handleChangePassword = () => {
-    if (email) {
-      changePassword(email, navigation);
-    }
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => navigation.navigate("Login"))
+      .catch((error) => console.log(error.message));
   };
   return (
-    <View>
-      <View style={styles.inputs}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.h1}>Recuperar Contraseña</Text>
+        <Text style={styles.h2}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt
+        </Text>
+      </View>
+      <View style={styles.form}>
         <InputText
-          title="Correo Electronico:"
-          borderBottom={1}
-          color={"#245071"}
+          placeholder="Correo Electronico"
           icon="envelope"
           value={email}
           set={setEmail}
@@ -44,28 +48,44 @@ const ChangePasswordForm = ({ navigation }) => {
           error={emailError}
           menssageError={"Por favor ingrese su correo"}
         />
-      </View>
-
-      <View style={styles.but}>
         <SharedButton
           title="Restablecer Contraseña"
-          colors={"#7c3593"}
-          size={0.5}
           callback={handleChangePassword}
         />
+        <View style={styles.enlace}>
+          <Enlace
+            title="Volver al inicio de sesión"
+            paddingTop={50}
+            size={20}
+            color={"#ccc"}
+            callback={() => navigation.navigate("Login")}
+          />
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  inputs: {
-    paddingTop: 15,
-    justifyContent: "center",
+  container: {
+    padding: 30,
   },
-  but: {
-    paddingTop: 20,
-    alignItems: "center",
+  h1: {
+    fontSize: 25,
+    color: "#090979",
+    paddingBottom: 10,
+  },
+  h2: {
+    fontSize: 15,
+    color: "#ccc",
+    marginBottom: 60,
+  },
+  form: {
+    width: width * 0.75,
+    paddingTop: 80,
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
   },
 });
 

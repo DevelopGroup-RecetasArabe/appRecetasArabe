@@ -1,47 +1,49 @@
 import React from "react";
-import { Dimensions, StyleSheet, View, Image } from "react-native";
+import { ScrollView } from "react-native";
+import { Dimensions, StyleSheet, View, Image, Text } from "react-native";
 import SignIn from "../Forms/SignIn";
 import Logo from "../../assets/logo.png";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation, route }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.mini}>
-        <Image
-          style={styles.logo}
-          source={Logo}
-        />
-        <SignIn navigation={navigation} />
-      </View>
-    </View>
+    <LinearGradient
+      colors={["#090979", "#bb00f7"]}
+      style={styles.container}
+      start={{ x: 0, y: 0.3 }}
+      end={{ x: 1, y: 0.5 }}
+    >
+      <ScrollView>
+        <View>
+          <View style={styles.form}>
+            <View>
+              <SignIn navigation={navigation} />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#ebcf2',
-    backgroundColor: "#b580ba",
-    alignItems: "center",
-    justifyContent: "center",
+    height: height,
   },
-  mini: {
+
+  form: {
     flex: 1,
-    borderRadius: 20,
-    alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    width: width * 0.8,
-    marginTop: height * 0.1,
-    marginBottom: height * 0.1,
-  },
-  logo: {
-    borderRadius: 20,
-    width: width * 0.35,
-    height: height * 0.2,
+    alignContent: "center",
+    alignSelf: "center",
+    marginTop: 65,
+    width: width * 0.9,
+    height: height * 0.85,
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
   },
 });
 export default Login;

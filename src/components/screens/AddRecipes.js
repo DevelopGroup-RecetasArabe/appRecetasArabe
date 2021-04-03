@@ -86,11 +86,14 @@ const AddRecipes = ({ navigation }) => {
   };
   /*Eliminar el inputs de los ingredientes por medio de un boton*/
   const handleDeleteInputIngredient = () => {
-    const decrement = count - 1;
-    setCount(decrement);
-    setDeleteIngredient(!deleteIngredient);
-    arrayIngredients.pop();
-    ingredientError.pop();
+    if (count < 0) {
+      setCount(0);
+    } else {
+      const decrement = count - 1;
+      setCount(decrement);
+      setDeleteIngredient(!deleteIngredient);
+      arrayIngredients.pop();
+    }
   };
 
   /*Agregar inputs por medio de la preparacion de un boton */
@@ -102,10 +105,14 @@ const AddRecipes = ({ navigation }) => {
 
   /*Eliminar el inputs por medio de un boton*/
   const handleDeleteInputPreparation = () => {
-    const decrement = count2 - 1;
-    setCount2(decrement);
-    setDeletePreparation(!deletePreparation);
-    arrayPreparations.pop();
+    if (count2 < 0) {
+      setCount2(0);
+    } else {
+      const decrement = count2 - 1;
+      setCount2(decrement);
+      setDeletePreparation(!deletePreparation);
+      arrayPreparations.pop();
+    }
   };
 
   const handleVerify = (input) => {
@@ -117,145 +124,146 @@ const AddRecipes = ({ navigation }) => {
       else setDescriptionError(false);
     }
   };
-
   return (
     <LinearGradient
-        //colors={["#245071", "#7c3593", "#245071"]}
-        //colors={["#a4508b", "#7c3593", "#a4508b"]}
-        //colors={["#5f72be","#9921e8"]}
-        colors={["#245071","#9921e8"]}
-        start={{ x: 0, y: 0.2 }}
-        end={{ x: 1, y: 0.2 }}
-        style={styles.container}
-      >
-    <ScrollView style={styles.container}>
-      {/*Image Picker*/}
-      <View style={styles.recipeImage}>
-        <ImageButton image={image} callback={pickImage} />
-      </View>
-
-      {/*Formulario de recetas*/}
-
-      <View style={styles.formRecipes}>
-        <View style={styles.styleForm}>
-          <Text style={styles.titles}>Nombre de la receta</Text>
-          <Input
-            placeholder={"Ejemplo: Kibbe"}
-            value={title}
-            onChangeText={setTitle}
-            onBlur={() => {
-              handleVerify("title");
-            }}
-            errorMessage={
-              titleError ? "Por favor ingrese el nombre de la receta" : null
-            }
-          />
-          <Text style={styles.titles}>Descripcion de la receta</Text>
-          <Input
-            placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
-            value={description}
-            onChangeText={setDescription}
-            onBlur={() => {
-              handleVerify("description");
-            }}
-            errorMessage={
-              descriptionError
-                ? "Por favor ingrese la descripcion de la receta"
-                : null
-            }
-          />
-        </View>
-        {/*Generar un textInput por medio de un boton para ingresar
-        ingredientes*/}
-        <View style={styles.styleForm}>
-          <Text style={styles.titles}>Ingredientes</Text>
-          <>
-            {arrayIngredients.map((arr, i) => (
-              <Input
-                key={`ingredients${i}`}
-                placeholder={"Ej: 1 kilo de harina"}
-                color={"black"}
-                onChangeText={(val) => {
-                  arrayIngredients[i] = val;
-                  console.log(arrayIngredients);
-                }} 
-              />
-            ))}
-          </>
-          <View style={styles.styleIngredients}>
-            <TouchableOpacity onPress={handleAddInputIngredient}>
-              <Text style={styles.textIngredients}>
-                <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                Ingrediente
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteInputIngredient}>
-              <Text style={styles.textIngredients}>
-                <Icon name="trash" type="font-awesome" size={15} /> Borrar
-                Ingrediente
-              </Text>
-            </TouchableOpacity>
-          </View>
+      //colors={["#245071", "#7c3593", "#245071"]}
+      //colors={["#a4508b", "#7c3593", "#a4508b"]}
+      //colors={["#5f72be","#9921e8"]}
+      colors={["#245071", "#9921e8"]}
+      start={{ x: 0, y: 0.2 }}
+      end={{ x: 1, y: 0.2 }}
+      style={styles.container}
+    >
+      <ScrollView style={styles.container}>
+        {/*Image Picker*/}
+        <View style={styles.recipeImage}>
+          <ImageButton image={image} callback={pickImage} />
         </View>
 
-        {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
-        <View style={styles.styleForm}>
-          <Text style={styles.titles}>Preparaciones</Text>
-          <>
-            {arrayPreparations.map((arr, j) => (
-              <Input
-                key={`preparacion${j}`}
-                placeholder={`Ej: Paso # ${j + 1}`}
-                color={"black"}
-                onChangeText={(val) => {
-                  arrayPreparations[j] = val;
-                  console.log(arrayPreparations);
-                }}
-              />
-            ))}
-          </>
-          <View style={styles.styleIngredients}>
-            <TouchableOpacity onPress={handleAddInputPreparation}>
-              <Text style={styles.textIngredients}>
-                <Icon name="plus" type="font-awesome" size={15} /> Agregar Paso
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteInputPreparation}>
-              <Text style={styles.textIngredients}>
-                <Icon name="trash" type="font-awesome" size={15} /> Borrar Paso
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        {/*Formulario de recetas*/}
 
-        <View style={styles.button}>
-          <Button
-            title="Guardar"
-            color="#7c3593"
-            onPress={() => {
-              if (
-                image &&
-                title &&
-                description &&
-                arrayIngredients &&
-                arrayPreparations
-              ) {
-                createRecipe(
-                  image,
-                  title,
-                  description,
-                  arrayIngredients,
-                  arrayPreparations,
-                  state.user.id,
-                  state.user.fullname
-                );
-                navigation.navigate("Home");
+        <View style={styles.formRecipes}>
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Nombre de la receta</Text>
+            <Input
+              placeholder={"Ejemplo: Kibbe"}
+              value={title}
+              onChangeText={setTitle}
+              onBlur={() => {
+                handleVerify("title");
+              }}
+              errorMessage={
+                titleError ? "Por favor ingrese el nombre de la receta" : null
               }
-            }}
-          />
+            />
+            <Text style={styles.titles}>Descripcion de la receta</Text>
+            <Input
+              placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
+              value={description}
+              onChangeText={setDescription}
+              onBlur={() => {
+                handleVerify("description");
+              }}
+              errorMessage={
+                descriptionError
+                  ? "Por favor ingrese la descripcion de la receta"
+                  : null
+              }
+            />
+          </View>
+          {/*Generar un textInput por medio de un boton para ingresar
+        ingredientes*/}
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Ingredientes</Text>
+            <>
+              {arrayIngredients.map((arr, i) => (
+                <Input
+                  key={`ingredients${i}`}
+                  placeholder={"Ej: 1 kilo de harina"}
+                  color={"black"}
+                  onChangeText={(val) => {
+                    arrayIngredients[i] = val;
+                    console.log(arrayIngredients);
+                  }}
+                />
+              ))}
+            </>
+            <View style={styles.styleIngredients}>
+              <TouchableOpacity onPress={handleAddInputIngredient}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
+                  Ingrediente
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDeleteInputIngredient}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
+                  Ingrediente
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Preparaciones</Text>
+            <>
+              {arrayPreparations.map((arr, j) => (
+                <Input
+                  key={`preparacion${j}`}
+                  placeholder={`Ej: Paso # ${j + 1}`}
+                  color={"black"}
+                  onChangeText={(val) => {
+                    arrayPreparations[j] = val;
+                    console.log(arrayPreparations);
+                  }}
+                />
+              ))}
+            </>
+            <View style={styles.styleIngredients}>
+              <TouchableOpacity onPress={handleAddInputPreparation}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
+                  Paso
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDeleteInputPreparation}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
+                  Paso
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.button}>
+            <Button
+              title="Guardar"
+              color="#7c3593"
+              onPress={() => {
+                if (
+                  image &&
+                  title &&
+                  description &&
+                  arrayIngredients &&
+                  arrayPreparations
+                ) {
+                  createRecipe(
+                    image,
+                    title,
+                    description,
+                    arrayIngredients,
+                    arrayPreparations,
+                    state.user.id,
+                    state.user.fullname
+                  );
+                  navigation.navigate("Home");
+                }
+              }}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
     </LinearGradient>
   );
 };
@@ -263,13 +271,13 @@ const AddRecipes = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     padding: 8,
-    margin:0
+    margin: 0,
   },
   recipeImage: {
     borderRadius: 40,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     //Sombra
     shadowColor: "black",
     shadowOffset: { width: 3, height: 5 },
@@ -287,7 +295,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   titles: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 15,
   },
   styleIngredients: {
@@ -303,11 +311,11 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 15,
     marginBottom: 25,
-    backgroundColor: '#FFFFFF98',
+    backgroundColor: "#FFFFFF98",
     borderRadius: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: width * 0.12,
-    marginRight:width * 0.12,
+    marginRight: width * 0.12,
   },
 });
 
