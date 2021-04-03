@@ -169,8 +169,5 @@ export const { Provider, Context } = createDataContext(
     recipes: [],
     recipesByUserID: [],
     error: "",
-    created: false,
-    updated: false,
-    deleted: false,
   }
 );
