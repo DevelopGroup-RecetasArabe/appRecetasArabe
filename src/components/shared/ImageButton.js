@@ -17,18 +17,21 @@ const ImageButton = ({ image, callback }) => {
         {image ? (
           <Image
             source={{ uri: image }}
-            style={{ width: width, height: 300 }}
+            style={{height: height *0.40,borderRadius: 40 }}
           />
         ) : (
-          <Image>
-            <Icon
-              name="photo"
-              type="font-awesome"
-              size={280}
-              color="#7c3593"
-              style={{ opacity: 0.8 }}
-            />
+          <View style={styles.icon}>
+            <Image>
+              <Icon
+                name="photo"
+                type="font-awesome"
+                size={250}
+                color="#7c3593"
+                style={{ opacity: 0.8 }}
+              />
+
           </Image>
+          </View>
         )}
       </TouchableOpacity>
     </View>
@@ -37,10 +40,17 @@ const ImageButton = ({ image, callback }) => {
 
 const styles = StyleSheet.create({
   styleImage: {
-    width: width,
-    height: 300,
+    //width: width,
+    height: height *0.40,
     backgroundColor: "#CDCDCD",
+    borderRadius: 40,
   },
+  icon: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
+  }
 });
 
 export default ImageButton;

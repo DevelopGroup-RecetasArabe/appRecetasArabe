@@ -93,13 +93,15 @@ const styles = StyleSheet.create({
     color: "#ebecf2", //"#a5a4a4"
   },
   ContDescrip: {
-    flex: 3,
+    flex: 3
   },
   description: {
     fontSize: 16,
-    marginTop: 7,
+    marginTop: 4.5,
     color: "#ebecf2",
     textAlign: "left",
+    flex: 3,
+    paddingBottom: 3
   },
   card: {
     backgroundColor: "#b580ba",

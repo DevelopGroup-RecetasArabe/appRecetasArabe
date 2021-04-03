@@ -6,13 +6,17 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import ImageButton from "../shared/ImageButton";
 import { Input, Icon } from "react-native-elements";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+
+const { width, height } = Dimensions.get("window");
 
 const AddRecipes = ({ navigation }) => {
   /*Funcion de crear la receta  */
@@ -115,9 +119,18 @@ const AddRecipes = ({ navigation }) => {
   };
 
   return (
+    <LinearGradient
+        //colors={["#245071", "#7c3593", "#245071"]}
+        //colors={["#a4508b", "#7c3593", "#a4508b"]}
+        //colors={["#5f72be","#9921e8"]}
+        colors={["#245071","#9921e8"]}
+        start={{ x: 0, y: 0.2 }}
+        end={{ x: 1, y: 0.2 }}
+        style={styles.container}
+      >
     <ScrollView style={styles.container}>
       {/*Image Picker*/}
-      <View>
+      <View style={styles.recipeImage}>
         <ImageButton image={image} callback={pickImage} />
       </View>
 
@@ -125,7 +138,7 @@ const AddRecipes = ({ navigation }) => {
 
       <View style={styles.formRecipes}>
         <View style={styles.styleForm}>
-          <Text>Nombre de la receta</Text>
+          <Text style={styles.titles}>Nombre de la receta</Text>
           <Input
             placeholder={"Ejemplo: Kibbe"}
             value={title}
@@ -137,7 +150,7 @@ const AddRecipes = ({ navigation }) => {
               titleError ? "Por favor ingrese el nombre de la receta" : null
             }
           />
-          <Text>Descripcion de la receta</Text>
+          <Text style={styles.titles}>Descripcion de la receta</Text>
           <Input
             placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
             value={description}
@@ -155,13 +168,13 @@ const AddRecipes = ({ navigation }) => {
         {/*Generar un textInput por medio de un boton para ingresar
         ingredientes*/}
         <View style={styles.styleForm}>
-          <Text>Ingredientes</Text>
+          <Text style={styles.titles}>Ingredientes</Text>
           <>
             {arrayIngredients.map((arr, i) => (
               <Input
                 key={`ingredients${i}`}
                 placeholder={"Ej: 1 kilo de harina"}
-                color={"#245071"}
+                color={"black"}
                 onChangeText={(val) => {
                   arrayIngredients[i] = val;
                   console.log(arrayIngredients);
@@ -187,13 +200,13 @@ const AddRecipes = ({ navigation }) => {
 
         {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
         <View style={styles.styleForm}>
-          <Text>Preparaciones</Text>
+          <Text style={styles.titles}>Preparaciones</Text>
           <>
             {arrayPreparations.map((arr, j) => (
               <Input
                 key={`preparacion${j}`}
                 placeholder={`Ej: Paso # ${j + 1}`}
-                color={"#245071"}
+                color={"black"}
                 onChangeText={(val) => {
                   arrayPreparations[j] = val;
                   console.log(arrayPreparations);
@@ -243,22 +256,39 @@ const AddRecipes = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ebecf2",
+    flex: 1,
+    flexDirection: 'column',
+    padding: 10,
+    margin:0
+  },
+  recipeImage: {
+    borderRadius: 40,
+    justifyContent: 'space-between',
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 5 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
   formRecipes: {
-    padding: 10,
+    paddingTop: 10,
   },
   styleForm: {
-    backgroundColor: "#ffffff",
-    padding: 15,
+    backgroundColor: "#FFFFFF98",
+    padding: 10,
     borderRadius: 10,
     marginTop: 15,
     marginBottom: 12,
+  },
+  titles: {
+    fontWeight: 'bold',
+    fontSize: 15,
   },
   styleIngredients: {
     flex: 1,
@@ -272,7 +302,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 25,
+    backgroundColor: '#FFFFFF98',
+    borderRadius: 20,
+    fontWeight: 'bold',
+    marginLeft: width * 0.12,
+    marginRight:width * 0.12,
   },
 });
 
