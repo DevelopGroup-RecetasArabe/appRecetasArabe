@@ -178,7 +178,7 @@ const AddRecipes = ({ navigation }) => {
                 onChangeText={(val) => {
                   arrayIngredients[i] = val;
                   console.log(arrayIngredients);
-                }}
+                }} 
               />
             ))}
           </>
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    padding: 10,
+    padding: 8,
     margin:0
   },
   recipeImage: {
