@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
   but: {
     paddingTop: 20,
     alignItems: "center",
+    paddingBottom: 20
   },
 });
 

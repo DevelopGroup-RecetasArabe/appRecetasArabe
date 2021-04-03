@@ -7,6 +7,7 @@ import Profile from "../screens/Profile";
 import AddRecipes from "../screens/AddRecipes";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Login from "../screens/Login";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Tab = createBottomTabNavigator();
 
