@@ -4,11 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as SplashScreen from "expo-splash-screen";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Login from "../screens/Login";
-import NewUser from "../screens/NewUser";
 import ChangePassword from "../screens/ChangePassword";
 import NavigationTab from "./NavigationTab";
 import Recipes from "../screens/Recipes";
 import UpdateRecipes from "../screens/UpdateRecipes";
+import NewUser from "../screens/NewUser";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +41,14 @@ const NavigationStack = () => {
                   headerTintColor: "#fff",
                   headerTitleAlign: "center",
                 }}
+                initialParams={{
+                  id: "",
+                  arrayPreparations: [],
+                  description: "",
+                  title: "",
+                  arrayIngredients: [],
+                  imagen: "",
+                }}
               />
               <Stack.Screen
                 name="Recipes"
@@ -51,7 +59,13 @@ const NavigationStack = () => {
                   headerTintColor: "#fff",
                 }}
               />
-              <Stack.Screen name="UpdateRecipes" component={UpdateRecipes} />
+              <Stack.Screen
+                name="UpdateRecipes"
+                component={UpdateRecipes}
+                initialParams={{
+                  arrayRecipes: [],
+                }}
+              />
             </Stack.Navigator>
           ) : (
             <Stack.Navigator>

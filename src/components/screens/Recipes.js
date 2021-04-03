@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,35 +7,19 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
 
-const Recipes = () => {
-  const { state } = useContext(RecipeContext);
-  const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [arrayIngredients] = useState([]);
-  const [arrayPreparations] = useState([]);
+const Recipes = ({ route }) => {
+  const {
+    arrayPreparations,
+    arrayIngredients,
+    description,
+    title,
+    image,
+  } = route.params;
 
-  useEffect(() => {
-    if (state.currentRecipe.id) {
-      setImage(state.currentRecipe.getImage);
-      setTitle(state.currentRecipe.title);
-      setDescription(state.currentRecipe.description);
-
-      for (let i = 0; i < state.currentRecipe.arrayIngredients.length; i++) {
-        arrayIngredients[i] = state.currentRecipe.arrayIngredients[i];
-      }
-
-      for (let i = 0; i < state.currentRecipe.arrayPreparations.length; i++) {
-        arrayPreparations[i] = state.currentRecipe.arrayPreparations[i];
-      }
-    }
-  }, [state.currentRecipe]);
-
-  console.log(image);
+  console.log(arrayIngredients, arrayPreparations, image);
 
   return (
     <ScrollView>
@@ -61,7 +44,6 @@ const Recipes = () => {
       </View>
       <View style={styles.formPreparation}>
         <Text style={{ marginBottom: 16 }}>Preparacion: </Text>
-
         {arrayPreparations.map((prepa, i) => (
           <Text key={i} style={styles.list}>
             <View style={styles.circle}>

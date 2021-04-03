@@ -9,26 +9,28 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
-import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
 
 const CardList = ({ navigation, array, callbackDelete }) => {
-  const { state, setCurrentRecipe } = useContext(RecipeContext);
-
   return (
     <View style={styles.container}>
       <FlatList
-        keyExtractor={(item) => item.id}
         data={array}
         numColumns={1}
         renderItem={({ item, i }) => (
           <View>
             <TouchableOpacity
+              key={item.id}
               style={styles.card}
               onPress={() => {
-                setCurrentRecipe(item);
-                navigation.navigate("Recipes");
+                navigation.navigate("Recipes", {
+                  arrayPreparations: item.arrayPreparations,
+                  description: item.description,
+                  title: item.title,
+                  arrayIngredients: item.arrayIngredients,
+                  image: item.getImage,
+                });
               }}
             >
               <View style={styles.layouts}>
