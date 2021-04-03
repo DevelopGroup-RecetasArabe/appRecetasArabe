@@ -67,6 +67,11 @@ const NavigationStack = () => {
                 initialParams={{
                   arrayRecipes: [],
                 }}
+                options={{
+                  headerTitle: "",
+                  headerStyle: { backgroundColor: "#7c3593" },
+                  headerTintColor: "#fff"
+                }}
               />
             </Stack.Navigator>
           ) : (

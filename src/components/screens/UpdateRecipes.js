@@ -6,13 +6,17 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  Dimensions,
   TouchableOpacity,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import ImageButton from "../shared/ImageButton";
 import { Input, Icon } from "react-native-elements";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+
+const { width, height } = Dimensions.get("window");
 
 const UpdateRecipes = ({ route, navigation }) => {
   const { arrayRecipes } = route.params;
@@ -114,139 +118,165 @@ const UpdateRecipes = ({ route, navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {/*Image Picker*/}
-      <View>
-        <ImageButton image={image} callback={pickImage} />
-      </View>
-      {/*Formulario de recetas*/}
-      <View style={styles.formRecipes}>
-        <View style={styles.styleForm}>
-          <Text>Nombre de la receta</Text>
-          <Input
-            placeholder={"Ejemplo: Kibbe"}
-            value={title}
-            onChangeText={setTitle}
-            onBlur={() => {
-              handleVerify("title");
-            }}
-            errorMessage={
-              titleError ? "Por favor ingrese el nombre de la receta" : null
-            }
-          />
-          <Text>Descripcion de la receta</Text>
-          <Input
-            placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
-            value={description}
-            onChangeText={setDescription}
-            onBlur={() => {
-              handleVerify("description");
-            }}
-            errorMessage={
-              descriptionError
-                ? "Por favor ingrese la descripcion de la receta"
-                : null
-            }
-          />
+    <LinearGradient
+        //colors={["#245071", "#7c3593", "#245071"]}
+        //colors={["#a4508b", "#7c3593", "#a4508b"]}
+        //colors={["#5f72be","#9921e8"]}
+        colors={["#245071","#9921e8"]}
+        start={{ x: 0, y: 0.2 }}
+        end={{ x: 1, y: 0.2 }}
+        style={styles.container}
+      >
+      <ScrollView style={styles.container}>
+        {/*Image Picker*/}
+        <View style={styles.recipeImage}>
+          <ImageButton image={image} callback={pickImage} />
         </View>
-        {/*Generar un textInput por medio de un boton para ingresar
-        ingredientes*/}
-        <View style={styles.styleForm}>
-          <Text>Ingredientes</Text>
-          <>
-            {arrayIngredients.map((arr, i) => (
-              <Input
-                key={`ingredients${i}`}
-                placeholder={arrayIngredients[i]}
-                color={"#245071"}
-                onChangeText={(val) => {
-                  arrayIngredients[i] = val;
-                  console.log(arrayIngredients);
-                }}
-              />
-            ))}
-          </>
-          <View style={styles.styleIngredients}>
-            <TouchableOpacity onPress={handleAddInputIngredient}>
-              <Text style={styles.textIngredients}>
-                <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                Ingrediente
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteInputIngredient}>
-              <Text style={styles.textIngredients}>
-                <Icon name="trash" type="font-awesome" size={15} /> Borrar
-                Ingrediente
-              </Text>
-            </TouchableOpacity>
+        {/*Formulario de recetas*/}
+        <View style={styles.formRecipes}>
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Nombre de la receta</Text>
+            <Input
+              placeholder={"Ejemplo: Kibbe"}
+              value={title}
+              onChangeText={setTitle}
+              onBlur={() => {
+                handleVerify("title");
+              }}
+              errorMessage={
+                titleError ? "Por favor ingrese el nombre de la receta" : null
+              }
+            />
+            <Text style={styles.titles}>Descripcion de la receta</Text>
+            <Input
+              placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
+              value={description}
+              onChangeText={setDescription}
+              onBlur={() => {
+                handleVerify("description");
+              }}
+              errorMessage={
+                descriptionError
+                  ? "Por favor ingrese la descripcion de la receta"
+                  : null
+              }
+            />
+          </View>
+          {/*Generar un textInput por medio de un boton para ingresar
+          ingredientes*/}
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Ingredientes</Text>
+            <>
+              {arrayIngredients.map((arr, i) => (
+                <Input
+                  key={`ingredients${i}`}
+                  placeholder={arrayIngredients[i]}
+                  color={"black"}
+                  onChangeText={(val) => {
+                    arrayIngredients[i] = val;
+                    console.log(arrayIngredients);
+                  }}
+                />
+              ))}
+            </>
+            <View style={styles.styleIngredients}>
+              <TouchableOpacity onPress={handleAddInputIngredient}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
+                  Ingrediente
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDeleteInputIngredient}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
+                  Ingrediente
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
+          <View style={styles.styleForm}>
+            <Text style={styles.titles}>Preparaciones</Text>
+            <>
+              {arrayPreparations.map((arr, j) => (
+                <Input
+                  key={`preparacion${j}`}
+                  color={"black"}
+                  placeholder={arrayPreparations[j]}
+                  placeholder={arrayPreparations[j]}
+                  onChangeText={(val) => {
+                    arrayPreparations[j] = val;
+                  }}
+                />
+              ))}
+            </>
+            <View style={styles.styleIngredients}>
+              <TouchableOpacity onPress={handleAddInputPreparation}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="plus" type="font-awesome" size={15} /> Agregar Paso
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDeleteInputPreparation}>
+                <Text style={styles.textIngredients}>
+                  <Icon name="trash" type="font-awesome" size={15} /> Borrar Paso
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.button}>
+            <Button
+              title="Actualizar"
+              color="#7c3593"
+              onPress={() => {
+                updateRecipes(
+                  title,
+                  arrayRecipes.id,
+                  description,
+                  arrayIngredients,
+                  arrayPreparations,
+                  image
+                );
+                navigation.navigate("MyRecipes");
+              }}
+            />
           </View>
         </View>
-
-        {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
-        <View style={styles.styleForm}>
-          <Text>Preparaciones</Text>
-          <>
-            {arrayPreparations.map((arr, j) => (
-              <Input
-                key={`preparacion${j}`}
-                color={"#245071"}
-                placeholder={arrayPreparations[j]}
-                placeholder={arrayPreparations[j]}
-                onChangeText={(val) => {
-                  arrayPreparations[j] = val;
-                }}
-              />
-            ))}
-          </>
-          <View style={styles.styleIngredients}>
-            <TouchableOpacity onPress={handleAddInputPreparation}>
-              <Text style={styles.textIngredients}>
-                <Icon name="plus" type="font-awesome" size={15} /> Agregar Paso
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteInputPreparation}>
-              <Text style={styles.textIngredients}>
-                <Icon name="trash" type="font-awesome" size={15} /> Borrar Paso
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.button}>
-          <Button
-            title="Actualizar"
-            color="#7c3593"
-            onPress={() => {
-              updateRecipes(
-                title,
-                arrayRecipes.id,
-                description,
-                arrayIngredients,
-                arrayPreparations,
-                image
-              );
-              navigation.navigate("MyRecipes");
-            }}
-          />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ebecf2",
+    flex: 1,
+    flexDirection: 'column',
+    padding: 8,
+    margin:0
+  },
+  recipeImage: {
+    borderRadius: 40,
+    justifyContent: 'space-between',
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 5 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
   formRecipes: {
-    padding: 10,
+    paddingTop: 10,
   },
   styleForm: {
-    backgroundColor: "#ffffff",
-    padding: 15,
+    backgroundColor: "#FFFFFF98",
+    padding: 10,
     borderRadius: 10,
     marginTop: 15,
     marginBottom: 12,
+  },
+  titles: {
+    fontWeight: 'bold',
+    fontSize: 15,
   },
   styleIngredients: {
     flex: 1,
@@ -261,6 +291,11 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 15,
     marginBottom: 15,
+    backgroundColor: '#FFFFFF98',
+    borderRadius: 20,
+    fontWeight: 'bold',
+    marginLeft: width * 0.12,
+    marginRight:width * 0.12,
   },
 });
 
