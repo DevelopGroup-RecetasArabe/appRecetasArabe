@@ -225,7 +225,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                 arrayPreparations,
                 image
               );
-              navigation.navigate("Home");
+              navigation.navigate("MyRecipes");
             }}
           />
         </View>

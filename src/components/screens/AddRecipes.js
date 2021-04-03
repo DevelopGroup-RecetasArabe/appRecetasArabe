@@ -55,7 +55,7 @@ const AddRecipes = ({ navigation }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -120,7 +120,9 @@ const AddRecipes = ({ navigation }) => {
       <View>
         <ImageButton image={image} callback={pickImage} />
       </View>
+
       {/*Formulario de recetas*/}
+
       <View style={styles.formRecipes}>
         <View style={styles.styleForm}>
           <Text>Nombre de la receta</Text>
@@ -164,11 +166,6 @@ const AddRecipes = ({ navigation }) => {
                   arrayIngredients[i] = val;
                   console.log(arrayIngredients);
                 }}
-                onBlur={() => {
-                  if (!arrayIngredients[i]) ingredientError[i] = true;
-                  else ingredientError[i] = false;
-                }}
-                errorMessage={ingredientError[i] === true ? "Error" : null}
               />
             ))}
           </>
@@ -223,19 +220,24 @@ const AddRecipes = ({ navigation }) => {
             title="Guardar"
             color="#7c3593"
             onPress={() => {
-              console.log(state.user.id);
-
-              createRecipe(
-                image,
-                title,
-                description,
-                arrayIngredients,
-                arrayPreparations,
-                state.user.id,
-                state.user.fullname
-              );
-
-              navigation.navigate("Home");
+              if (
+                image &&
+                title &&
+                description &&
+                arrayIngredients &&
+                arrayPreparations
+              ) {
+                createRecipe(
+                  image,
+                  title,
+                  description,
+                  arrayIngredients,
+                  arrayPreparations,
+                  state.user.id,
+                  state.user.fullname
+                );
+                navigation.navigate("Home");
+              }
             }}
           />
         </View>
