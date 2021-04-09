@@ -1,23 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-  Button,
-} from "react-native";
+import React, { useContext, useEffect } from "react";
+import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import Card from "../shared/Card";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { LinearGradient } from "expo-linear-gradient";
+import Toaster from "../shared/Toaster";
+
 const { width, height } = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
-  const { state, getRecipes, resetCreated } = useContext(RecipeContext);
-  const [refresh, setRefresh] = useState(false);
+  const { state, getRecipes, refreshHome, clearMessage } = useContext(
+    RecipeContext
+  );
+
   useEffect(() => {
     getRecipes();
-  }, [refresh]);
+  }, []);
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+    refreshHome();
+  };
 
   return (
     <LinearGradient
@@ -31,17 +33,11 @@ const Home = ({ navigation }) => {
     >
       <ScrollView style={styles.container}>
         <View style={styles.den}>
+          {state.created ? (
+            <Toaster message={state.message} callback={handleRefresh} />
+          ) : null}
           <Card array={state.recipes} navigation={navigation} />
         </View>
-        {/* {state.created ? (
-        <Button
-          title={"Refresh"}
-          onPress={() => {
-            setRefresh(!refresh);
-            resetCreated();
-          }}
-        />
-      ) : null} */}
       </ScrollView>
     </LinearGradient>
   );
