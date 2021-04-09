@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView } from "react-native";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 import {
   Dimensions,
   StyleSheet,
@@ -14,24 +15,28 @@ import { Icon } from "react-native-elements";
 const { width, height } = Dimensions.get("window");
 
 const Card = ({ navigation, array, recipeID, callbackDelete }) => {
+  const { setCurrentRecipe } = useContext(RecipeContext);
+
+  const emptyFlatList = (
+    <View style={styles.emptyNotes}>
+      <Text>You don't have any note yet...</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
         data={array}
         numColumns={2}
+        emptyFlatList={emptyFlatList}
         renderItem={({ item, i }) => (
           <>
             <TouchableOpacity
               key={item.id}
               style={styles.card}
               onPress={() => {
-                navigation.navigate("Recipes", {
-                  arrayPreparations: item.arrayPreparations,
-                  description: item.description,
-                  title: item.title,
-                  arrayIngredients: item.arrayIngredients,
-                  image: item.getImage,
-                });
+                setCurrentRecipe(item);
+                navigation.navigate("Recipes");
               }}
             >
               <View style={styles.ContImage}>
@@ -47,17 +52,15 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
                 <Text style={styles.description}>{item.description}</Text>
               </View>
               <View style={styles.favoriteButton}>
-              <Icon
-                    name={"user-circle"}
-                    type={"font-awesome"}
-                    size={17}
-                    color={"#ebecf2"}
-                    backgroundColor={"#7f71a0"}
-                    borderRadius={80}
-                  />
-                <Text style={styles.User}>
-                  {" " + item.fullname}
-                </Text>
+                <Icon
+                  name={"user-circle"}
+                  type={"font-awesome"}
+                  size={17}
+                  color={"#ebecf2"}
+                  backgroundColor={"#7f71a0"}
+                  borderRadius={80}
+                />
+                <Text style={styles.User}>{" " + item.fullname}</Text>
               </View>
             </TouchableOpacity>
           </>
@@ -70,14 +73,14 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: width * 95
+    width: width * 95,
   },
   ContTitle: {
-    backgroundColor: '#24507198',
+    backgroundColor: "#24507198",
     //backgroundColor: '#FFFFFF98',
     marginTop: 18,
     paddingTop: 4,
-    paddingBottom:4,
+    paddingBottom: 4,
     borderRadius: 10,
     //Sombra
     shadowColor: "black",
@@ -87,13 +90,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     textAlign: "center",
     //color: "#7f71a0",
     color: "#ebecf2", //"#a5a4a4"
   },
   ContDescrip: {
-    flex: 3
+    flex: 3,
   },
   description: {
     fontSize: 16,
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     color: "#ebecf2",
     textAlign: "left",
     flex: 3,
-    paddingBottom: 3
+    paddingBottom: 3,
   },
   card: {
     backgroundColor: "#b580ba",
@@ -116,12 +119,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 3.84,
-    marginBottom: 10
+    marginBottom: 10,
   },
   ContImage: {
     //Sombra
     shadowColor: "#7c3593",
-    shadowOffset: { width: 3, height: 12},
+    shadowOffset: { width: 3, height: 12 },
     shadowOpacity: 0.5,
     shadowRadius: 3.84,
   },
@@ -129,16 +132,21 @@ const styles = StyleSheet.create({
     width: width * 0.42,
     height: height * 0.2,
     borderRadius: 20,
-    paddingRight: 8
+    paddingRight: 8,
   },
   favoriteButton: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     flexDirection: "row",
   },
   User: {
     color: "#ebecf2",
-  }
+  },
+  emptyNotes: {
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
 });
 
 export default Card;
