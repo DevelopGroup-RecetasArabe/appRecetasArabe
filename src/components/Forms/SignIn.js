@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Button, Dimensions, Image } from "react-native";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import Logo from "../../assets/logo.png";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -16,7 +17,7 @@ const SignIn = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [error, setError] = useState("");
   const [alert, setAlert] = useState(false);
-
+ 
   useEffect(() => {
     setError(state.errorMessage);
   }, [state.errorMessage]);
@@ -46,15 +47,17 @@ const SignIn = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      {alert ? <Text>Error!</Text> : null}
       <View style={styles.header}>
         <Text style={styles.h1}>Inicio de Sesión</Text>
-        <Text style={styles.h2}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt
-        </Text>
+        <View style={styles.logo}>
+        <Image
+          style={styles.logo}
+          source={Logo}
+        />
+        </View>
       </View>
       <View style={styles.formLogin}>
+      {alert ? <Text>Error!</Text> : null}
         <InputText
           placeholder="Correo Electronico"
           icon="envelope"
@@ -81,9 +84,9 @@ const SignIn = ({ navigation }) => {
 
         <View>
           <Enlace
-            title="¿Olvidas la contraseña?"
+            title="¿Olvidaste la contraseña?"
             flexDirection="row-reverse"
-            color={"#ccc"}
+            color={"#245071"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
@@ -94,9 +97,9 @@ const SignIn = ({ navigation }) => {
         <View style={styles.postionEnlace}>
           <Enlace
             title="Registrate"
-            paddingTop={30}
+            paddingTop={20}
             size={20}
-            color={"#090979"}
+            color={"#245071"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>
@@ -107,20 +110,44 @@ const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 30,
+    flex: 1,
   },
   h1: {
-    fontSize: 25,
-    color: "#090979",
-    paddingBottom: 10,
-  },
-  h2: {
-    fontSize: 15,
-    color: "#ccc",
+    //fontSize: 25,
+    color: "#7c3593",
+    textAlign: "center",
+    //paddingBottom: 5,
   },
   formLogin: {
-    width: width * 0.75,
-    paddingTop: 80,
+    padding: 30,
+    //width: width * 0.75,
+    paddingTop: 30,
+  },
+  header: {
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 0,
+    backgroundColor: "#7c3593",
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10,
+    borderBottomRightRadius:90,
+    borderBottomLeftRadius:90,
+    borderColor: "#B4975A",
+    borderBottomWidth:5,
+    borderLeftWidth:5,
+    borderRightWidth:5,
+    paddingBottom: 15,
+
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 4 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
+  },
+  logo: {
+    borderRadius:30,
+    width: width * 0.37,
+    height: height * 0.25,
   },
 });
 

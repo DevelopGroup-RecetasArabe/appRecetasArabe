@@ -18,9 +18,7 @@ const Login = ({ navigation, route }) => {
       <ScrollView>
         <View>
           <View style={styles.form}>
-            <View>
               <SignIn navigation={navigation} />
-            </View>
           </View>
         </View>
       </ScrollView>
@@ -39,11 +37,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignSelf: "center",
-    marginTop: 65,
+    marginTop: height * 0.05,
+    marginBottom: height * 0.05,
     width: width * 0.9,
-    height: height * 0.85,
-    borderRadius: 5,
+    height: height * 0.9,
+    borderRadius: 10,
     backgroundColor: "#ffffff",
+
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
 });
 export default Login;

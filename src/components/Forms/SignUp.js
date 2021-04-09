@@ -105,9 +105,9 @@ const SignUp = ({ navigation }) => {
 
         <Enlace
           title="Volver al inicio de sesión"
-          paddingTop={50}
+          paddingTop={30}
           size={20}
-          color={"#ccc"}
+          color={"#245071"}
           callback={() => navigation.navigate("Login")}
         />
       </View>
@@ -119,19 +119,21 @@ const styles = StyleSheet.create({
   container: {
     padding: 30,
   },
+  header: {
+    marginTop: 10
+  },
   h1: {
     fontSize: 25,
     color: "#090979",
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   h2: {
     fontSize: 15,
     color: "#ccc",
-    marginBottom: 60,
+    marginBottom: 20,
   },
-  formLogin: {
+  form: {
     width: width * 0.75,
-    paddingTop: 80,
   },
 });
 

@@ -57,7 +57,7 @@ const ChangePasswordForm = ({ navigation }) => {
             title="Volver al inicio de sesión"
             paddingTop={50}
             size={20}
-            color={"#ccc"}
+            color={"#245071"}
             callback={() => navigation.navigate("Login")}
           />
         </View>

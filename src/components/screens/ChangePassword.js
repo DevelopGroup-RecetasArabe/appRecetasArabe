@@ -37,6 +37,11 @@ const styles = StyleSheet.create({
     height: height * 0.85,
     borderRadius: 5,
     backgroundColor: "#ffffff",
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 4 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
 });
 

@@ -20,7 +20,7 @@ const NavigationTab = () => {
       tabBarOptions={{
         activeTintColor: "#7c3593",
         style: {
-          backgroundColor: "#fff",
+          backgroundColor: "#ffffff98"
         },
       }}
     >

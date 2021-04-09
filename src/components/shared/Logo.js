@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get("screen");
 
 const Logo = () => {
   return (
-    <View>
+    <View style={styles.logo}>
       <Image
         style={styles.logo}
         source={{ uri: String(require("../../assets/logo.png")) }}
@@ -17,8 +17,9 @@ const Logo = () => {
 
 const styles = StyleSheet.create({
   logo: {
+    flex:1,
     borderRadius: 20,
-    width: width * 0.6,
+    width: width * 0.3,
     height: height * 0.3,
   },
 });
