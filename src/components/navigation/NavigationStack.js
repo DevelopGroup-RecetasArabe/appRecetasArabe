@@ -56,9 +56,6 @@ const NavigationStack = () => {
               <Stack.Screen
                 name="UpdateRecipes"
                 component={UpdateRecipes}
-                initialParams={{
-                  arrayRecipes: [],
-                }}
                 options={{
                   headerTitle: "",
                   headerStyle: { backgroundColor: "#7c3593" },
