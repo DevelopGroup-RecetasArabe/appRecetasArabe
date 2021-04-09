@@ -26,12 +26,6 @@ const AddRecipes = ({ navigation }) => {
   /*Variable para almacenar la imagen */
   const [image, setImage] = useState(null);
 
-  /*Variables controlar el agregar y destruit los text inputs*/
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
-  const [deleteIngredient, setDeleteIngredient] = useState(false);
-  const [deletePreparation, setDeletePreparation] = useState(false);
-
   /*Variables para el formulario*/
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
@@ -39,9 +33,12 @@ const AddRecipes = ({ navigation }) => {
   const [descriptionError, setDescriptionError] = useState(false);
 
   /*Objeto de ingrediente y de preparaciones*/
-  const [arrayIngredients] = useState([]);
-  const [ingredientError] = useState([]);
-  const [arrayPreparations] = useState([]);
+  const [arrayIngredients, setArrayIngredients] = useState([]);
+  const [arrayPreparations, setArrayPreparations] = useState([]);
+
+  /*Controlar si hay un error en cada input*/
+  const [ingredientError, setIngredientError] = useState([]);
+  const [preparationError, setPreparationError] = useState([]);
 
   /*Permiso para la acceder a la carpeta*/
   useEffect(() => {
@@ -59,7 +56,7 @@ const AddRecipes = ({ navigation }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -73,46 +70,26 @@ const AddRecipes = ({ navigation }) => {
     }
   };
 
-  /*Eliminar un paso del ingrediente */
-  useEffect(() => {}, [deleteIngredient]);
-  useEffect(() => {}, [deletePreparation]);
-
   /*Agregar inputs de los ingredientes por medio de un boton */
   const handleAddInputIngredient = () => {
-    arrayIngredients[count] = "";
-    ingredientError[count] = false;
-    const increment = count + 1;
-    setCount(increment);
+    setArrayIngredients([...arrayIngredients, ""]);
   };
+
   /*Eliminar el inputs de los ingredientes por medio de un boton*/
   const handleDeleteInputIngredient = () => {
-    if (count < 0) {
-      setCount(0);
-    } else {
-      const decrement = count - 1;
-      setCount(decrement);
-      setDeleteIngredient(!deleteIngredient);
-      arrayIngredients.pop();
-    }
+    arrayIngredients.pop();
+    setArrayIngredients([...arrayIngredients]);
   };
 
   /*Agregar inputs por medio de la preparacion de un boton */
   const handleAddInputPreparation = () => {
-    arrayPreparations[count2] = "";
-    const increment = count2 + 1;
-    setCount2(increment);
+    setArrayPreparations([...arrayPreparations, ""]);
   };
 
   /*Eliminar el inputs por medio de un boton*/
   const handleDeleteInputPreparation = () => {
-    if (count2 < 0) {
-      setCount2(0);
-    } else {
-      const decrement = count2 - 1;
-      setCount2(decrement);
-      setDeletePreparation(!deletePreparation);
-      arrayPreparations.pop();
-    }
+    arrayPreparations.pop();
+    setArrayPreparations([...arrayPreparations]);
   };
 
   const handleVerify = (input) => {
@@ -124,6 +101,17 @@ const AddRecipes = ({ navigation }) => {
       else setDescriptionError(false);
     }
   };
+
+  const handleDeleteByPositon = (position) => {
+    arrayIngredients.splice(position, 1);
+    setArrayIngredients([...arrayIngredients]);
+  };
+
+  const handleDeleteByPositonPreparation = (position) => {
+    arrayPreparations.splice(position, 1);
+    setArrayPreparations([...arrayPreparations]);
+  };
+
   return (
     <LinearGradient
       //colors={["#245071", "#7c3593", "#245071"]}
@@ -177,15 +165,42 @@ const AddRecipes = ({ navigation }) => {
             <Text style={styles.titles}>Ingredientes</Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <Input
-                  key={`ingredients${i}`}
-                  placeholder={"Ej: 1 kilo de harina"}
-                  color={"black"}
-                  onChangeText={(val) => {
-                    arrayIngredients[i] = val;
-                    console.log(arrayIngredients);
-                  }}
-                />
+                <View key={i}>
+                  <Input
+                    key={`ingredients${i}`}
+                    placeholder={"Ej: 1 kilo de harina"}
+                    value={arr}
+                    color={"#245071"}
+                    onChangeText={(val) => {
+                      arrayIngredients[i] = val;
+                      setArrayIngredients([...arrayIngredients]);
+                    }}
+                    onBlur={() => {
+                      if (!arrayIngredients[i]) {
+                        ingredientError[i] = true;
+                        setIngredientError([...ingredientError]);
+                      } else {
+                        ingredientError[i] = false;
+                        setIngredientError([...ingredientError]);
+                      }
+                    }}
+                    errorMessage={
+                      ingredientError[i] === true
+                        ? "Ingrese un ingrediente porfavor"
+                        : null
+                    }
+                  />
+                  <Icon
+                    key={`close${i}`}
+                    name="close"
+                    type=""
+                    font-awesome
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositon(i);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
@@ -209,15 +224,42 @@ const AddRecipes = ({ navigation }) => {
             <Text style={styles.titles}>Preparaciones</Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <Input
-                  key={`preparacion${j}`}
-                  placeholder={`Ej: Paso # ${j + 1}`}
-                  color={"black"}
-                  onChangeText={(val) => {
-                    arrayPreparations[j] = val;
-                    console.log(arrayPreparations);
-                  }}
-                />
+                <View key={j}>
+                  <Input
+                    key={`preparacion${j}`}
+                    placeholder={`Ej: Paso # ${j + 1}`}
+                    value={arr}
+                    color={"#245071"}
+                    onChangeText={(val) => {
+                      arrayPreparations[j] = val;
+                      setArrayPreparations([...arrayPreparations]);
+                    }}
+                    onBlur={() => {
+                      if (!arrayPreparations[j]) {
+                        preparationError[j] = true;
+                        setPreparationError([...preparationError]);
+                      } else {
+                        preparationError[j] = false;
+                        setPreparationError([...preparationError]);
+                      }
+                    }}
+                    errorMessage={
+                      preparationError[j] === true
+                        ? "Ingrese un paso porfavor"
+                        : null
+                    }
+                  />
+                  <Icon
+                    key={`close${j}`}
+                    name="close"
+                    type=""
+                    font-awesome
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositonPreparation(j);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
