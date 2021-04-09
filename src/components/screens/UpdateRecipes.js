@@ -19,30 +19,43 @@ import { Context as RecipeContext } from "../../providers/RecipeContext";
 const { width, height } = Dimensions.get("window");
 
 const UpdateRecipes = ({ route, navigation }) => {
-  const { arrayRecipes } = route.params;
-
   /*Funcion de crear la receta  */
-  const { updateRecipes } = useContext(RecipeContext);
-  const { state } = useContext(AuthContext);
+  const { state, updateRecipes } = useContext(RecipeContext);
 
   /*Variable para almacenar la imagen */
-  const [image, setImage] = useState(arrayRecipes.getImage);
-
-  /*Variables controlar el agregar y destruit los text inputs*/
-  const [count, setCount] = useState(arrayRecipes.arrayIngredients.length);
-  const [count2, setCount2] = useState(arrayRecipes.arrayPreparations.length);
-  const [deleteIngredient, setDeleteIngredient] = useState(false);
-  const [deletePreparation, setDeletePreparation] = useState(false);
+  const [image, setImage] = useState(null);
 
   /*Variables para el formulario*/
-  const [title, setTitle] = useState(arrayRecipes.title);
+  const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
-  const [description, setDescription] = useState(arrayRecipes.description);
+  const [description, setDescription] = useState("");
   const [descriptionError, setDescriptionError] = useState(false);
 
   /*Objeto de ingrediente y de preparaciones*/
-  const [arrayIngredients] = useState(arrayRecipes.arrayIngredients);
-  const [arrayPreparations] = useState(arrayRecipes.arrayPreparations);
+  const [arrayIngredients, setArrayIngredients] = useState([]);
+  const [arrayPreparations, setArrayPreparations] = useState([]);
+
+  /*Controlar si hay un error en cada input*/
+  const [ingredientError, setIngredientError] = useState([]);
+  const [preparationError, setPreparationError] = useState([]);
+
+  useEffect(() => {
+    if (state.currentRecipe.id) {
+      setImage(state.currentRecipe.getImage);
+      setTitle(state.currentRecipe.title);
+      setDescription(state.currentRecipe.description);
+
+      for (let i = 0; i < state.currentRecipe.arrayIngredients.length; i++) {
+        arrayIngredients[i] = state.currentRecipe.arrayIngredients[i];
+      }
+      setArrayIngredients([...arrayIngredients]);
+
+      for (let i = 0; i < state.currentRecipe.arrayPreparations.length; i++) {
+        arrayPreparations[i] = state.currentRecipe.arrayPreparations[i];
+      }
+      setArrayPreparations([...arrayPreparations]);
+    }
+  }, [state.currentRecipe]);
 
   /*Permiso para la acceder a la carpeta*/
   useEffect(() => {
@@ -60,7 +73,7 @@ const UpdateRecipes = ({ route, navigation }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -74,37 +87,26 @@ const UpdateRecipes = ({ route, navigation }) => {
     }
   };
 
-  /*Eliminar un paso del ingrediente */
-  useEffect(() => {}, [deleteIngredient]);
-  useEffect(() => {}, [deletePreparation]);
-
   /*Agregar inputs de los ingredientes por medio de un boton */
   const handleAddInputIngredient = () => {
-    arrayIngredients[count] = "";
-    const increment = count + 1;
-    setCount(increment);
+    setArrayIngredients([...arrayIngredients, ""]);
   };
+
   /*Eliminar el inputs de los ingredientes por medio de un boton*/
   const handleDeleteInputIngredient = () => {
-    const decrement = count - 1;
-    setCount(decrement);
-    setDeleteIngredient(!deleteIngredient);
     arrayIngredients.pop();
+    setArrayIngredients([...arrayIngredients]);
   };
 
   /*Agregar inputs por medio de la preparacion de un boton */
   const handleAddInputPreparation = () => {
-    arrayPreparations[count2] = "";
-    const increment = count2 + 1;
-    setCount2(increment);
+    setArrayPreparations([...arrayPreparations, ""]);
   };
 
   /*Eliminar el inputs por medio de un boton*/
   const handleDeleteInputPreparation = () => {
-    const decrement = count2 - 1;
-    setCount2(decrement);
-    setDeletePreparation(!deletePreparation);
     arrayPreparations.pop();
+    setArrayPreparations([...arrayPreparations]);
   };
 
   const handleVerify = (input) => {
@@ -117,16 +119,26 @@ const UpdateRecipes = ({ route, navigation }) => {
     }
   };
 
+  const handleDeleteByPositon = (position) => {
+    arrayIngredients.splice(position, 1);
+    setArrayIngredients([...arrayIngredients]);
+  };
+
+  const handleDeleteByPositonPreparation = (position) => {
+    arrayPreparations.splice(position, 1);
+    setArrayPreparations([...arrayPreparations]);
+  };
+
   return (
     <LinearGradient
-        //colors={["#245071", "#7c3593", "#245071"]}
-        //colors={["#a4508b", "#7c3593", "#a4508b"]}
-        //colors={["#5f72be","#9921e8"]}
-        colors={["#245071","#9921e8"]}
-        start={{ x: 0, y: 0.2 }}
-        end={{ x: 1, y: 0.2 }}
-        style={styles.container}
-      >
+      //colors={["#245071", "#7c3593", "#245071"]}
+      //colors={["#a4508b", "#7c3593", "#a4508b"]}
+      //colors={["#5f72be","#9921e8"]}
+      colors={["#245071", "#9921e8"]}
+      start={{ x: 0, y: 0.2 }}
+      end={{ x: 1, y: 0.2 }}
+      style={styles.container}
+    >
       <ScrollView style={styles.container}>
         {/*Image Picker*/}
         <View style={styles.recipeImage}>
@@ -168,15 +180,42 @@ const UpdateRecipes = ({ route, navigation }) => {
             <Text style={styles.titles}>Ingredientes</Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <Input
-                  key={`ingredients${i}`}
-                  placeholder={arrayIngredients[i]}
-                  color={"black"}
-                  onChangeText={(val) => {
-                    arrayIngredients[i] = val;
-                    console.log(arrayIngredients);
-                  }}
-                />
+                <View key={i}>
+                  <Input
+                    key={`ingredients${i}`}
+                    placeholder={"Ej: 1 kilo de harina"}
+                    value={arr}
+                    color={"#245071"}
+                    onChangeText={(val) => {
+                      arrayIngredients[i] = val;
+                      setArrayIngredients([...arrayIngredients]);
+                    }}
+                    onBlur={() => {
+                      if (!arrayIngredients[i]) {
+                        ingredientError[i] = true;
+                        setIngredientError([...ingredientError]);
+                      } else {
+                        ingredientError[i] = false;
+                        setIngredientError([...ingredientError]);
+                      }
+                    }}
+                    errorMessage={
+                      ingredientError[i] === true
+                        ? "Ingrese un ingrediente porfavor"
+                        : null
+                    }
+                  />
+                  <Icon
+                    key={`close${i}`}
+                    name="close"
+                    type=""
+                    font-awesome
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositon(i);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
@@ -200,26 +239,55 @@ const UpdateRecipes = ({ route, navigation }) => {
             <Text style={styles.titles}>Preparaciones</Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <Input
-                  key={`preparacion${j}`}
-                  color={"black"}
-                  placeholder={arrayPreparations[j]}
-                  placeholder={arrayPreparations[j]}
-                  onChangeText={(val) => {
-                    arrayPreparations[j] = val;
-                  }}
-                />
+                <View key={j}>
+                  <Input
+                    key={`preparacion${j}`}
+                    placeholder={`Ej: Paso # ${j + 1}`}
+                    value={arr}
+                    color={"#245071"}
+                    onChangeText={(val) => {
+                      arrayPreparations[j] = val;
+                      setArrayPreparations([...arrayPreparations]);
+                    }}
+                    onBlur={() => {
+                      if (!arrayPreparations[j]) {
+                        preparationError[j] = true;
+                        setPreparationError([...preparationError]);
+                      } else {
+                        preparationError[j] = false;
+                        setPreparationError([...preparationError]);
+                      }
+                    }}
+                    errorMessage={
+                      preparationError[j] === true
+                        ? "Ingrese un paso porfavor"
+                        : null
+                    }
+                  />
+                  <Icon
+                    key={`close${j}`}
+                    name="close"
+                    type=""
+                    font-awesome
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositonPreparation(j);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
               <TouchableOpacity onPress={handleAddInputPreparation}>
                 <Text style={styles.textIngredients}>
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar Paso
+                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
+                  Paso
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputPreparation}>
                 <Text style={styles.textIngredients}>
-                  <Icon name="trash" type="font-awesome" size={15} /> Borrar Paso
+                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
+                  Paso
                 </Text>
               </TouchableOpacity>
             </View>
@@ -232,7 +300,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               onPress={() => {
                 updateRecipes(
                   title,
-                  arrayRecipes.id,
+                  state.currentRecipe.id,
                   description,
                   arrayIngredients,
                   arrayPreparations,
@@ -251,13 +319,13 @@ const UpdateRecipes = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     padding: 8,
-    margin:0
+    margin: 0,
   },
   recipeImage: {
     borderRadius: 40,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     //Sombra
     shadowColor: "black",
     shadowOffset: { width: 3, height: 5 },
@@ -275,7 +343,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   titles: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 15,
   },
   styleIngredients: {
@@ -291,11 +359,11 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 15,
     marginBottom: 15,
-    backgroundColor: '#FFFFFF98',
+    backgroundColor: "#FFFFFF98",
     borderRadius: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: width * 0.12,
-    marginRight:width * 0.12,
+    marginRight: width * 0.12,
   },
 });
 
