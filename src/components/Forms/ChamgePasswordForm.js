@@ -32,8 +32,8 @@ const ChangePasswordForm = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.h1}>Recuperar Contraseña</Text>
         <Text style={styles.h2}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt
+        ¡Hey! te hace falta el ingrediente mas importante,
+        ingresa tu correo para recuperarlo
         </Text>
       </View>
       <View style={styles.form}>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 15,
-    color: "#ccc",
+    color: "#245071",
     marginBottom: 60,
   },
   form: {

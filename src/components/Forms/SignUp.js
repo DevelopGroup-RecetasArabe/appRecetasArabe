@@ -49,8 +49,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.h1}>Registrate</Text>
         <Text style={styles.h2}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt
+        ¿Conoces algunas recetas arabes?, unete a nosotros, muestra tus recetas y conoce nuevas
         </Text>
       </View>
       <View style={styles.form}>
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 15,
-    color: "#ccc",
+    color: "#245071",
     marginBottom: 20,
   },
   form: {

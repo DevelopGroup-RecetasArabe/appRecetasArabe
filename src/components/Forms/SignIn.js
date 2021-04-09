@@ -6,7 +6,6 @@ import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Logo from "../../assets/logo.png";
-
 const { width, height } = Dimensions.get("screen");
 
 const SignIn = ({ navigation }) => {
