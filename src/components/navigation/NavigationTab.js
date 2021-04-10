@@ -55,8 +55,8 @@ const NavigationTab = () => {
         }}
       />
       <Tab.Screen
-        name={"Login"}
-        component={Login}
+        name={"Profile"}
+        component={Profile}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
@@ -64,9 +64,7 @@ const NavigationTab = () => {
               name="sign-out"
               color={color}
               size={25}
-              onPress={() => {
-                signout();
-              }}
+              
             />
           ),
         }}

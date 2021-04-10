@@ -3,7 +3,7 @@ import { firebase } from "../Firebase/index";
 
 const recipeReducer = (state, action) => {
   switch (action.type) {
-    case "errorMessage":
+    case "toastMessage":
       return { ...state, error: action.payload };
     case "createRecipe":
       return { ...state, recipes: action.payload, created: true };
@@ -70,14 +70,14 @@ const createRecipe = (dispatch) => async (
         })
         .catch((error) => {
           dispatch({
-            type: "errorMessage",
+            type: "toastMessage",
             payload: error.message,
           });
         });
     })
     .catch((error) => {
       dispatch({
-        type: "errorMessage",
+        type: "toastMessage",
         payload: error.message,
       });
     });
@@ -100,6 +100,7 @@ const getRecipes = (dispatch) => async () => {
     type: "getRecipes",
     payload: recipes,
   });
+  dispatch({type: "toastMessage", payload: "Receta generadas exitosamente"});
 };
 
 /*Traer los datos de firebase segun el user id*/
@@ -120,6 +121,7 @@ const getRecipesByUserID = (dispatch) => async (userId) => {
     type: "getRecipesByUserID ",
     payload: recipesByUserID,
   });
+  dispatch({type: "toastMessage", payload: "Receta generadas exitosamente"});
 };
 
 const updateRecipes = (dispatch) => (
@@ -144,6 +146,7 @@ const updateRecipes = (dispatch) => (
     .then(() => {
       console.log("Recetas Actualizadas");
     });
+    dispatch({type: "toastMessage", payload: "Receta actualizada por favor refresque la app"});
 };
 
 const deleteRecipe = (dispatch) => (id) => {
@@ -155,9 +158,11 @@ const deleteRecipe = (dispatch) => (id) => {
     .then(() => {
       console.log("Se borra la receta");
     })
+    dispatch({type: "toastMessage", payload: "Receta borrada por favor refresque la app"})
     .catch((error) => {
       console.log(error.message);
     });
+  
 };
 
 //Exportar las funcionalidades del contexto

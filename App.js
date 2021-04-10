@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { Provider as AuthProvider } from "./src/providers/AuthContext";
 import { Provider as RecipeProvider } from "./src/providers/RecipeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -7,13 +7,18 @@ import LongTimer from "./src/utils/LongTimer";
 
 export default function App() {
   LongTimer();
+  
   return (
-    <AuthProvider>
-      <RecipeProvider>
-        <SafeAreaProvider>
-          <NavigationStack />
-        </SafeAreaProvider>
-      </RecipeProvider>
-    </AuthProvider>
+
+    
+      <AuthProvider>
+        <RecipeProvider>
+          <SafeAreaProvider>
+            <NavigationStack />
+          </SafeAreaProvider>
+        </RecipeProvider>
+      </AuthProvider>
+      
+    
   );
 }

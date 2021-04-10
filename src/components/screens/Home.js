@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Dimensions, ScrollView, Switch} from "react-native";
 import Card from "../shared/Card";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
       getRecipes(state.recipes);
     }
   }, []);
-
+  
   return (
     <LinearGradient
         //colors={["#245071", "#7c3593", "#245071"]}
@@ -25,7 +25,6 @@ const Home = ({ navigation }) => {
         style={styles.container}
       >
     <ScrollView style={styles.container}>
-      
         <View style={styles.den}>
           <Card array={state.recipes} navigation={navigation} />
         </View>

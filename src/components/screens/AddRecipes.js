@@ -15,6 +15,7 @@ import ImageButton from "../shared/ImageButton";
 import { Input, Icon } from "react-native-elements";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import Toast from 'react-native-toast-message';
 
 const { width, height } = Dimensions.get("window");
 
@@ -241,6 +242,7 @@ const AddRecipes = ({ navigation }) => {
               title="Guardar"
               color="#7c3593"
               onPress={() => {
+
                 if (
                   image &&
                   title &&
@@ -257,6 +259,7 @@ const AddRecipes = ({ navigation }) => {
                     state.user.id,
                     state.user.fullname
                   );
+                  
                   navigation.navigate("Home");
                 }
               }}
