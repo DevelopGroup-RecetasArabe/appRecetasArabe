@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get("window");
 
 const Recipes = ({ route }) => {
   const { state } = useContext(RecipeContext);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [arrayIngredients] = useState([]);

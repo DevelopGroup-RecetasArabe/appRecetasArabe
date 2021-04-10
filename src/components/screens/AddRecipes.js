@@ -64,8 +64,6 @@ const AddRecipes = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     /*Guarda la imagen */
     if (!result.cancelled) {
       setImage(result.uri);
@@ -114,6 +112,14 @@ const AddRecipes = ({ navigation }) => {
     setArrayPreparations([...arrayPreparations]);
   };
 
+  //Limpiar
+  const clear = () => {
+    setImage(null);
+    setTitle("");
+    setDescription("");
+    setArrayIngredients([]);
+    setArrayPreparations([]);
+  };
   return (
     <LinearGradient
       //colors={["#245071", "#7c3593", "#245071"]}
@@ -421,6 +427,7 @@ const AddRecipes = ({ navigation }) => {
                     state.user.id,
                     state.user.fullname
                   );
+                  clear();
                   navigation.navigate("Home");
                 }
               }}
