@@ -29,8 +29,7 @@ const ImageButton = ({ image, callback }) => {
                 color="#7c3593"
                 style={{ opacity: 0.8 }}
               />
-
-          </Image>
+            </Image>
           </View>
         )}
       </TouchableOpacity>

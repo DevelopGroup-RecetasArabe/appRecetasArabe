@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignSelf: "center",
-    marginTop: height * 0.1,
+    marginTop: height * 0.05,
     marginBottom: height * 0.05,
     width: width * 0.9,
     height: height * 0.9,
