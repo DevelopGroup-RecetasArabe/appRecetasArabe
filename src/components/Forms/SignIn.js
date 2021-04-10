@@ -47,7 +47,7 @@ const SignIn = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}>Inicio de Sesión</Text>
+        <Text style={styles.h1}></Text>
         <View style={styles.logo}>
         <Image
           style={styles.logo}
@@ -90,13 +90,13 @@ const SignIn = ({ navigation }) => {
           />
         </View>
         <SharedButton title="Iniciar Sesión" callback={handleSignin} />
-        <View style={{ marginTop: 15 }}>
+        <View style={{ marginTop: 12 }}>
           <SharedButton title="Google" callback={handleSignGoogle} />
         </View>
         <View style={styles.postionEnlace}>
           <Enlace
             title="Registrate"
-            paddingTop={20}
+            paddingTop={15}
             size={20}
             color={"#245071"}
             callback={() => navigation.navigate("NewUser")}
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   formLogin: {
     padding: 30,
     //width: width * 0.75,
-    paddingTop: 30,
+    paddingTop: 25,
   },
   header: {
     alignItems: "center",
