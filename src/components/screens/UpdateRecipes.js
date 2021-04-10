@@ -180,31 +180,33 @@ const UpdateRecipes = ({ route, navigation }) => {
             <Text style={styles.titles}>Ingredientes</Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <View key={i}>
-                  <Input
-                    key={`ingredients${i}`}
-                    placeholder={"Ej: 1 kilo de harina"}
-                    value={arr}
-                    color={"#245071"}
-                    onChangeText={(val) => {
-                      arrayIngredients[i] = val;
-                      setArrayIngredients([...arrayIngredients]);
-                    }}
-                    onBlur={() => {
-                      if (!arrayIngredients[i]) {
-                        ingredientError[i] = true;
-                        setIngredientError([...ingredientError]);
-                      } else {
-                        ingredientError[i] = false;
-                        setIngredientError([...ingredientError]);
+                <View key={i} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`ingredients${i}`}
+                      placeholder={"Ej: 1 kilo de harina"}
+                      value={arr}
+                      color={"#245071"}
+                      onChangeText={(val) => {
+                        arrayIngredients[i] = val;
+                        setArrayIngredients([...arrayIngredients]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayIngredients[i]) {
+                          ingredientError[i] = true;
+                          setIngredientError([...ingredientError]);
+                        } else {
+                          ingredientError[i] = false;
+                          setIngredientError([...ingredientError]);
+                        }
+                      }}
+                      errorMessage={
+                        ingredientError[i] === true
+                          ? "Ingrese un ingrediente porfavor"
+                          : null
                       }
-                    }}
-                    errorMessage={
-                      ingredientError[i] === true
-                        ? "Ingrese un ingrediente porfavor"
-                        : null
-                    }
-                  />
+                    />
+                  </View>
                   <Icon
                     key={`close${i}`}
                     name="close"
@@ -239,7 +241,8 @@ const UpdateRecipes = ({ route, navigation }) => {
             <Text style={styles.titles}>Preparaciones</Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <View key={j}>
+                <View key={j} style={styles.fil}>
+                  <View style={styles.colum}>
                   <Input
                     key={`preparacion${j}`}
                     placeholder={`Ej: Paso # ${j + 1}`}
@@ -264,6 +267,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                         : null
                     }
                   />
+                  </View>
                   <Icon
                     key={`close${j}`}
                     name="close"
@@ -345,6 +349,13 @@ const styles = StyleSheet.create({
   titles: {
     fontWeight: "bold",
     fontSize: 15,
+  },
+  fil: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  colum: {
+    width:'90%'
   },
   styleIngredients: {
     flex: 1,
