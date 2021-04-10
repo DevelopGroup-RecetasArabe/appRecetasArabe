@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 import ChangePasswordForm from "../Forms/ChamgePasswordForm";
 
 const { width, height } = Dimensions.get("screen");
 
 const ChangePassword = ({ navigation }) => {
+  const { state } = useContext(RecipeContext);
+  useEffect(() => {}, [state.darkMode]);
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}
@@ -15,7 +17,13 @@ const ChangePassword = ({ navigation }) => {
       end={{ x: 1, y: 0.5 }}
     >
       <ScrollView style={styles.container}>
-        <View style={styles.form}>
+        <View
+          style={
+            state.darkMode === "light"
+              ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
+              : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
+          }
+        >
           <ChangePasswordForm navigation={navigation} />
         </View>
       </ScrollView>
@@ -35,8 +43,8 @@ const styles = StyleSheet.create({
     marginTop: 65,
     width: width * 0.9,
     height: height * 0.85,
-    borderRadius: 5,
-    backgroundColor: "#ffffff",
+    //borderRadius: 5,
+    //backgroundColor: "#ffffff",
   },
 });
 

@@ -146,12 +146,33 @@ const UpdateRecipes = ({ route, navigation }) => {
         </View>
         {/*Formulario de recetas*/}
         <View style={styles.formRecipes}>
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Nombre de la receta</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "green", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Nombre de la receta
+            </Text>
             <Input
               placeholder={"Ejemplo: Kibbe"}
               value={title}
               onChangeText={setTitle}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("title");
               }}
@@ -159,11 +180,20 @@ const UpdateRecipes = ({ route, navigation }) => {
                 titleError ? "Por favor ingrese el nombre de la receta" : null
               }
             />
-            <Text style={styles.titles}>Descripcion de la receta</Text>
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Descripcion de la receta
+            </Text>
             <Input
               placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
               value={description}
               onChangeText={setDescription}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("description");
               }}
@@ -176,8 +206,28 @@ const UpdateRecipes = ({ route, navigation }) => {
           </View>
           {/*Generar un textInput por medio de un boton para ingresar
           ingredientes*/}
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Ingredientes</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "green", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Ingredientes
+            </Text>
             <>
               {arrayIngredients.map((arr, i) => (
                 <View key={i}>
@@ -185,7 +235,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     key={`ingredients${i}`}
                     placeholder={"Ej: 1 kilo de harina"}
                     value={arr}
-                    color={"#245071"}
+                    color={state.darkMode === "light" ? "#245071" : "#fff"}
                     onChangeText={(val) => {
                       arrayIngredients[i] = val;
                       setArrayIngredients([...arrayIngredients]);
@@ -209,6 +259,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     key={`close${i}`}
                     name="close"
                     type=""
+                    color={state.darkMode === "light" ? "black" : "#fff"}
                     font-awesome
                     size={30}
                     onPress={() => {
@@ -220,23 +271,54 @@ const UpdateRecipes = ({ route, navigation }) => {
             </>
             <View style={styles.styleIngredients}>
               <TouchableOpacity onPress={handleAddInputIngredient}>
-                <Text style={styles.textIngredients}>
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
                   <Icon name="plus" type="font-awesome" size={15} /> Agregar
                   Ingrediente
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputIngredient}>
                 <Text style={styles.textIngredients}>
-                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
-                  Ingrediente
+                  <Icon
+                    name="trash"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#fff"}
+                  />{" "}
+                  Borrar Ingrediente
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Preparaciones</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "green", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Preparaciones
+            </Text>
             <>
               {arrayPreparations.map((arr, j) => (
                 <View key={j}>
@@ -244,7 +326,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     key={`preparacion${j}`}
                     placeholder={`Ej: Paso # ${j + 1}`}
                     value={arr}
-                    color={"#245071"}
+                    color={state.darkMode === "light" ? "#245071" : "#fff"}
                     onChangeText={(val) => {
                       arrayPreparations[j] = val;
                       setArrayPreparations([...arrayPreparations]);
@@ -269,6 +351,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="close"
                     type=""
                     font-awesome
+                    color={state.darkMode === "light" ? "black" : "#fff"}
                     size={30}
                     onPress={() => {
                       handleDeleteByPositonPreparation(j);
@@ -279,15 +362,37 @@ const UpdateRecipes = ({ route, navigation }) => {
             </>
             <View style={styles.styleIngredients}>
               <TouchableOpacity onPress={handleAddInputPreparation}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                  Paso
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="plus"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#fff"}
+                  />{" "}
+                  Agregar Paso
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputPreparation}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
-                  Paso
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="trash"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#fff"}
+                  />{" "}
+                  Borrar Paso
                 </Text>
               </TouchableOpacity>
             </View>
@@ -296,7 +401,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           <View style={styles.button}>
             <Button
               title="Actualizar"
-              color="#7c3593"
+              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 updateRecipes(
                   title,
@@ -336,9 +441,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   styleForm: {
-    backgroundColor: "#FFFFFF98",
+    //backgroundColor: "#FFFFFF98",
     padding: 10,
-    borderRadius: 10,
+    //borderRadius: 10,
     marginTop: 15,
     marginBottom: 12,
   },

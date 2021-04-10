@@ -40,9 +40,14 @@ const recipeReducer = (state, action) => {
       };
     case "deleteRecipe":
       return {
-        state,
+        ...state,
         deleted: true,
       };
+    case "darkMode":
+      return { ...state, darkMode: "dark" };
+    case "lightMode":
+      return { ...state, darkMode: "light" };
+
     default:
       return state;
   }
@@ -195,6 +200,14 @@ const clearMessage = (dispatch) => () => {
   dispatch({ type: "toastMessage", paylooad: "" });
 };
 
+const darkMode = (dispatch) => () => {
+  dispatch({ type: "darkMode", payload: "dark" });
+};
+
+const lightMode = (dispatch) => () => {
+  dispatch({ type: "lightMode", payload: "light" });
+};
+
 //Exportar las funcionalidades del contexto
 
 export const { Provider, Context } = createDataContext(
@@ -209,6 +222,8 @@ export const { Provider, Context } = createDataContext(
     refreshHome,
     refreshMyRecipe,
     clearMessage,
+    lightMode,
+    darkMode,
   },
   {
     recipes: [],
@@ -224,5 +239,6 @@ export const { Provider, Context } = createDataContext(
     },
     created: false,
     updated: false,
+    darkMode: "light",
   }
 );

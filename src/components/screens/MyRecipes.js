@@ -27,7 +27,7 @@ const MyRecipes = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View>
         {state.updated ? (
           <Toaster message={state.message} callback={handleRefresh} />
@@ -44,7 +44,7 @@ const MyRecipes = ({ navigation }) => {
           setRefresh(!refresh);
         }}
       /> */}
-    </ScrollView>
+    </View>
   );
 };
 

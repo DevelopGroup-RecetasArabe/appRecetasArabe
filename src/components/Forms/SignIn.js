@@ -5,10 +5,15 @@ import InputText from "../shared/InputText";
 import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
 
 const SignIn = ({ navigation }) => {
+  const { state: recipeState } = useContext(RecipeContext);
+
+  useEffect(() => {}, [recipeState.darkMode]);
+
   const { state, signin, signInWithGoogle } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,8 +53,22 @@ const SignIn = ({ navigation }) => {
     <View style={styles.container}>
       {alert ? <Text>Error!</Text> : null}
       <View style={styles.header}>
-        <Text style={styles.h1}>Inicio de Sesión</Text>
-        <Text style={styles.h2}>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h1, { color: "black" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+          Inicio de Sesión
+        </Text>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h2, { color: "black" }]
+              : [styles.h2, { color: "#fff" }]
+          }
+        >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt
         </Text>
@@ -83,7 +102,7 @@ const SignIn = ({ navigation }) => {
           <Enlace
             title="¿Olvidas la contraseña?"
             flexDirection="row-reverse"
-            color={"#ccc"}
+            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
@@ -96,7 +115,7 @@ const SignIn = ({ navigation }) => {
             title="Registrate"
             paddingTop={30}
             size={20}
-            color={"#090979"}
+            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>
