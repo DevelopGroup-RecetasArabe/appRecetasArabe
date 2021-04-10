@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,13 +7,23 @@ import {
   Dimensions,
 } from "react-native";
 import { Image, Icon } from "react-native-elements";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
 
 const ImageButton = ({ image, callback }) => {
+  const { state } = useContext(RecipeContext);
+  useEffect(() => {}, [state.darkMode]);
   return (
     <View>
-      <TouchableOpacity style={styles.styleImage} onPress={callback}>
+      <TouchableOpacity
+        style={
+          state.darkMode === "light"
+            ? [styles.styleImage, { backgroundColor: "#CDCDCD" }]
+            : [styles.styleImage, { backgroundColor: "black" }]
+        }
+        onPress={callback}
+      >
         {image ? (
           <Image
             source={{ uri: image }}
