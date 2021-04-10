@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
+
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
@@ -24,13 +24,6 @@ const CardList = ({ navigation, array, callbackDelete }) => {
   );
 
   return (
-    <LinearGradient
-      // Background Linear Gradient
-      colors={["#245071", "#9921e8" /*'#e145e1', '#900cec'*/]} //'#f94e4e','#ea8e4f
-      start={{ x: 0, y: 0.2 }}
-      end={{ x: 1, y: 0.2 }}
-      style={styles.background}
-    >
       <View style={styles.container}>
         <FlatList
           data={array}
@@ -60,27 +53,31 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                   </View>
 
                   <View style={styles.favoriteButton}>
-                    <TouchableOpacity></TouchableOpacity>
                     <TouchableOpacity>
+                      <View style={styles.top}>
                       <Icon
                         name="trash"
                         type="font-awesome"
                         color="#7c3593"
-                        size={24}
+                        size={30}
                         onPress={() => {
                           callbackDelete(item.id);
                         }}
                       />
+                      </View>
+                      <View style={styles.med} /> 
+                      <View style={styles.Bottom}>
                       <Icon
                         name="edit"
                         type="font-awesome"
                         color="#7c3593"
-                        size={24}
+                        size={30}
                         onPress={() => {
                           setCurrentRecipe(item);
                           navigation.navigate("UpdateRecipes");
                         }}
                       />
+                      </View>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -89,23 +86,18 @@ const CardList = ({ navigation, array, callbackDelete }) => {
           )}
         />
       </View>
-    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    width: width,
-    height: height * 1,
-  },
-
   container: {
     flex: 1,
-    width: width,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignContent: "center",
-    marginLeft: width * 0.025,
+    width: width * 95,
+    paddingLeft:5,
+    paddingRight:5
+  },
+  med:{
+    height: height * 0.05
   },
   layouts: {
     justifyContent: "center",

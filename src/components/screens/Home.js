@@ -33,15 +33,6 @@ const Home = ({ navigation }) => {
         <View style={styles.den}>
           <Card array={state.recipes} navigation={navigation} />
         </View>
-        {/* {state.created ? (
-        <Button
-          title={"Refresh"}
-          onPress={() => {
-            setRefresh(!refresh);
-            resetCreated();
-          }}
-        />
-      ) : null} */}
       </ScrollView>
     </LinearGradient>
   );
