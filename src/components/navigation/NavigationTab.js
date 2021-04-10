@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Home from "../screens/Home";
@@ -8,21 +8,33 @@ import AddRecipes from "../screens/AddRecipes";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Login from "../screens/Login";
 import { LinearGradient } from "expo-linear-gradient";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
   const { signout } = useContext(AuthContext);
+  const { state } = useContext(RecipeContext);
+  useEffect(() => {}, [state.darkMode]);
 
   return (
     <Tab.Navigator
       initialRouteName="MyRecipes"
-      tabBarOptions={{
-        activeTintColor: "#7c3593",
-        style: {
-          backgroundColor: "#ffffff98"
-        },
-      }}
+      tabBarOptions={
+        state.darkMode === "light"
+          ? {
+              activeTintColor: "#7c3593",
+              style: {
+                backgroundColor: "#fff",
+              },
+            }
+          : {
+              activeTintColor: "#7c3593",
+              style: {
+                backgroundColor: "black",
+              },
+            }
+      }
     >
       <Tab.Screen
         name={"Home"}
@@ -55,19 +67,12 @@ const NavigationTab = () => {
         }}
       />
       <Tab.Screen
-        name={"Login"}
-        component={Login}
+        name={"Profile"}
+        component={Profile}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <Icon
-              name="sign-out"
-              color={color}
-              size={25}
-              onPress={() => {
-                signout();
-              }}
-            />
+            <Icon name="sign-out" color={color} size={25} />
           ),
         }}
       />

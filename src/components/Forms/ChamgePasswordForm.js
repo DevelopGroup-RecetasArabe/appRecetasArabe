@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import { validate } from "email-validator";
 import { firebase } from "../../Firebase";
 import Enlace from "../shared/Enlace";
+import { Context as AuthContext } from "../../providers/AuthContext";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
+  const { changePassword } = useContext(AuthContext);
+  const { state } = useContext(RecipeContext);
+
+  useEffect(() => {}, [state.darkMode]);
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [error, setError] = useState("");
@@ -21,19 +28,29 @@ const ChangePasswordForm = ({ navigation }) => {
     }
   };
   const handleChangePassword = () => {
-    firebase
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => navigation.navigate("Login"))
-      .catch((error) => console.log(error.message));
+    if (email) changePassword(email);
   };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}>Recuperar Contraseña</Text>
-        <Text style={styles.h2}>
-        ¡Hey! te hace falta el ingrediente mas importante,
-        ingresa tu correo para recuperarlo
+        <Text
+          style={
+            state.darkMode === "light"
+              ? [styles.h1, { color: "black" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+          Recuperar Contraseña
+        </Text>
+        <Text
+          style={
+            state.darkMode === "light"
+              ? [styles.h2, { color: "#ccc" }]
+              : [styles.h2, { color: "#fff" }]
+          }
+        >
+          ¡Hey! te hace falta el ingrediente mas importante,
+          ingresa tu correo para recuperarlo
         </Text>
       </View>
       <View style={styles.form}>
@@ -72,12 +89,12 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 25,
-    color: "#090979",
+    //color: "#090979",
     paddingBottom: 10,
   },
   h2: {
     fontSize: 15,
-    color: "#245071",
+    //color: "#ccc",
     marginBottom: 60,
   },
   form: {

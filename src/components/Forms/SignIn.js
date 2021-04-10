@@ -6,9 +6,15 @@ import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Logo from "../../assets/logo.png";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
+
 const { width, height } = Dimensions.get("screen");
 
 const SignIn = ({ navigation }) => {
+  const { state: recipeState } = useContext(RecipeContext);
+
+  useEffect(() => {}, [recipeState.darkMode]);
+
   const { state, signin, signInWithGoogle } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +53,24 @@ const SignIn = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}></Text>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h1, { color: "black" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+         
+        </Text>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h2, { color: "black" }]
+              : [styles.h2, { color: "#fff" }]
+          }
+        >
+        
+        </Text>
         <View style={styles.logo}>
         <Image
           style={styles.logo}
@@ -85,7 +108,7 @@ const SignIn = ({ navigation }) => {
           <Enlace
             title="¿Olvidaste la contraseña?"
             flexDirection="row-reverse"
-            color={"#245071"}
+            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
@@ -98,7 +121,7 @@ const SignIn = ({ navigation }) => {
             title="Registrate"
             paddingTop={15}
             size={20}
-            color={"#245071"}
+            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>

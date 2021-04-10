@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, View, Text, ScrollView, Dimensions } from "react-native";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
@@ -9,6 +10,10 @@ import Enlace from "../shared/Enlace";
 const { width, height } = Dimensions.get("screen");
 
 const SignUp = ({ navigation }) => {
+  const { state: recipeState } = useContext(RecipeContext);
+
+  useEffect(() => {}, [recipeState.darkMode]);
+
   const { signup } = useContext(AuthContext);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -47,9 +52,23 @@ const SignUp = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}>Registrate</Text>
-        <Text style={styles.h2}>
-        ¿Conoces algunas recetas arabes?, unete a nosotros, muestra tus recetas y conoce nuevas
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h1, { color: "black" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+          Registrate
+        </Text>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h2, { color: "black" }]
+              : [styles.h2, { color: "#fff" }]
+          }
+        >
+          ¿Conoces algunas recetas arabes?, unete a nosotros, muestra tus recetas y conoce nuevas
         </Text>
       </View>
       <View style={styles.form}>
@@ -106,7 +125,7 @@ const SignUp = ({ navigation }) => {
           title="Volver al inicio de sesión"
           paddingTop={30}
           size={20}
-          color={"#245071"}
+          color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
           callback={() => navigation.navigate("Login")}
         />
       </View>
@@ -123,13 +142,13 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontSize: 25,
-    color: "#090979",
-    paddingBottom: 5,
+    //color: "#090979",
+    paddingBottom: 10,
   },
   h2: {
     fontSize: 15,
-    color: "#245071",
-    marginBottom: 20,
+    //color: "#ccc",
+    marginBottom: 60,
   },
   form: {
     width: width * 0.75,

@@ -15,7 +15,8 @@ import { Icon } from "react-native-elements";
 const { width, height } = Dimensions.get("window");
 
 const Card = ({ navigation, array, recipeID, callbackDelete }) => {
-  const { setCurrentRecipe } = useContext(RecipeContext);
+  const { state, setCurrentRecipe } = useContext(RecipeContext);
+  useEffect(() => {}, [state.darkMode]);
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
@@ -33,7 +34,11 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
           <>
             <TouchableOpacity
               key={item.id}
-              style={styles.card}
+              style={
+                state.darkMode === "light"
+                  ? [styles.card, { backgroundColor: "#b580ba" }]
+                  : [styles.card, { backgroundColor: "#b580ba" }]
+              }
               onPress={() => {
                 setCurrentRecipe(item);
                 navigation.navigate("Recipes");
@@ -45,19 +50,43 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
                   source={{ uri: item.getImage }}
                 />
               </View>
-              <View style={styles.ContTitle}>
-                <Text style={styles.title}>{item.title}</Text>
+              <View
+                style={
+                  state.darkMode === "light"
+                    ? [styles.ContTitle, { backgroundColor: "#24507198" }]
+                    : [styles.ContTitle, { backgroundColor: "black" }]
+                }
+              >
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.title, { color: "#ebecf2" }]
+                      : [styles.title, { color: "white" }]
+                  }
+                >
+                  {item.title}
+                </Text>
               </View>
               <View style={styles.ContDescrip}>
-                <Text style={styles.description}>{item.description}</Text>
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.description, { color: "#ebecf2" }]
+                      : [styles.description, { color: "#ebecf2" }]
+                  }
+                >
+                  {item.description}
+                </Text>
               </View>
               <View style={styles.favoriteButton}>
                 <Icon
                   name={"user-circle"}
                   type={"font-awesome"}
                   size={17}
-                  color={"#ebecf2"}
-                  backgroundColor={"#7f71a0"}
+                  color={state.darkMode === "light" ? "#ebecf2" : "black"}
+                  backgroundColor={
+                    state.darkMode === "light" ? "#7f71a0" : "#7f71a0"
+                  }
                   borderRadius={80}
                 />
                 <Text style={styles.User}>{" " + item.fullname}</Text>
@@ -76,7 +105,7 @@ const styles = StyleSheet.create({
     width: width * 95,
   },
   ContTitle: {
-    backgroundColor: "#24507198",
+    //backgroundColor: "#24507198",
     //backgroundColor: '#FFFFFF98',
     marginTop: 18,
     paddingTop: 4,
@@ -93,7 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     //color: "#7f71a0",
-    color: "#ebecf2", //"#a5a4a4"
+    //color: "#ebecf2", //"#a5a4a4"
   },
   ContDescrip: {
     flex: 3,
@@ -101,13 +130,13 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginTop: 4.5,
-    color: "#ebecf2",
+    //color: "#ebecf2",
     textAlign: "left",
     flex: 3,
     paddingBottom: 3,
   },
   card: {
-    backgroundColor: "#b580ba",
+    //backgroundColor: "#b580ba",
     padding: 8,
     marginTop: 10,
     width: width * 0.46,

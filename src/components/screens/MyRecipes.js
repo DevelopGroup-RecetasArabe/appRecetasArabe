@@ -1,29 +1,31 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-  Button,
-} from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView, Button } from "react-native";
 import CardList from "../shared/CardList";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
+import Toaster from "../shared/Toaster";
+
 const { width, height } = Dimensions.get("window");
 
 const MyRecipes = ({ navigation }) => {
   const { state: userState } = useContext(AuthContext);
-  const { state, getRecipesByUserID, deleteRecipe, refreshRecipe } = useContext(
-    RecipeContext
-  );
+  const {
+    state,
+    getRecipesByUserID,
+    deleteRecipe,
+    refreshMyRecipe,
+  } = useContext(RecipeContext);
   const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     getRecipesByUserID(userState.user.id);
   }, [refresh]);
 
-  console.log(state.recipesByUserID);
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+    refreshMyRecipe();
+  };
 
   return (
     <LinearGradient
@@ -37,6 +39,9 @@ const MyRecipes = ({ navigation }) => {
     >
       <ScrollView style={styles.container}>
         <View style={styles.den}>
+          {state.updated ? (
+            <Toaster message={state.message} callback={handleRefresh} />
+          ) : null}
           <CardList
             array={state.recipesByUserID}
             navigation={navigation}

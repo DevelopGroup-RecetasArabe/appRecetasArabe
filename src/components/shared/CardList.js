@@ -16,6 +16,7 @@ const { width, height } = Dimensions.get("window");
 
 const CardList = ({ navigation, array, callbackDelete }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
+  useEffect(() => {}, [state.darkMode]);
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
@@ -39,7 +40,13 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                   navigation.navigate("Recipes");
                 }}
               >
-                <View style={styles.layouts}>
+                <View
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.layouts, { backgroundColor: "#FFA96D" }]
+                      : [styles.layouts, { backgroundColor: "green" }]
+                  }
+                >
                   <View>
                     <Image
                       style={styles.cardImage}
@@ -48,8 +55,24 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                   </View>
 
                   <View style={styles.styleText}>
-                    <Text style={styles.h1}>{item.title}</Text>
-                    <Text style={styles.h2}>{item.description}</Text>
+                    <Text
+                      style={
+                        state.darkMode === "light"
+                          ? [styles.h1, { color: "#ebecf2" }]
+                          : [styles.h1, { color: "#ebecf2" }]
+                      }
+                    >
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={
+                        state.darkMode === "light"
+                          ? [styles.h2, { color: "#ebecf2" }]
+                          : [styles.h2, { color: "#ebecf2" }]
+                      }
+                    >
+                      {item.description}
+                    </Text>
                   </View>
 
                   <View style={styles.favoriteButton}>
@@ -58,7 +81,9 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                       <Icon
                         name="trash"
                         type="font-awesome"
-                        color="#7c3593"
+                        color={
+                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                        }
                         size={30}
                         onPress={() => {
                           callbackDelete(item.id);
@@ -70,7 +95,9 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                       <Icon
                         name="edit"
                         type="font-awesome"
-                        color="#7c3593"
+                        color={
+                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                        }
                         size={30}
                         onPress={() => {
                           setCurrentRecipe(item);
@@ -102,7 +129,7 @@ const styles = StyleSheet.create({
   layouts: {
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "#FFA96D", //"#ea8e4f",
+    //backgroundColor: "#FFA96D", //"#ea8e4f",
     borderRadius: 8,
     width: width * 0.95,
   },
@@ -115,11 +142,11 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ebecf2",
+    //color: "#ebecf2",
   },
   h2: {
     fontWeight: "bold",
-    color: "#ebecf2",
+    //color: "#ebecf2",
   },
   card: {
     marginTop: 1,

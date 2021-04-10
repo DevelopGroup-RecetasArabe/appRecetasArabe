@@ -3,12 +3,14 @@ import { firebase } from "../Firebase/index";
 
 const recipeReducer = (state, action) => {
   switch (action.type) {
-    case "errorMessage":
-      return { ...state, error: action.payload };
+    case "toastMessage":
+      return { ...state, message: action.payload };
     case "setCurrentRecipe":
       return { ...state, currentRecipe: action.payload };
     case "created":
       return { ...state, created: action.payload };
+    case "updated":
+      return { ...state, updated: action.payload };
     case "createRecipe":
       return {
         ...state,
@@ -38,9 +40,14 @@ const recipeReducer = (state, action) => {
       };
     case "deleteRecipe":
       return {
-        state,
+        ...state,
         deleted: true,
       };
+    case "darkMode":
+      return { ...state, darkMode: "dark" };
+    case "lightMode":
+      return { ...state, darkMode: "light" };
+
     default:
       return state;
   }
@@ -58,9 +65,6 @@ const createRecipe = (dispatch) => async (
 ) => {
   const response = await fetch(image);
   const blob = await response.blob();
-
-  console.log(response);
-  console.log(blob);
 
   /*Proceso para guardar la imagen en firebase storage*/
   let ref = firebase.storage().ref().child(`images/${title}`);
@@ -89,24 +93,15 @@ const createRecipe = (dispatch) => async (
           fullname,
         })
         .then(() => {
-          dispatch({
-            type: "CreateRecipe",
-            payload: "Se creo la nueva receta",
-          });
           dispatch({ type: "created", payload: true });
+          dispatch({ type: "toastMessage", payload: "Receta Guardada" });
         })
         .catch((error) => {
-          dispatch({
-            type: "errorMessage",
-            payload: error.message,
-          });
+          dispatch({ type: "toastMessage", payload: error.message });
         });
     })
     .catch((error) => {
-      dispatch({
-        type: "errorMessage",
-        payload: error.message,
-      });
+      dispatch({ type: "toastMessage", payload: error.message });
     });
 };
 
@@ -123,11 +118,7 @@ const getRecipes = (dispatch) => async () => {
     recipes.push(doc.data());
   });
 
-  dispatch({
-    type: "getRecipes",
-    payload: recipes,
-    confirm: true,
-  });
+  dispatch({ type: "getRecipes", payload: recipes });
 };
 
 /*Traer los datos de firebase segun el user id*/
@@ -144,10 +135,7 @@ const getRecipesByUserID = (dispatch) => async (userId, updated) => {
     recipesByUserID.push(doc.data());
   });
 
-  dispatch({
-    type: "getRecipesByUserID ",
-    payload: recipesByUserID,
-  });
+  dispatch({ type: "getRecipesByUserID ", payload: recipesByUserID });
 };
 
 const updateRecipes = (dispatch) => (
@@ -172,7 +160,11 @@ const updateRecipes = (dispatch) => (
     .update(data)
     .then(() => {
       dispatch({ type: "updateRecipes", payload: { recipe: data } });
-      console.log("Recetas Actualizadas");
+      dispatch({ type: "toastMessage", payload: "Receta Actualizada" });
+      dispatch({ type: "updated", payload: true });
+    })
+    .catch((error) => {
+      dispatch({ type: "toastMessage", payload: error.message });
     });
 };
 
@@ -183,22 +175,37 @@ const deleteRecipe = (dispatch) => (id) => {
     .doc(id)
     .delete()
     .then(() => {
-      console.log("Se borra la receta");
+      dispatch({ type: "toastMessage", payload: "Receta Borrada" });
+      dispatch({ type: "updated", payload: true });
     })
     .catch((error) => {
-      console.log(error.message);
+      dispatch({ type: "toastMessage", payload: error.message });
     });
 };
 
 const setCurrentRecipe = (dispatch) => (recipe) => {
   dispatch({ type: "setCurrentRecipe", payload: recipe });
 };
-const refreshRecipe = (dispatch) => (refresh) => {
-  return !refresh;
+
+const refreshHome = (dispatch) => () => {
+  dispatch({ type: "created", payload: false });
 };
 
-const resetCreated = (dispatch) => () => {
-  dispatch({ type: "created", payload: false });
+const refreshMyRecipe = (dispatch) => () => {
+  dispatch({ type: "updated", payload: false });
+};
+
+/*Limpiar el mensaje*/
+const clearMessage = (dispatch) => () => {
+  dispatch({ type: "toastMessage", paylooad: "" });
+};
+
+const darkMode = (dispatch) => () => {
+  dispatch({ type: "darkMode", payload: "dark" });
+};
+
+const lightMode = (dispatch) => () => {
+  dispatch({ type: "lightMode", payload: "light" });
 };
 
 //Exportar las funcionalidades del contexto
@@ -212,14 +219,16 @@ export const { Provider, Context } = createDataContext(
     updateRecipes,
     deleteRecipe,
     setCurrentRecipe,
-    refreshRecipe,
-    resetCreated,
+    refreshHome,
+    refreshMyRecipe,
+    clearMessage,
+    lightMode,
+    darkMode,
   },
   {
     recipes: [],
     recipesByUserID: [],
-    refresh: false,
-    error: "",
+    message: "",
     currentRecipe: {
       id: "",
       title: "",
@@ -230,6 +239,6 @@ export const { Provider, Context } = createDataContext(
     },
     created: false,
     updated: false,
-    deleted: false,
+    darkMode: "light",
   }
 );

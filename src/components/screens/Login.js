@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { ScrollView } from "react-native";
 import { Dimensions, StyleSheet, View, Image, Text } from "react-native";
 import SignIn from "../Forms/SignIn";
 import Logo from "../../assets/logo.png";
 import { LinearGradient } from "expo-linear-gradient";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation, route }) => {
+  const { state } = useContext(RecipeContext);
+
+  useEffect(() => {}, [state.darkMode]);
+
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}
@@ -17,7 +22,11 @@ const Login = ({ navigation, route }) => {
     >
       <ScrollView>
         <View>
-          <View style={styles.form}>
+          <View style={
+              state.darkMode === "light"
+                ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
+                : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
+              }>
               <SignIn navigation={navigation} />
           </View>
         </View>
@@ -41,8 +50,8 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.05,
     width: width * 0.9,
     height: height * 0.9,
-    borderRadius: 10,
-    backgroundColor: "#ffffff",
+    //borderRadius: 10,
+    //backgroundColor: "#ffffff",
 
     //Sombra
     shadowColor: "black",

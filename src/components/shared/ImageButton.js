@@ -17,7 +17,7 @@ const ImageButton = ({ image, callback }) => {
         {image ? (
           <Image
             source={{ uri: image }}
-            style={{height: height *0.40,borderRadius: 40 }}
+            style={{ height: height * 0.4, borderRadius: 40 }}
           />
         ) : (
           <View style={styles.icon}>
@@ -40,16 +40,16 @@ const ImageButton = ({ image, callback }) => {
 const styles = StyleSheet.create({
   styleImage: {
     //width: width,
-    height: height *0.40,
+    height: height * 0.4,
     backgroundColor: "#CDCDCD",
     borderRadius: 40,
   },
   icon: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%'
-  }
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
 });
 
 export default ImageButton;

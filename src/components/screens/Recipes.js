@@ -39,13 +39,35 @@ const Recipes = ({ route }) => {
   console.log(arrayIngredients);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={
+        state.darkMode === "light"
+          ? [styles.container, { backgroundColor: "#fff" }]
+          : [styles.container, { backgroundColor: "black" }]
+      }
+    >
       <View style={styles.recipeImage}>
         <Image source={{ uri: image }} style={styles.recipeImage} />
       </View>
       <View style={styles.formTitle}>
-        <Text style={styles.h1}>{title}</Text>
-        <Text style={styles.p}>{description}</Text>
+        <Text
+          style={
+            state.darkMode === "light"
+              ? [styles.h1, { color: "black" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+          {title}
+        </Text>
+        <Text
+          style={
+            state.darkMode === "light"
+              ? [styles.p, { color: "black" }]
+              : [styles.p, { color: "#fff" }]
+          }
+        >
+          {description}
+        </Text>
       </View>
 
       <View style={styles.formIngredient}>
@@ -74,7 +96,15 @@ const Recipes = ({ route }) => {
                 {i + 1}
               </Text>
             </View>
-            <Text style={styles.text}>{" " + ing}</Text>
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.text, { color: "black" }]
+                  : [styles.text, { color: "#fff" }]
+              }
+            >
+              {" " + ing}
+            </Text>
           </Text>
         ))}
       </View>
@@ -103,7 +133,15 @@ const Recipes = ({ route }) => {
                 {i + 1}
               </Text>
             </View>
-            <Text style={styles.text}>{" " + prepa}</Text>
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.text, { color: "black" }]
+                  : [styles.text, { color: "#fff" }]
+              }
+            >
+              {" " + prepa}
+            </Text>
           </Text>
         ))}
       </View>
@@ -115,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#ebecf2",
+    //backgroundColor: "#ebecf2",
     //backgroundColor: '#b580ba',
     //backgroundColor: '#b4b5c8',
     padding: 15,
@@ -142,7 +180,7 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 33,
     fontWeight: "bold",
-    color: "#245071",
+    //color: "#245071",
     marginLeft: width * 0.03,
     paddingBottom: 4,
     //fontFamily:'Roboto'
