@@ -24,8 +24,8 @@ const Login = ({ navigation, route }) => {
         <View>
           <View style={
               state.darkMode === "light"
-                ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
-                : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
+                ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
+                : [styles.form, { backgroundColor: "black", borderRadius: 10 }]
               }>
               <SignIn navigation={navigation} />
           </View>

@@ -6,6 +6,7 @@ import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Logo from "../../assets/logo.png";
+import LogoDark from "../../assets/logoDark.png";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
@@ -52,7 +53,12 @@ const SignIn = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View 
+        style={
+          recipeState.darkMode === "light"
+            ? [styles.header, { shadowColor: "black" }]
+            : [styles.header, { shadowColor: "#B4975A" }]
+        }>
         <Text
           style={
             recipeState.darkMode === "light"
@@ -60,7 +66,7 @@ const SignIn = ({ navigation }) => {
               : [styles.h1, { color: "#fff" }]
           }
         >
-         
+        
         </Text>
         <Text
           style={
@@ -74,7 +80,7 @@ const SignIn = ({ navigation }) => {
         <View style={styles.logo}>
         <Image
           style={styles.logo}
-          source={Logo}
+          source={recipeState.darkMode === "light" ? Logo : LogoDark}
         />
         </View>
       </View>
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
 
     //Sombra
-    shadowColor: "black",
+    //shadowColor: "black",
     shadowOffset: { width: 3, height: 4 },
     shadowOpacity: 0.32,
     shadowRadius: 3.9,
