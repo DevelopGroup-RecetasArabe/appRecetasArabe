@@ -6,7 +6,7 @@ import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Logo from "../../assets/logo.png";
-import LogoDark from "../../assets/logoDark.png";
+import LogoDark from "../../assets/LogoDark2.png";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
@@ -66,16 +66,6 @@ const SignIn = ({ navigation }) => {
               : [styles.h1, { color: "#fff" }]
           }
         >
-        
-        </Text>
-        <Text
-          style={
-            recipeState.darkMode === "light"
-              ? [styles.h2, { color: "black" }]
-              : [styles.h2, { color: "#fff" }]
-          }
-        >
-        
         </Text>
         <View style={styles.logo}>
         <Image
@@ -114,7 +104,7 @@ const SignIn = ({ navigation }) => {
           <Enlace
             title="¿Olvidaste la contraseña?"
             flexDirection="row-reverse"
-            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
@@ -125,9 +115,9 @@ const SignIn = ({ navigation }) => {
         <View style={styles.postionEnlace}>
           <Enlace
             title="Registrate"
-            paddingTop={15}
+            paddingTop={12}
             size={20}
-            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>
@@ -141,14 +131,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   h1: {
-    //fontSize: 25,
     color: "#7c3593",
     textAlign: "center",
-    //paddingBottom: 5,
   },
   formLogin: {
     padding: 30,
-    //width: width * 0.75,
     paddingTop: 25,
   },
   header: {
@@ -167,7 +154,6 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
 
     //Sombra
-    //shadowColor: "black",
     shadowOffset: { width: 3, height: 4 },
     shadowOpacity: 0.32,
     shadowRadius: 3.9,
@@ -177,6 +163,9 @@ const styles = StyleSheet.create({
     width: width * 0.37,
     height: height * 0.25,
   },
+  postionEnlace :{
+
+  }
 });
 
 export default SignIn;

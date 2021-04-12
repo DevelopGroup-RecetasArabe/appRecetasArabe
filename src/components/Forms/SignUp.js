@@ -55,7 +55,7 @@ const SignUp = ({ navigation }) => {
         <Text
           style={
             recipeState.darkMode === "light"
-              ? [styles.h1, { color: "black" }]
+              ? [styles.h1, { color: "#245071" }]
               : [styles.h1, { color: "#fff" }]
           }
         >
@@ -64,7 +64,7 @@ const SignUp = ({ navigation }) => {
         <Text
           style={
             recipeState.darkMode === "light"
-              ? [styles.h2, { color: "black" }]
+              ? [styles.h2, { color: "#245071" }]
               : [styles.h2, { color: "#fff" }]
           }
         >
@@ -125,7 +125,7 @@ const SignUp = ({ navigation }) => {
           title="Volver al inicio de sesión"
           paddingTop={30}
           size={20}
-          color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+          color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
           callback={() => navigation.navigate("Login")}
         />
       </View>
@@ -138,17 +138,15 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   header: {
-    marginTop: 10
+    marginTop: 20
   },
   h1: {
     fontSize: 25,
-    //color: "#090979",
     paddingBottom: 10,
   },
   h2: {
     fontSize: 15,
-    //color: "#ccc",
-    marginBottom: 60,
+    marginBottom: 35,
   },
   form: {
     width: width * 0.75,

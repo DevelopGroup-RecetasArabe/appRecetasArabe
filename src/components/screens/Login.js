@@ -25,7 +25,7 @@ const Login = ({ navigation, route }) => {
           <View style={
               state.darkMode === "light"
                 ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
-                : [styles.form, { backgroundColor: "black", borderRadius: 10 }]
+                : [styles.form, { backgroundColor: "#00000070", borderRadius: 10 }]
               }>
               <SignIn navigation={navigation} />
           </View>
@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.05,
     width: width * 0.9,
     height: height * 0.9,
-    //borderRadius: 10,
-    //backgroundColor: "#ffffff",
 
     //Sombra
     shadowColor: "black",

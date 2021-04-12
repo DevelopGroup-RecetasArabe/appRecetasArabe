@@ -21,7 +21,7 @@ const ChangePassword = ({ navigation }) => {
           style={
             state.darkMode === "light"
               ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
-              : [styles.form, { backgroundColor: "black", borderRadius: 10 }]
+              : [styles.form, { backgroundColor: "#00000070", borderRadius: 10 }]
           }
         >
           <ChangePasswordForm navigation={navigation} />
@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.05,
     width: width * 0.9,
     height: height * 0.9,
-    //borderRadius: 5,
-    //backgroundColor: "#ffffff",
+    
     //Sombra
     shadowColor: "black",
     shadowOffset: { width: 3, height: 4 },

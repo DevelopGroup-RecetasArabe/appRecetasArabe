@@ -21,7 +21,7 @@ const NewUser = ({ navigation }) => {
           style={
             state.darkMode === "light"
               ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
-              : [styles.form, { backgroundColor: "black", borderRadius: 10 }]
+              : [styles.form, { backgroundColor: "#00000070", borderRadius: 10 }]
           }
         >
           <SignUp navigation={navigation} />

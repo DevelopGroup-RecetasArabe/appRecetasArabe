@@ -29,7 +29,7 @@ const InputText = ({
             name={icon}
             type="font-awesome"
             size={28}
-            color={recipeState.darkMode === "light" ? "#090979" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#090979" : "#B4975A"}
           />
         }
         placeholder={placeholder}
@@ -43,7 +43,7 @@ const InputText = ({
               }
             : {
                 borderBottomWidth: 1,
-                borderColor: "#fff",
+                borderColor: "#B4975A",
               }
         }
         inputStyle={{ padding: 15, borderColor: "#7c3593" }}
