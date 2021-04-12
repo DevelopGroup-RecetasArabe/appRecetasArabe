@@ -122,10 +122,9 @@ const AddRecipes = ({ navigation }) => {
   };
   return (
     <LinearGradient
-      //colors={["#245071", "#7c3593", "#245071"]}
-      //colors={["#a4508b", "#7c3593", "#a4508b"]}
-      //colors={["#5f72be","#9921e8"]}
-      colors={["#245071", "#9921e8"]}
+    colors={
+      recipeState.darkMode === "light" ? ["#245071", "#9921e8"] : ["#090979", "#bb00f7"]
+    }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
@@ -148,7 +147,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -165,7 +164,7 @@ const AddRecipes = ({ navigation }) => {
               placeholder={"Ejemplo: Kibbe"}
               value={title}
               onChangeText={setTitle}
-              color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
+              color={recipeState.darkMode === "light" ? "#000" : "#fff"}
               onBlur={() => {
                 handleVerify("title");
               }}
@@ -183,7 +182,7 @@ const AddRecipes = ({ navigation }) => {
               Descripcion de la receta
             </Text>
             <Input
-              placeholder={"Ejemplo: Rico platillos"}
+              placeholder={"Ejemplo: Rico platillo"}
               value={description}
               onChangeText={setDescription}
               color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
@@ -208,7 +207,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -253,7 +252,7 @@ const AddRecipes = ({ navigation }) => {
                   <Icon
                     key={`close${i}`}
                     name="close"
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                     type="font-awesome"
                     font-awesome
                     size={30}
@@ -277,7 +276,7 @@ const AddRecipes = ({ navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Agregar Ingrediente
                 </Text>
@@ -294,7 +293,7 @@ const AddRecipes = ({ navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Ingrediente
                 </Text>
@@ -312,7 +311,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -358,7 +357,7 @@ const AddRecipes = ({ navigation }) => {
                     key={`close${j}`}
                     name="close"
                     type="font-awesome"
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                     font-awesome
                     size={30}
                     onPress={() => {
@@ -381,7 +380,7 @@ const AddRecipes = ({ navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Agregar Paso
                 </Text>
@@ -398,7 +397,7 @@ const AddRecipes = ({ navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={recipeState.darkMode === "light" ? "black" : "#fff"}
+                    color={recipeState.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Paso
                 </Text>
@@ -406,10 +405,24 @@ const AddRecipes = ({ navigation }) => {
             </View>
           </View>
 
-          <View style={styles.button}>
+          <View style={
+                  recipeState.darkMode === "light"
+                    ? [styles.Button, { backgroundColor: "#FFFFFF98", 
+                                        borderRadius: 20, 
+                                        marginLeft: width * 0.12, 
+                                        marginRight: width * 0.12, 
+                                        marginTop: 15, 
+                                        marginBottom: 25,}]
+                    : [styles.Button, { backgroundColor: "#00000098", 
+                                        borderRadius: 20, 
+                                        marginLeft: width * 0.12, 
+                                        marginRight: width * 0.12, 
+                                        marginTop: 15, 
+                                        marginBottom: 25,}]
+                }>
             <Button
               title="Guardar"
-              color={recipeState.darkMode === "light" ? "#7c3593" : "#7c3593"}
+              color={recipeState.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 if (
                   image &&
@@ -459,9 +472,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   styleForm: {
-    //backgroundColor: "#FFFFFF98",
     padding: 10,
-    //borderRadius: 10,
+
     marginTop: 15,
     marginBottom: 12,
   },
@@ -487,13 +499,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 15,
-    marginBottom: 25,
-    backgroundColor: "#FFFFFF98",
-    borderRadius: 20,
     fontWeight: "bold",
-    marginLeft: width * 0.12,
-    marginRight: width * 0.12,
   },
 });
 

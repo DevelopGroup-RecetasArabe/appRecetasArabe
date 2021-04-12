@@ -131,10 +131,9 @@ const UpdateRecipes = ({ route, navigation }) => {
 
   return (
     <LinearGradient
-      //colors={["#245071", "#7c3593", "#245071"]}
-      //colors={["#a4508b", "#7c3593", "#a4508b"]}
-      //colors={["#5f72be","#9921e8"]}
-      colors={["#245071", "#9921e8"]}
+    colors={
+      state.darkMode === "light" ? ["#245071", "#9921e8"] : ["#090979", "#bb00f7"]
+    }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
@@ -150,13 +149,13 @@ const UpdateRecipes = ({ route, navigation }) => {
             style={
               state.darkMode === "light"
                 ? [
-                    styles.styleForm,
-                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
-                  ]
-                : [
-                    styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
-                  ]
+                  styles.styleForm,
+                  { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                ]
+              : [
+                  styles.styleForm,
+                  { backgroundColor: "#00000098", borderRadius: 10 },
+                ]
             }
           >
             <Text
@@ -209,14 +208,14 @@ const UpdateRecipes = ({ route, navigation }) => {
           <View
             style={
               state.darkMode === "light"
-                ? [
-                    styles.styleForm,
-                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
-                  ]
-                : [
-                    styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
-                  ]
+                ?  [
+                  styles.styleForm,
+                  { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                ]
+              : [
+                  styles.styleForm,
+                  { backgroundColor: "#00000098", borderRadius: 10 },
+                ]
             }
           >
             <Text
@@ -261,7 +260,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     key={`close${i}`}
                     name="close"
                     type=""
-                    color={state.darkMode === "light" ? "black" : "#fff"}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                     font-awesome
                     size={30}
                     onPress={() => {
@@ -280,17 +279,27 @@ const UpdateRecipes = ({ route, navigation }) => {
                       : [styles.textIngredients, { color: "#fff" }]
                   }
                 >
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                  Ingrediente
+                  <Icon 
+                    name="plus" 
+                    type="font-awesome" 
+                    size={15} 
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                    /> 
+                    Agregar Ingrediente
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputIngredient}>
-                <Text style={styles.textIngredients}>
+                <Text 
+                    style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }>
                   <Icon
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={state.darkMode === "light" ? "black" : "#fff"}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Ingrediente
                 </Text>
@@ -303,13 +312,13 @@ const UpdateRecipes = ({ route, navigation }) => {
             style={
               state.darkMode === "light"
                 ? [
-                    styles.styleForm,
-                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
-                  ]
-                : [
-                    styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
-                  ]
+                  styles.styleForm,
+                  { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                ]
+              : [
+                  styles.styleForm,
+                  { backgroundColor: "#00000098", borderRadius: 10 },
+                ]
             }
           >
             <Text
@@ -355,7 +364,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="close"
                     type=""
                     font-awesome
-                    color={state.darkMode === "light" ? "black" : "#fff"}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                     size={30}
                     onPress={() => {
                       handleDeleteByPositonPreparation(j);
@@ -377,7 +386,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={state.darkMode === "light" ? "black" : "#fff"}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Agregar Paso
                 </Text>
@@ -394,7 +403,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={state.darkMode === "light" ? "black" : "#fff"}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Paso
                 </Text>
@@ -402,10 +411,24 @@ const UpdateRecipes = ({ route, navigation }) => {
             </View>
           </View>
 
-          <View style={styles.button}>
+          <View style={
+                  state.darkMode === "light" 
+                  ?[styles.Button, {  backgroundColor: "#FFFFFF98", 
+                                      borderRadius: 20, 
+                                      marginLeft: width * 0.12, 
+                                      marginRight: width * 0.12, 
+                                      marginTop: 15, 
+                                      marginBottom: 25,}]
+                  : [styles.Button, { backgroundColor: "#00000098", 
+                                      borderRadius: 20, 
+                                      marginLeft: width * 0.12, 
+                                      marginRight: width * 0.12, 
+                                      marginTop: 15, 
+                                      marginBottom: 25,}]
+          }>
             <Button
               title="Actualizar"
-              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
+              color={state.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 updateRecipes(
                   title,
@@ -473,13 +496,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 15,
-    marginBottom: 15,
-    backgroundColor: "#FFFFFF98",
-    borderRadius: 20,
     fontWeight: "bold",
-    marginLeft: width * 0.12,
-    marginRight: width * 0.12,
   },
 });
 

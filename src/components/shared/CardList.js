@@ -43,8 +43,8 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                 <View
                   style={
                     state.darkMode === "light"
-                      ? [styles.layouts, { backgroundColor: "#FFA96D" }]
-                      : [styles.layouts, { backgroundColor: "green" }]
+                      ? [styles.layouts, { backgroundColor: "#B4975A" }] //#b580ba
+                      : [styles.layouts, { backgroundColor: "#00000099" }]
                   }
                 >
                   <View>
@@ -82,7 +82,7 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                         name="trash"
                         type="font-awesome"
                         color={
-                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                          state.darkMode === "light" ? "#245071" : "#B4975A"
                         }
                         size={30}
                         onPress={() => {
@@ -96,7 +96,7 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                         name="edit"
                         type="font-awesome"
                         color={
-                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                          state.darkMode === "light" ? "#245071" : "#B4975A"
                         }
                         size={30}
                         onPress={() => {
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
   layouts: {
     justifyContent: "center",
     flexDirection: "row",
-    //backgroundColor: "#FFA96D", //"#ea8e4f",
     borderRadius: 8,
     width: width * 0.95,
   },
@@ -142,11 +141,9 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 18,
     fontWeight: "bold",
-    //color: "#ebecf2",
   },
   h2: {
     fontWeight: "bold",
-    //color: "#ebecf2",
   },
   card: {
     marginTop: 1,

@@ -49,12 +49,12 @@ const Recipes = ({ route }) => {
       <View style={
         state.darkMode === "light"
           ? [styles.recipeImage, { shadowColor: "black" }]
-          : [styles.recipeImage, { shadowColor: "#ebecf2" }]
+          : [styles.recipeImage, { shadowColor: "#B4975A" }]
         }>
         <Image source={{ uri: image }} 
         style={state.darkMode === "light"
           ? [styles.recipeImage, { shadowColor: "black" }]
-          : [styles.recipeImage, { shadowColor: "#ebecf2" }]
+          : [styles.recipeImage, { shadowColor: "#B4975A" }]
         }/>
       </View>
       <View style={styles.formTitle}>
@@ -85,11 +85,11 @@ const Recipes = ({ route }) => {
         }>
         <View>
           <LinearGradient
-            colors={["#245071", "#9921e8"]}
+            //colors={["#245071", "#9921e8"]}
             colors={
               state.darkMode === "light"
-              ? [{ ["#245071", "#9921e8"] }] //revisar
-              : [{ ["#245071", "#9921e8"] }]
+              ? ["#245071", "#9921e8"] //revisar
+              : ["#090979", "#bb00f7"]
             }
             start={{ x: 0, y: 0.2 }}
             end={{ x: 1, y: 0.2 }}
@@ -136,7 +136,11 @@ const Recipes = ({ route }) => {
         }>
         <View>
           <LinearGradient
-            colors={["#245071", "#9921e8"]}
+            colors={
+              state.darkMode === "light"
+              ? ["#245071", "#9921e8"]
+              : ["#090979", "#bb00f7"]
+            }
             start={{ x: 0, y: 0.2 }}
             end={{ x: 1, y: 0.2 }}
             style={
@@ -194,7 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     justifyContent: "space-between",
     //Sombra
-    shadowOffset: { width: 3, height: 5 },
+    shadowOffset: { width: 5, height: 10 },
     shadowOpacity: 0.32,
     shadowRadius: 3.9,
   },
