@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, Switch, Dimensions } from "react-native";
 import SharedButton from "../shared/SharedButton";
 import { firebase } from "../../Firebase";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Image } from "react-native-elements";
+import { Image } from "react-native";
 import Logo from "../../assets/logo.png"
+import {useFonts} from "@expo-google-fonts/inter"
 
 const { width, height } = Dimensions.get("window");
 
 const Profile = ({ navigation }) => {
+  const [Fonts] = useFonts({Sansita: require("../../assets/fonts/SansitaSwashed-Light.ttf")});
   const SignOut = () => {
     firebase
       .auth()
@@ -32,19 +34,21 @@ const Profile = ({ navigation }) => {
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
     >
+      <View style={styles.logo}>
+            <Image 
+              source={Logo}
+              style={styles.logoimg}
+              
+            />
+      </View>
       
       <View style={styles.subContainer}>
         
         <View style={styles.header}>
-          <View style={styles.logo}>
-          <Image 
-            style={styles.logoimg}
-            source={Logo}
-          />
-        </View>
-          <Text style={styles.h1}>Perfil</Text>
           
-          <Text style={styles.h2}>
+          <Text style={[styles.h1, {fontFamily: "Sansita"}]}>Perfil</Text>
+          
+          <Text style={[styles.h2, {fontFamily: "Sansita"}]}>
             Esperamos que tu estadia en esta app sea de tu agrado.
             Recuerda que no cualquiera puede cocinar pero si de 
             cualquier lugar puede surgir un gran chef.
@@ -53,7 +57,7 @@ const Profile = ({ navigation }) => {
         <View style={styles.but}>
           <View style={styles.darks}>
             <View style={styles.darktext}>
-              <Text style={styles.h3}>Modo Oscuro</Text>
+              <Text style={[styles.h3, {fontFamily: "Sansita"}]}>Modo Oscuro</Text>
             </View>
             <View>
               <Switch
@@ -90,29 +94,38 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     padding: 10,
-    margin: width*0.17
+    margin: width*0.17,
+    height: height*0.17,
   },
   logo: {
-    flex: 1,
-    borderRadius: "300%",
-    width: width * 0.40,
-    height: height * 0.20,
-    alignSelf: "center",
+    alignItems: "center",
     justifyContent: "center",
-      
+    margin: 0,
+    backgroundColor: "#7c3593",
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10,
+    borderBottomRightRadius:90,
+    borderBottomLeftRadius:90,
+    borderColor: "#B4975A",
+    borderBottomWidth:5,
+    borderLeftWidth:5,
+    borderRightWidth:5,
+    paddingBottom: 10,
+  
   },
   logoimg: {
-    
-    borderRadius: "300%",
-    width: width * 0.40,
-    height: height * 0.20,
+    margin: 5,
+    padding: 15,
+    borderRadius: 270,
+    width: width * 0.45,
+    height: height * 0.18,
       
   },
   header:{
     flex: 1,
     textAlign: "justify",
     padding: 10,
-    paddingTop: 5,
+
     alignSelf: "center",
   },
   
@@ -124,6 +137,7 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 15,
     color: "#ebecf2",
+    marginBottom: 15,
   },
   but: {
     marginBottom: 5,
