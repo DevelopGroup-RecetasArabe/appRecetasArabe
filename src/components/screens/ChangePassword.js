@@ -2,13 +2,14 @@ import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 import ChangePasswordForm from "../Forms/ChamgePasswordForm";
 
 const { width, height } = Dimensions.get("screen");
 
 const ChangePassword = ({ navigation }) => {
-  const { state } = useContext(RecipeContext);
-  useEffect(() => {}, [state.darkMode]);
+  const { state } = useContext(AuthContext);
+  useEffect(() => {}, [state.user.darkMode]);
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}
@@ -19,7 +20,7 @@ const ChangePassword = ({ navigation }) => {
       <ScrollView style={styles.container}>
         <View
           style={
-            state.darkMode === "light"
+            state.user.darkMode === "light"
               ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
               : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
           }

@@ -9,12 +9,14 @@ import {
   ScrollView,
 } from "react-native";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
 const Recipes = ({ route }) => {
   const { state } = useContext(RecipeContext);
-  const [image, setImage] = useState("");
+  const { state: userState } = useContext(AuthContext);
+  const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [arrayIngredients] = useState([]);
@@ -41,7 +43,7 @@ const Recipes = ({ route }) => {
   return (
     <ScrollView
       style={
-        state.darkMode === "light"
+        userState.user.darkMode === "light"
           ? [styles.container, { backgroundColor: "#fff" }]
           : [styles.container, { backgroundColor: "black" }]
       }
@@ -52,7 +54,7 @@ const Recipes = ({ route }) => {
       <View style={styles.formTitle}>
         <Text
           style={
-            state.darkMode === "light"
+            userState.user.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -61,7 +63,7 @@ const Recipes = ({ route }) => {
         </Text>
         <Text
           style={
-            state.darkMode === "light"
+            userState.user.darkMode === "light"
               ? [styles.p, { color: "black" }]
               : [styles.p, { color: "#fff" }]
           }
@@ -98,7 +100,7 @@ const Recipes = ({ route }) => {
             </View>
             <Text
               style={
-                state.darkMode === "light"
+                userState.user.darkMode === "light"
                   ? [styles.text, { color: "black" }]
                   : [styles.text, { color: "#fff" }]
               }
@@ -135,7 +137,7 @@ const Recipes = ({ route }) => {
             </View>
             <Text
               style={
-                state.darkMode === "light"
+                userState.user.darkMode === "light"
                   ? [styles.text, { color: "black" }]
                   : [styles.text, { color: "#fff" }]
               }

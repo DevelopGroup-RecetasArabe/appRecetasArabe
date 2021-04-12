@@ -55,7 +55,7 @@ const SignIn = ({ navigation }) => {
       <View style={styles.header}>
         <Text
           style={
-            recipeState.darkMode === "light"
+            state.user.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -64,7 +64,7 @@ const SignIn = ({ navigation }) => {
         </Text>
         <Text
           style={
-            recipeState.darkMode === "light"
+            state.user.darkMode === "light"
               ? [styles.h2, { color: "black" }]
               : [styles.h2, { color: "#fff" }]
           }
@@ -102,7 +102,7 @@ const SignIn = ({ navigation }) => {
           <Enlace
             title="¿Olvidas la contraseña?"
             flexDirection="row-reverse"
-            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+            color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
@@ -115,7 +115,7 @@ const SignIn = ({ navigation }) => {
             title="Registrate"
             paddingTop={30}
             size={20}
-            color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+            color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>

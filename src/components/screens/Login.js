@@ -5,13 +5,14 @@ import SignIn from "../Forms/SignIn";
 import Logo from "../../assets/logo.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation, route }) => {
-  const { state } = useContext(RecipeContext);
+  const { state } = useContext(AuthContext);
 
-  useEffect(() => {}, [state.darkMode]);
+  useEffect(() => {}, [state.user.darkMode]);
 
   return (
     <LinearGradient
@@ -24,7 +25,7 @@ const Login = ({ navigation, route }) => {
         <View>
           <View
             style={
-              state.darkMode === "light"
+              state.user.darkMode === "light"
                 ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
                 : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
             }

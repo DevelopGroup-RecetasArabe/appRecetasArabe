@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 import {
   Dimensions,
   StyleSheet,
@@ -16,7 +17,8 @@ const { width, height } = Dimensions.get("window");
 
 const Card = ({ navigation, array, recipeID, callbackDelete }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
-  useEffect(() => {}, [state.darkMode]);
+  const { state: userState } = useContext(AuthContext);
+  useEffect(() => {}, [userState.user.darkMode]);
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
@@ -35,7 +37,7 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
             <TouchableOpacity
               key={item.id}
               style={
-                state.darkMode === "light"
+                userState.user.darkMode === "light"
                   ? [styles.card, { backgroundColor: "#b580ba" }]
                   : [styles.card, { backgroundColor: "#b580ba" }]
               }
@@ -52,14 +54,14 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
               </View>
               <View
                 style={
-                  state.darkMode === "light"
+                  userState.user.darkMode === "light"
                     ? [styles.ContTitle, { backgroundColor: "#24507198" }]
                     : [styles.ContTitle, { backgroundColor: "black" }]
                 }
               >
                 <Text
                   style={
-                    state.darkMode === "light"
+                    userState.user.darkMode === "light"
                       ? [styles.title, { color: "#ebecf2" }]
                       : [styles.title, { color: "white" }]
                   }
@@ -70,7 +72,7 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
               <View style={styles.ContDescrip}>
                 <Text
                   style={
-                    state.darkMode === "light"
+                    userState.user.darkMode === "light"
                       ? [styles.description, { color: "#ebecf2" }]
                       : [styles.description, { color: "#ebecf2" }]
                   }
@@ -83,9 +85,11 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
                   name={"user-circle"}
                   type={"font-awesome"}
                   size={17}
-                  color={state.darkMode === "light" ? "#ebecf2" : "black"}
+                  color={
+                    userState.user.darkMode === "light" ? "#ebecf2" : "black"
+                  }
                   backgroundColor={
-                    state.darkMode === "light" ? "#7f71a0" : "#7f71a0"
+                    userState.user.darkMode === "light" ? "#7f71a0" : "#7f71a0"
                   }
                   borderRadius={80}
                 />

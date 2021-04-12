@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import Card from "../shared/Card";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext, Context } from "../../providers/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
 import Toaster from "../shared/Toaster";
 
@@ -9,6 +10,7 @@ const { width, height } = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
+  const { state: userState } = useContext(Context);
   const { state, getRecipes, refreshHome, clearMessage } = useContext(
     RecipeContext
   );
@@ -17,7 +19,9 @@ const Home = ({ navigation }) => {
     getRecipes();
   }, [refresh]);
 
-  console.log(state.darkMode);
+  useEffect(() => {}, [userState.user.darkMode]);
+
+  console.log(userState.user.darkMode);
 
   const handleRefresh = () => {
     setRefresh(!refresh);
@@ -31,7 +35,9 @@ const Home = ({ navigation }) => {
       //colors={["#5f72be","#9921e8"]}
 
       colors={
-        state.darkMode === "light" ? ["#245071", "#9921e8"] : ["red", "green"]
+        userState.user.darkMode === "light"
+          ? ["#245071", "#9921e8"]
+          : ["red", "green"]
       }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}

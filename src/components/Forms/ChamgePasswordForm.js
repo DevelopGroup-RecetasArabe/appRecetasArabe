@@ -11,10 +11,9 @@ import { Context as RecipeContext } from "../../providers/RecipeContext";
 const { width, height } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
-  const { changePassword } = useContext(AuthContext);
-  const { state } = useContext(RecipeContext);
+  const { state: userState, changePassword } = useContext(AuthContext);
 
-  useEffect(() => {}, [state.darkMode]);
+  useEffect(() => {}, [userState.user.darkMode]);
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -35,7 +34,7 @@ const ChangePasswordForm = ({ navigation }) => {
       <View style={styles.header}>
         <Text
           style={
-            state.darkMode === "light"
+            userState.user.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -44,7 +43,7 @@ const ChangePasswordForm = ({ navigation }) => {
         </Text>
         <Text
           style={
-            state.darkMode === "light"
+            userState.user.darkMode === "light"
               ? [styles.h2, { color: "#ccc" }]
               : [styles.h2, { color: "#fff" }]
           }

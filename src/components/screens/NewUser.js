@@ -3,12 +3,14 @@ import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import SignUp from "../Forms/SignUp";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("screen");
 
 const NewUser = ({ navigation }) => {
   const { state } = useContext(RecipeContext);
-  useEffect(() => {}, [state.darkMode]);
+  const { state: userState } = useContext(AuthContext);
+  useEffect(() => {}, [userState.user.darkMode]);
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}
@@ -19,7 +21,7 @@ const NewUser = ({ navigation }) => {
       <ScrollView style={styles.container}>
         <View
           style={
-            state.darkMode === "light"
+            userState.user.darkMode === "light"
               ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
               : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
           }

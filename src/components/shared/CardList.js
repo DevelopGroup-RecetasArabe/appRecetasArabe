@@ -11,12 +11,14 @@ import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
+import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
 const CardList = ({ navigation, array, callbackDelete }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
-  useEffect(() => {}, [state.darkMode]);
+  const { state: userState } = useContext(AuthContext);
+  useEffect(() => {}, [userState.user.darkMode]);
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
@@ -49,7 +51,7 @@ const CardList = ({ navigation, array, callbackDelete }) => {
               >
                 <View
                   style={
-                    state.darkMode === "light"
+                    userState.user.darkMode === "light"
                       ? [styles.layouts, { backgroundColor: "#FFA96D" }]
                       : [styles.layouts, { backgroundColor: "green" }]
                   }
@@ -64,7 +66,7 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                   <View style={styles.styleText}>
                     <Text
                       style={
-                        state.darkMode === "light"
+                        userState.user.darkMode === "light"
                           ? [styles.h1, { color: "#ebecf2" }]
                           : [styles.h1, { color: "#ebecf2" }]
                       }
@@ -73,7 +75,7 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                     </Text>
                     <Text
                       style={
-                        state.darkMode === "light"
+                        userState.user.darkMode === "light"
                           ? [styles.h2, { color: "#ebecf2" }]
                           : [styles.h2, { color: "#ebecf2" }]
                       }
@@ -89,7 +91,9 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                         name="trash"
                         type="font-awesome"
                         color={
-                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                          userState.user.darkMode === "light"
+                            ? "#7c3593"
+                            : "#7c3593"
                         }
                         size={24}
                         onPress={() => {
@@ -100,7 +104,9 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                         name="edit"
                         type="font-awesome"
                         color={
-                          state.darkMode === "light" ? "#7c3593" : "#7c3593"
+                          userState.user.darkMode === "light"
+                            ? "#7c3593"
+                            : "#7c3593"
                         }
                         size={24}
                         onPress={() => {

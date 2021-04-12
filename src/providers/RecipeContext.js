@@ -36,12 +36,12 @@ const recipeReducer = (state, action) => {
               getImage: action.payload.recipe.getImage,
             };
           }
+          return recipe;
         }),
       };
     case "deleteRecipe":
       return {
-        ...state,
-        deleted: true,
+        state,
       };
     case "darkMode":
       return { ...state, darkMode: "dark" };
@@ -147,6 +147,7 @@ const updateRecipes = (dispatch) => (
   getImage
 ) => {
   const data = {
+    id,
     title,
     description,
     arrayIngredients,
@@ -235,7 +236,7 @@ export const { Provider, Context } = createDataContext(
       description: "",
       arrayIngredients: [],
       arrayPreparations: [],
-      getImage: "",
+      getImage: null,
     },
     created: false,
     updated: false,

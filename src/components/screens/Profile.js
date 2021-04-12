@@ -1,21 +1,34 @@
 import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View, Button, Switch } from "react-native";
 import SharedButton from "../shared/SharedButton";
-import { firebase } from "../../Firebase";
-import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { Context as AuthContext } from "../../providers/AuthContext";
-import { State } from "react-native-gesture-handler";
 
 const Profile = ({ navigation }) => {
-  const { signout } = useContext(AuthContext);
-  const { state, darkMode, lightMode } = useContext(RecipeContext);
-  const [isEnabled, setIsEnabled] = useState(false);
+  const { state: userState, signout, changeModeLight } = useContext(
+    AuthContext
+  );
+
+  const [isEnabled, setIsEnabled] = useState(
+    userState.user.darkMode === "dark"
+  );
+
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     if (!isEnabled) {
-      darkMode();
+      changeModeLight(
+        userState.user.id,
+        userState.user.email,
+        userState.user.fullname,
+        "dark"
+      );
+      setIsEnabled(true);
     } else {
-      lightMode();
+      changeModeLight(
+        userState.user.id,
+        userState.user.email,
+        userState.user.fullname,
+        "light"
+      );
     }
   };
 

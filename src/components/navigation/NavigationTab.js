@@ -13,15 +13,14 @@ import { Context as RecipeContext } from "../../providers/RecipeContext";
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
-  const { signout } = useContext(AuthContext);
-  const { state } = useContext(RecipeContext);
+  const { state, signout } = useContext(AuthContext);
   useEffect(() => {}, [state.darkMode]);
 
   return (
     <Tab.Navigator
       initialRouteName="MyRecipes"
       tabBarOptions={
-        state.darkMode === "light"
+        state.user.darkMode === "light"
           ? {
               activeTintColor: "#7c3593",
               style: {

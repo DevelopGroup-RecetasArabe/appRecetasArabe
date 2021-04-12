@@ -11,10 +11,7 @@ const { width, height } = Dimensions.get("screen");
 
 const SignUp = ({ navigation }) => {
   const { state: recipeState } = useContext(RecipeContext);
-
-  useEffect(() => {}, [recipeState.darkMode]);
-
-  const { signup } = useContext(AuthContext);
+  const { state, signup } = useContext(AuthContext);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +21,8 @@ const SignUp = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {}, [state.user.darkMode]);
 
   // Verifica que los datos ingresados sean correctos
   const handleVerify = (input) => {
@@ -54,7 +53,7 @@ const SignUp = ({ navigation }) => {
       <View style={styles.header}>
         <Text
           style={
-            recipeState.darkMode === "light"
+            state.user.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -63,7 +62,7 @@ const SignUp = ({ navigation }) => {
         </Text>
         <Text
           style={
-            recipeState.darkMode === "light"
+            state.user.darkMode === "light"
               ? [styles.h2, { color: "black" }]
               : [styles.h2, { color: "#fff" }]
           }
@@ -126,7 +125,7 @@ const SignUp = ({ navigation }) => {
           title="Volver al inicio de sesión"
           paddingTop={50}
           size={20}
-          color={recipeState.darkMode === "light" ? "#ccc" : "#fff"}
+          color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
           callback={() => navigation.navigate("Login")}
         />
       </View>
