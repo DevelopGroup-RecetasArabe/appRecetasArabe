@@ -10,11 +10,12 @@ import {
 import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
 import { LinearGradient } from 'expo-linear-gradient';
+import {useFonts} from "@expo-google-fonts/inter"
 
 const {width, height} = Dimensions.get("window");
 
 const CardList = ({ navigation, array, callbackDelete }) => {
-  
+  const [Fonts] = useFonts({Ubuntu: require("../../assets/fonts/Ubuntu-Light.ttf")});
   return (
     <LinearGradient
     
@@ -54,8 +55,8 @@ const CardList = ({ navigation, array, callbackDelete }) => {
                 </View>
 
                 <View style={styles.styleText}>
-                  <Text style={styles.h1}>{item.title}</Text>
-                  <Text style={styles.h2}>{item.description}</Text>
+                  <Text style={[styles.h1, {fontFamily: "Ubuntu"}]}>{item.title}</Text>
+                  <Text style={[styles.h2, {fontFamily: "Ubuntu"}]}>{item.description}</Text>
                 </View>
 
                 <View style={styles.favoriteButton}>
