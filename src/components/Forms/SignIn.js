@@ -47,7 +47,11 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleSignGoogle = () => {
-    signInWithGoogle();
+    if (state.user.darkMode === "light") {
+      signInWithGoogle("light");
+    } else {
+      signInWithGoogle("dark");
+    }
   };
   return (
     <View style={styles.container}>

@@ -115,7 +115,7 @@ const persistLogin = (dispatch) => () => {
 };
 
 //Entrar con Google
-const signInWithGoogle = (dispatch) => async () => {
+const signInWithGoogle = (dispatch) => async (mode) => {
   const result = await Google.logInAsync({
     androidClientId: appIdGoogleAndroid,
     iosClientId: appIdGoogleIOS,
@@ -132,12 +132,14 @@ const signInWithGoogle = (dispatch) => async () => {
       .then((response) => {
         const uid = response.user.uid;
         const name = response.user.displayName;
+        const email = response.user.email;
         console.log(uid);
         console.log(name);
         const data = {
           id: uid,
           fullname: name,
-          darkMode: "light",
+          email,
+          darkMode: "",
         };
 
         firebase

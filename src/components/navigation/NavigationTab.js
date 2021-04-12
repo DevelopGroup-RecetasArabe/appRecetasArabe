@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
   const { state, signout } = useContext(AuthContext);
-  useEffect(() => {}, [state.darkMode]);
+  useEffect(() => {}, [state.user.darkMode]);
 
   return (
     <Tab.Navigator
