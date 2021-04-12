@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
+
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { Context as AuthContext } from "../../providers/AuthContext";
 
@@ -27,123 +27,110 @@ const CardList = ({ navigation, array, callbackDelete }) => {
   );
 
   return (
-    <LinearGradient
-      // Background Linear Gradient
-      colors={["#245071", "#9921e8" /*'#e145e1', '#900cec'*/]} //'#f94e4e','#ea8e4f
-      start={{ x: 0, y: 0.2 }}
-      end={{ x: 1, y: 0.2 }}
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <FlatList
-          data={array}
-          emptyFlatList={emptyFlatList}
-          numColumns={1}
-          renderItem={({ item, i }) => (
-            <View>
-              <TouchableOpacity
-                key={item.id}
-                style={styles.card}
-                onPress={() => {
-                  setCurrentRecipe(item);
-                  navigation.navigate("Recipes");
-                }}
+    <View style={styles.container}>
+      <FlatList
+        data={array}
+        emptyFlatList={emptyFlatList}
+        numColumns={1}
+        renderItem={({ item, i }) => (
+          <View>
+            <TouchableOpacity
+              key={item.id}
+              style={styles.card}
+              onPress={() => {
+                setCurrentRecipe(item);
+                navigation.navigate("Recipes");
+              }}
+            >
+              <View
+                style={
+                  state.darkMode === "light"
+                    ? [styles.layouts, { backgroundColor: "#B4975A" }] //#b580ba
+                    : [styles.layouts, { backgroundColor: "#00000099" }]
+                }
               >
-                <View
-                  style={
-                    userState.user.darkMode === "light"
-                      ? [styles.layouts, { backgroundColor: "#FFA96D" }]
-                      : [styles.layouts, { backgroundColor: "green" }]
-                  }
-                >
-                  <View>
-                    <Image
-                      style={styles.cardImage}
-                      source={{ uri: item.getImage }}
-                    />
-                  </View>
+                <View>
+                  <Image
+                    style={styles.cardImage}
+                    source={{ uri: item.getImage }}
+                  />
+                </View>
 
-                  <View style={styles.styleText}>
-                    <Text
-                      style={
-                        userState.user.darkMode === "light"
-                          ? [styles.h1, { color: "#ebecf2" }]
-                          : [styles.h1, { color: "#ebecf2" }]
-                      }
-                    >
-                      {item.title}
-                    </Text>
-                    <Text
-                      style={
-                        userState.user.darkMode === "light"
-                          ? [styles.h2, { color: "#ebecf2" }]
-                          : [styles.h2, { color: "#ebecf2" }]
-                      }
-                    >
-                      {item.description}
-                    </Text>
-                  </View>
+                <View style={styles.styleText}>
+                  <Text
+                    style={
+                      userState.user.darkMode === "light"
+                        ? [styles.h1, { color: "#ebecf2" }]
+                        : [styles.h1, { color: "#ebecf2" }]
+                    }
+                  >
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={
+                      userState.user.darkMode === "light"
+                        ? [styles.h2, { color: "#ebecf2" }]
+                        : [styles.h2, { color: "#ebecf2" }]
+                    }
+                  >
+                    {item.description}
+                  </Text>
+                </View>
 
-                  <View style={styles.favoriteButton}>
-                    <TouchableOpacity></TouchableOpacity>
-                    <TouchableOpacity>
+                <View style={styles.favoriteButton}>
+                  <TouchableOpacity>
+                    <View style={styles.top}>
                       <Icon
                         name="trash"
                         type="font-awesome"
                         color={
-                          userState.user.darkMode === "light"
-                            ? "#7c3593"
-                            : "#7c3593"
+                          state.darkMode === "light" ? "#245071" : "#B4975A"
                         }
-                        size={24}
+                        size={30}
                         onPress={() => {
                           callbackDelete(item.id);
                         }}
                       />
+                    </View>
+                    <View style={styles.med} />
+                    <View style={styles.Bottom}>
                       <Icon
                         name="edit"
                         type="font-awesome"
                         color={
-                          userState.user.darkMode === "light"
-                            ? "#7c3593"
-                            : "#7c3593"
+                          state.darkMode === "light" ? "#245071" : "#B4975A"
                         }
-                        size={24}
+                        size={30}
                         onPress={() => {
                           setCurrentRecipe(item);
                           navigation.navigate("UpdateRecipes");
                         }}
                       />
-                    </TouchableOpacity>
-                  </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-      </View>
-    </LinearGradient>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    width: width,
-    height: height * 1,
-  },
-
   container: {
     flex: 1,
-    width: width,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignContent: "center",
-    marginLeft: width * 0.025,
+    width: width * 95,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  med: {
+    height: height * 0.05,
   },
   layouts: {
     justifyContent: "center",
     flexDirection: "row",
-    //backgroundColor: "#FFA96D", //"#ea8e4f",
     borderRadius: 8,
     width: width * 0.95,
   },
@@ -156,11 +143,9 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 18,
     fontWeight: "bold",
-    //color: "#ebecf2",
   },
   h2: {
     fontWeight: "bold",
-    //color: "#ebecf2",
   },
   card: {
     marginTop: 1,

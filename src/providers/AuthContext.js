@@ -132,9 +132,6 @@ const signInWithGoogle = (dispatch) => async (mode) => {
       .then((response) => {
         const uid = response.user.uid;
         const name = response.user.displayName;
-        const email = response.user.email;
-        console.log(uid);
-        console.log(name);
         const data = {
           id: uid,
           fullname: name,

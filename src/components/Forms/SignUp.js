@@ -53,8 +53,8 @@ const SignUp = ({ navigation }) => {
       <View style={styles.header}>
         <Text
           style={
-            state.user.darkMode === "light"
-              ? [styles.h1, { color: "black" }]
+            recipeState.darkMode === "light"
+              ? [styles.h1, { color: "#245071" }]
               : [styles.h1, { color: "#fff" }]
           }
         >
@@ -62,13 +62,13 @@ const SignUp = ({ navigation }) => {
         </Text>
         <Text
           style={
-            state.user.darkMode === "light"
-              ? [styles.h2, { color: "black" }]
+            recipeState.darkMode === "light"
+              ? [styles.h2, { color: "#245071" }]
               : [styles.h2, { color: "#fff" }]
           }
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt
+          ¿Conoces algunas recetas arabes?, unete a nosotros, muestra tus
+          recetas y conoce nuevas
         </Text>
       </View>
       <View style={styles.form}>
@@ -123,9 +123,9 @@ const SignUp = ({ navigation }) => {
 
         <Enlace
           title="Volver al inicio de sesión"
-          paddingTop={50}
+          paddingTop={30}
           size={20}
-          color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
+          color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
           callback={() => navigation.navigate("Login")}
         />
       </View>
@@ -137,19 +137,19 @@ const styles = StyleSheet.create({
   container: {
     padding: 30,
   },
+  header: {
+    marginTop: 20,
+  },
   h1: {
     fontSize: 25,
-    //color: "#090979",
     paddingBottom: 10,
   },
   h2: {
     fontSize: 15,
-    //color: "#ccc",
-    marginBottom: 60,
+    marginBottom: 35,
   },
-  formLogin: {
+  form: {
     width: width * 0.75,
-    paddingTop: 80,
   },
 });
 

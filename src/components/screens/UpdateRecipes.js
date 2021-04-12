@@ -132,10 +132,11 @@ const UpdateRecipes = ({ route, navigation }) => {
 
   return (
     <LinearGradient
-      //colors={["#245071", "#7c3593", "#245071"]}
-      //colors={["#a4508b", "#7c3593", "#a4508b"]}
-      //colors={["#5f72be","#9921e8"]}
-      colors={["#245071", "#9921e8"]}
+      colors={
+        state.darkMode === "light"
+          ? ["#245071", "#9921e8"]
+          : ["#090979", "#bb00f7"]
+      }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
@@ -156,7 +157,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -209,14 +210,14 @@ const UpdateRecipes = ({ route, navigation }) => {
           ingredientes*/}
           <View
             style={
-              userState.user.darkMode === "light"
+              state.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -231,40 +232,38 @@ const UpdateRecipes = ({ route, navigation }) => {
             </Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <View key={i}>
-                  <Input
-                    key={`ingredients${i}`}
-                    placeholder={"Ej: 1 kilo de harina"}
-                    value={arr}
-                    color={
-                      userState.user.darkMode === "light" ? "#245071" : "#fff"
-                    }
-                    onChangeText={(val) => {
-                      arrayIngredients[i] = val;
-                      setArrayIngredients([...arrayIngredients]);
-                    }}
-                    onBlur={() => {
-                      if (!arrayIngredients[i]) {
-                        ingredientError[i] = true;
-                        setIngredientError([...ingredientError]);
-                      } else {
-                        ingredientError[i] = false;
-                        setIngredientError([...ingredientError]);
+                <View key={i} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`ingredients${i}`}
+                      placeholder={"Ej: 1 kilo de harina"}
+                      value={arr}
+                      color={state.darkMode === "light" ? "#245071" : "#fff"}
+                      onChangeText={(val) => {
+                        arrayIngredients[i] = val;
+                        setArrayIngredients([...arrayIngredients]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayIngredients[i]) {
+                          ingredientError[i] = true;
+                          setIngredientError([...ingredientError]);
+                        } else {
+                          ingredientError[i] = false;
+                          setIngredientError([...ingredientError]);
+                        }
+                      }}
+                      errorMessage={
+                        ingredientError[i] === true
+                          ? "Ingrese un ingrediente porfavor"
+                          : null
                       }
-                    }}
-                    errorMessage={
-                      ingredientError[i] === true
-                        ? "Ingrese un ingrediente porfavor"
-                        : null
-                    }
-                  />
+                    />
+                  </View>
                   <Icon
                     key={`close${i}`}
                     name="close"
                     type=""
-                    color={
-                      userState.user.darkMode === "light" ? "black" : "#fff"
-                    }
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                     font-awesome
                     size={30}
                     onPress={() => {
@@ -283,19 +282,28 @@ const UpdateRecipes = ({ route, navigation }) => {
                       : [styles.textIngredients, { color: "#fff" }]
                   }
                 >
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                  Ingrediente
+                  <Icon
+                    name="plus"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                  />
+                  Agregar Ingrediente
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputIngredient}>
-                <Text style={styles.textIngredients}>
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
                   <Icon
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={
-                      userState.user.darkMode === "light" ? "black" : "#fff"
-                    }
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Ingrediente
                 </Text>
@@ -313,7 +321,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -328,41 +336,41 @@ const UpdateRecipes = ({ route, navigation }) => {
             </Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <View key={j}>
-                  <Input
-                    key={`preparacion${j}`}
-                    placeholder={`Ej: Paso # ${j + 1}`}
-                    value={arr}
-                    color={
-                      userState.user.darkMode === "light" ? "#245071" : "#fff"
-                    }
-                    onChangeText={(val) => {
-                      arrayPreparations[j] = val;
-                      setArrayPreparations([...arrayPreparations]);
-                    }}
-                    onBlur={() => {
-                      if (!arrayPreparations[j]) {
-                        preparationError[j] = true;
-                        setPreparationError([...preparationError]);
-                      } else {
-                        preparationError[j] = false;
-                        setPreparationError([...preparationError]);
+                <View key={j} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`preparacion${j}`}
+                      placeholder={`Ej: Paso # ${j + 1}`}
+                      value={arr}
+                      color={
+                        userState.user.darkMode === "light" ? "#245071" : "#fff"
                       }
-                    }}
-                    errorMessage={
-                      preparationError[j] === true
-                        ? "Ingrese un paso porfavor"
-                        : null
-                    }
-                  />
+                      onChangeText={(val) => {
+                        arrayPreparations[j] = val;
+                        setArrayPreparations([...arrayPreparations]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayPreparations[j]) {
+                          preparationError[j] = true;
+                          setPreparationError([...preparationError]);
+                        } else {
+                          preparationError[j] = false;
+                          setPreparationError([...preparationError]);
+                        }
+                      }}
+                      errorMessage={
+                        preparationError[j] === true
+                          ? "Ingrese un paso porfavor"
+                          : null
+                      }
+                    />
+                  </View>
                   <Icon
                     key={`close${j}`}
                     name="close"
                     type=""
                     font-awesome
-                    color={
-                      userState.user.darkMode === "light" ? "black" : "#fff"
-                    }
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                     size={30}
                     onPress={() => {
                       handleDeleteByPositonPreparation(j);
@@ -384,9 +392,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={
-                      userState.user.darkMode === "light" ? "black" : "#fff"
-                    }
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Agregar Paso
                 </Text>
@@ -403,9 +409,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={
-                      userState.user.darkMode === "light" ? "black" : "#fff"
-                    }
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
                   />{" "}
                   Borrar Paso
                 </Text>
@@ -413,12 +417,36 @@ const UpdateRecipes = ({ route, navigation }) => {
             </View>
           </View>
 
-          <View style={styles.button}>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.Button,
+                    {
+                      backgroundColor: "#FFFFFF98",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+                : [
+                    styles.Button,
+                    {
+                      backgroundColor: "#00000098",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+            }
+          >
             <Button
               title="Actualizar"
-              color={
-                userState.user.darkMode === "light" ? "#7c3593" : "#7c3593"
-              }
+              color={state.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 updateRecipes(
                   title,
@@ -468,6 +496,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
+  fil: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  colum: {
+    width: "90%",
+  },
   styleIngredients: {
     flex: 1,
     flexDirection: "row",
@@ -479,13 +514,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 15,
-    marginBottom: 15,
-    //backgroundColor: "#FFFFFF98",
-    borderRadius: 20,
     fontWeight: "bold",
-    marginLeft: width * 0.12,
-    marginRight: width * 0.12,
   },
 });
 

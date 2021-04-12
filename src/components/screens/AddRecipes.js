@@ -75,8 +75,6 @@ const AddRecipes = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     /*Guarda la imagen */
     if (!result.cancelled) {
       setImage(result.uri);
@@ -125,12 +123,21 @@ const AddRecipes = ({ navigation }) => {
     setArrayPreparations([...arrayPreparations]);
   };
 
+  //Limpiar
+  const clear = () => {
+    setImage(null);
+    setTitle("");
+    setDescription("");
+    setArrayIngredients([]);
+    setArrayPreparations([]);
+  };
   return (
     <LinearGradient
-      //colors={["#245071", "#7c3593", "#245071"]}
-      //colors={["#a4508b", "#7c3593", "#a4508b"]}
-      //colors={["#5f72be","#9921e8"]}
-      colors={["#245071", "#9921e8"]}
+      colors={
+        recipeState.darkMode === "light"
+          ? ["#245071", "#9921e8"]
+          : ["#090979", "#bb00f7"]
+      }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
@@ -153,7 +160,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -170,7 +177,7 @@ const AddRecipes = ({ navigation }) => {
               placeholder={"Ejemplo: Kibbe"}
               value={title}
               onChangeText={setTitle}
-              color={state.user.darkMode === "light" ? "#245071" : "#fff"}
+              color={recipeState.darkMode === "light" ? "#000" : "#fff"}
               onBlur={() => {
                 handleVerify("title");
               }}
@@ -188,7 +195,7 @@ const AddRecipes = ({ navigation }) => {
               Descripcion de la receta
             </Text>
             <Input
-              placeholder={"Ejemplo: Rico platillos"}
+              placeholder={"Ejemplo: Rico platillo"}
               value={description}
               onChangeText={setDescription}
               color={state.user.darkMode === "light" ? "#245071" : "#fff"}
@@ -213,7 +220,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -228,35 +235,41 @@ const AddRecipes = ({ navigation }) => {
             </Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <View key={i}>
-                  <Input
-                    key={`ingredients${i}`}
-                    placeholder={"Ej: 1 kilo de harina"}
-                    value={arr}
-                    color={state.user.darkMode === "light" ? "#245071" : "#fff"}
-                    onChangeText={(val) => {
-                      arrayIngredients[i] = val;
-                      setArrayIngredients([...arrayIngredients]);
-                    }}
-                    onBlur={() => {
-                      if (!arrayIngredients[i]) {
-                        ingredientError[i] = true;
-                        setIngredientError([...ingredientError]);
-                      } else {
-                        ingredientError[i] = false;
-                        setIngredientError([...ingredientError]);
+                <View key={i} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`ingredients${i}`}
+                      placeholder={"Ej: 1 kilo de harina"}
+                      value={arr}
+                      color={
+                        recipeState.darkMode === "light" ? "#245071" : "#fff"
                       }
-                    }}
-                    errorMessage={
-                      ingredientError[i] === true
-                        ? "Ingrese un ingrediente porfavor"
-                        : null
-                    }
-                  />
+                      onChangeText={(val) => {
+                        arrayIngredients[i] = val;
+                        setArrayIngredients([...arrayIngredients]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayIngredients[i]) {
+                          ingredientError[i] = true;
+                          setIngredientError([...ingredientError]);
+                        } else {
+                          ingredientError[i] = false;
+                          setIngredientError([...ingredientError]);
+                        }
+                      }}
+                      errorMessage={
+                        ingredientError[i] === true
+                          ? "Ingrese un ingrediente porfavor"
+                          : null
+                      }
+                    />
+                  </View>
                   <Icon
                     key={`close${i}`}
                     name="close"
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                     type="font-awesome"
                     font-awesome
                     size={30}
@@ -280,7 +293,9 @@ const AddRecipes = ({ navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                   />{" "}
                   Agregar Ingrediente
                 </Text>
@@ -297,7 +312,9 @@ const AddRecipes = ({ navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                   />{" "}
                   Borrar Ingrediente
                 </Text>
@@ -315,7 +332,7 @@ const AddRecipes = ({ navigation }) => {
                   ]
                 : [
                     styles.styleForm,
-                    { backgroundColor: "green", borderRadius: 10 },
+                    { backgroundColor: "#00000098", borderRadius: 10 },
                   ]
             }
           >
@@ -330,36 +347,42 @@ const AddRecipes = ({ navigation }) => {
             </Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <View key={j}>
-                  <Input
-                    key={`preparacion${j}`}
-                    placeholder={`Ej: Paso # ${j + 1}`}
-                    value={arr}
-                    color={state.user.darkMode === "light" ? "#245071" : "#fff"}
-                    onChangeText={(val) => {
-                      arrayPreparations[j] = val;
-                      setArrayPreparations([...arrayPreparations]);
-                    }}
-                    onBlur={() => {
-                      if (!arrayPreparations[j]) {
-                        preparationError[j] = true;
-                        setPreparationError([...preparationError]);
-                      } else {
-                        preparationError[j] = false;
-                        setPreparationError([...preparationError]);
+                <View key={j} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`preparacion${j}`}
+                      placeholder={`Ej: Paso # ${j + 1}`}
+                      value={arr}
+                      color={
+                        recipeState.darkMode === "light" ? "#245071" : "#fff"
                       }
-                    }}
-                    errorMessage={
-                      preparationError[j] === true
-                        ? "Ingrese un paso porfavor"
-                        : null
-                    }
-                  />
+                      onChangeText={(val) => {
+                        arrayPreparations[j] = val;
+                        setArrayPreparations([...arrayPreparations]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayPreparations[j]) {
+                          preparationError[j] = true;
+                          setPreparationError([...preparationError]);
+                        } else {
+                          preparationError[j] = false;
+                          setPreparationError([...preparationError]);
+                        }
+                      }}
+                      errorMessage={
+                        preparationError[j] === true
+                          ? "Ingrese un paso porfavor"
+                          : null
+                      }
+                    />
+                  </View>
                   <Icon
                     key={`close${j}`}
                     name="close"
                     type="font-awesome"
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                     font-awesome
                     size={30}
                     onPress={() => {
@@ -382,7 +405,9 @@ const AddRecipes = ({ navigation }) => {
                     name="plus"
                     type="font-awesome"
                     size={15}
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                   />{" "}
                   Agregar Paso
                 </Text>
@@ -399,7 +424,9 @@ const AddRecipes = ({ navigation }) => {
                     name="trash"
                     type="font-awesome"
                     size={15}
-                    color={state.user.darkMode === "light" ? "black" : "#fff"}
+                    color={
+                      recipeState.darkMode === "light" ? "black" : "#B4975A"
+                    }
                   />{" "}
                   Borrar Paso
                 </Text>
@@ -407,10 +434,36 @@ const AddRecipes = ({ navigation }) => {
             </View>
           </View>
 
-          <View style={styles.button}>
+          <View
+            style={
+              recipeState.darkMode === "light"
+                ? [
+                    styles.Button,
+                    {
+                      backgroundColor: "#FFFFFF98",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+                : [
+                    styles.Button,
+                    {
+                      backgroundColor: "#00000098",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+            }
+          >
             <Button
               title="Guardar"
-              color={state.user.darkMode === "light" ? "#7c3593" : "#7c3593"}
+              color={recipeState.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 if (
                   image &&
@@ -429,7 +482,6 @@ const AddRecipes = ({ navigation }) => {
                     state.user.fullname
                   );
                   clear();
-
                   navigation.navigate("Home");
                 }
               }}
@@ -461,15 +513,21 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   styleForm: {
-    //backgroundColor: "#FFFFFF98",
     padding: 10,
-    //borderRadius: 10,
+
     marginTop: 15,
     marginBottom: 12,
   },
   titles: {
     fontWeight: "bold",
     fontSize: 15,
+  },
+  fil: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  colum: {
+    width: "90%",
   },
   styleIngredients: {
     flex: 1,
@@ -482,13 +540,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 15,
-    marginBottom: 25,
-    backgroundColor: "#FFFFFF98",
-    borderRadius: 20,
     fontWeight: "bold",
-    marginLeft: width * 0.12,
-    marginRight: width * 0.12,
   },
 });
 

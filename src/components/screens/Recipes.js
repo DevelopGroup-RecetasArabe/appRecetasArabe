@@ -15,7 +15,6 @@ const { width, height } = Dimensions.get("window");
 
 const Recipes = ({ route }) => {
   const { state } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -48,8 +47,21 @@ const Recipes = ({ route }) => {
           : [styles.container, { backgroundColor: "black" }]
       }
     >
-      <View style={styles.recipeImage}>
-        <Image source={{ uri: image }} style={styles.recipeImage} />
+      <View
+        style={
+          state.darkMode === "light"
+            ? [styles.recipeImage, { shadowColor: "black" }]
+            : [styles.recipeImage, { shadowColor: "#B4975A" }]
+        }
+      >
+        <Image
+          source={{ uri: image }}
+          style={
+            state.darkMode === "light"
+              ? [styles.recipeImage, { shadowColor: "black" }]
+              : [styles.recipeImage, { shadowColor: "#B4975A" }]
+          }
+        />
       </View>
       <View style={styles.formTitle}>
         <Text
@@ -72,10 +84,21 @@ const Recipes = ({ route }) => {
         </Text>
       </View>
 
-      <View style={styles.formIngredient}>
+      <View
+        style={
+          state.darkMode === "light"
+            ? [styles.formIngredient, { borderColor: "#245071" }]
+            : [styles.formIngredient, { borderColor: "#B4975A" }]
+        }
+      >
         <View>
           <LinearGradient
-            colors={["#245071", "#9921e8"]}
+            //colors={["#245071", "#9921e8"]}
+            colors={
+              state.darkMode === "light"
+                ? ["#245071", "#9921e8"] //revisar
+                : ["#090979", "#bb00f7"]
+            }
             start={{ x: 0, y: 0.2 }}
             end={{ x: 1, y: 0.2 }}
             style={styles.FontingPre}
@@ -86,7 +109,13 @@ const Recipes = ({ route }) => {
 
         {arrayIngredients.map((ing, i) => (
           <Text key={i} style={styles.list}>
-            <View style={styles.circle}>
+            <View
+              style={
+                state.darkMode === "light"
+                  ? [styles.circle, { backgroundColor: "#ea8e4f" }]
+                  : [styles.circle, { backgroundColor: "#B4975A" }]
+              }
+            >
               <Text
                 style={{
                   textAlign: "center",
@@ -110,10 +139,20 @@ const Recipes = ({ route }) => {
           </Text>
         ))}
       </View>
-      <View style={styles.formPreparation}>
+      <View
+        style={
+          state.darkMode === "light"
+            ? [styles.formPreparation, { borderColor: "#245071" }]
+            : [styles.formPreparation, { borderColor: "#B4975A" }]
+        }
+      >
         <View>
           <LinearGradient
-            colors={["#245071", "#9921e8"]}
+            colors={
+              state.darkMode === "light"
+                ? ["#245071", "#9921e8"]
+                : ["#090979", "#bb00f7"]
+            }
             start={{ x: 0, y: 0.2 }}
             end={{ x: 1, y: 0.2 }}
             style={styles.FontingPre}
@@ -123,7 +162,13 @@ const Recipes = ({ route }) => {
         </View>
         {arrayPreparations.map((prepa, i) => (
           <Text key={i} style={styles.list}>
-            <View style={styles.circle}>
+            <View
+              style={
+                state.darkMode === "light"
+                  ? [styles.circle, { backgroundColor: "#ea8e4f" }]
+                  : [styles.circle, { backgroundColor: "#B4975A" }]
+              }
+            >
               <Text
                 style={{
                   textAlign: "center",
@@ -155,9 +200,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    //backgroundColor: "#ebecf2",
-    //backgroundColor: '#b580ba',
-    //backgroundColor: '#b4b5c8',
     padding: 15,
   },
   color: {
@@ -169,8 +211,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     justifyContent: "space-between",
     //Sombra
-    shadowColor: "black",
-    shadowOffset: { width: 3, height: 5 },
+    shadowOffset: { width: 5, height: 10 },
     shadowOpacity: 0.32,
     shadowRadius: 3.9,
   },
@@ -182,7 +223,6 @@ const styles = StyleSheet.create({
   h1: {
     fontSize: 33,
     fontWeight: "bold",
-    //color: "#245071",
     marginLeft: width * 0.03,
     paddingBottom: 4,
     //fontFamily:'Roboto'
@@ -201,7 +241,6 @@ const styles = StyleSheet.create({
   },
   FontingPre: {
     flex: 1,
-    //backgroundColor: '#7c3593',
     borderRadius: 10,
     paddingBottom: 5,
     paddingTop: 5,
@@ -216,8 +255,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   circle: {
-    //backgroundColor: "#7c3593",
-    backgroundColor: "#ea8e4f",
     alignItems: "center",
     padding: 2,
     width: 20,
@@ -234,7 +271,6 @@ const styles = StyleSheet.create({
   },
   formIngredient: {
     borderTopWidth: 1.2,
-    borderColor: "#245071",
     marginBottom: 15,
   },
   formPreparation: {

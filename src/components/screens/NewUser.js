@@ -21,9 +21,12 @@ const NewUser = ({ navigation }) => {
       <ScrollView style={styles.container}>
         <View
           style={
-            userState.user.darkMode === "light"
-              ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 5 }]
-              : [styles.form, { backgroundColor: "black", borderRadius: 5 }]
+            state.darkMode === "light"
+              ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
+              : [
+                  styles.form,
+                  { backgroundColor: "#00000070", borderRadius: 10 },
+                ]
           }
         >
           <SignUp navigation={navigation} />
@@ -43,11 +46,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     alignSelf: "center",
-    marginTop: 65,
+    marginTop: height * 0.05,
+    marginBottom: height * 0.05,
     width: width * 0.9,
-    height: height * 0.85,
+    height: height * 0.9,
     //borderRadius: 5,
     //backgroundColor: "#ffffff",
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 4 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
 });
 

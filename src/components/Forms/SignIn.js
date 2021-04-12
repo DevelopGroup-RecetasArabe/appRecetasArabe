@@ -1,10 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  Dimensions,
+  Image,
+} from "react-native";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import Enlace from "../shared/Enlace";
 import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import Logo from "../../assets/logo.png";
+import LogoDark from "../../assets/LogoDark2.png";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
@@ -55,29 +64,29 @@ const SignIn = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      {alert ? <Text>Error!</Text> : null}
-      <View style={styles.header}>
+      <View
+        style={
+          recipeState.darkMode === "light"
+            ? [styles.header, { shadowColor: "black" }]
+            : [styles.header, { shadowColor: "#B4975A" }]
+        }
+      >
         <Text
           style={
             state.user.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
-        >
-          Inicio de Sesión
-        </Text>
-        <Text
-          style={
-            state.user.darkMode === "light"
-              ? [styles.h2, { color: "black" }]
-              : [styles.h2, { color: "#fff" }]
-          }
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt
-        </Text>
+        ></Text>
+        <View style={styles.logo}>
+          <Image
+            style={styles.logo}
+            source={recipeState.darkMode === "light" ? Logo : LogoDark}
+          />
+        </View>
       </View>
       <View style={styles.formLogin}>
+        {alert ? <Text>Error!</Text> : null}
         <InputText
           placeholder="Correo Electronico"
           icon="envelope"
@@ -104,22 +113,22 @@ const SignIn = ({ navigation }) => {
 
         <View>
           <Enlace
-            title="¿Olvidas la contraseña?"
+            title="¿Olvidaste la contraseña?"
             flexDirection="row-reverse"
-            color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
         <SharedButton title="Iniciar Sesión" callback={handleSignin} />
-        <View style={{ marginTop: 15 }}>
+        <View style={{ marginTop: 12 }}>
           <SharedButton title="Google" callback={handleSignGoogle} />
         </View>
         <View style={styles.postionEnlace}>
           <Enlace
             title="Registrate"
-            paddingTop={30}
+            paddingTop={12}
             size={20}
-            color={state.user.darkMode === "light" ? "#ccc" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
             callback={() => navigation.navigate("NewUser")}
           />
         </View>
@@ -130,21 +139,42 @@ const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 30,
+    flex: 1,
   },
   h1: {
-    fontSize: 25,
-    color: "#090979",
-    paddingBottom: 10,
-  },
-  h2: {
-    fontSize: 15,
-    color: "#ccc",
+    color: "#7c3593",
+    textAlign: "center",
   },
   formLogin: {
-    width: width * 0.75,
-    paddingTop: 80,
+    padding: 30,
+    paddingTop: 25,
   },
+  header: {
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 0,
+    backgroundColor: "#7c3593",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 90,
+    borderBottomLeftRadius: 90,
+    borderColor: "#B4975A",
+    borderBottomWidth: 5,
+    borderLeftWidth: 5,
+    borderRightWidth: 5,
+    paddingBottom: 15,
+
+    //Sombra
+    shadowOffset: { width: 3, height: 4 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
+  },
+  logo: {
+    borderRadius: 30,
+    width: width * 0.37,
+    height: height * 0.25,
+  },
+  postionEnlace: {},
 });
 
 export default SignIn;

@@ -8,19 +8,17 @@ import {
 } from "react-native";
 import { Image, Icon } from "react-native-elements";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
 const ImageButton = ({ image, callback }) => {
   const { state } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
-  useEffect(() => {}, [userState.user.darkMode]);
+  useEffect(() => {}, [state.darkMode]);
   return (
     <View>
       <TouchableOpacity
         style={
-          userState.user.darkMode === "light"
+          state.darkMode === "light"
             ? [styles.styleImage, { backgroundColor: "#CDCDCD" }]
             : [styles.styleImage, { backgroundColor: "black" }]
         }

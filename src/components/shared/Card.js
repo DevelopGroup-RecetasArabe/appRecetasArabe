@@ -22,7 +22,7 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
-      <Text>You don't have any note yet...</Text>
+      <Text>No hay Recetas Agregadas</Text>
     </View>
   );
 
@@ -37,16 +37,28 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
             <TouchableOpacity
               key={item.id}
               style={
-                userState.user.darkMode === "light"
-                  ? [styles.card, { backgroundColor: "#b580ba" }]
-                  : [styles.card, { backgroundColor: "#b580ba" }]
+                state.darkMode === "light"
+                  ? [
+                      styles.card,
+                      { backgroundColor: "#b580ba", shadowColor: "black" },
+                    ]
+                  : [
+                      styles.card,
+                      { backgroundColor: "#00000099", shadowColor: "black" },
+                    ]
               }
               onPress={() => {
                 setCurrentRecipe(item);
                 navigation.navigate("Recipes");
               }}
             >
-              <View style={styles.ContImage}>
+              <View
+                style={
+                  state.darkMode === "light"
+                    ? [styles.ContImage, { shadowColor: "#7c3593" }]
+                    : [styles.ContImage, { shadowColor: "#ffffff50" }]
+                }
+              >
                 <Image
                   style={styles.cardImage}
                   source={{ uri: item.getImage }}
@@ -54,16 +66,22 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
               </View>
               <View
                 style={
-                  userState.user.darkMode === "light"
-                    ? [styles.ContTitle, { backgroundColor: "#24507198" }]
-                    : [styles.ContTitle, { backgroundColor: "black" }]
+                  state.darkMode === "light"
+                    ? [
+                        styles.ContTitle,
+                        { backgroundColor: "#24507198", shadowColor: "black" },
+                      ]
+                    : [
+                        styles.ContTitle,
+                        { backgroundColor: "#B4975A", shadowColor: "#B4975A" },
+                      ]
                 }
               >
                 <Text
                   style={
                     userState.user.darkMode === "light"
                       ? [styles.title, { color: "#ebecf2" }]
-                      : [styles.title, { color: "white" }]
+                      : [styles.title, { color: "#000000" }]
                   }
                 >
                   {item.title}
@@ -85,11 +103,9 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
                   name={"user-circle"}
                   type={"font-awesome"}
                   size={17}
-                  color={
-                    userState.user.darkMode === "light" ? "#ebecf2" : "black"
-                  }
+                  color={state.darkMode === "light" ? "#ebecf2" : "#fff"}
                   backgroundColor={
-                    userState.user.darkMode === "light" ? "#7f71a0" : "#7f71a0"
+                    state.darkMode === "light" ? "#7f71a0" : "#B4975A"
                   }
                   borderRadius={80}
                 />
@@ -109,15 +125,12 @@ const styles = StyleSheet.create({
     width: width * 95,
   },
   ContTitle: {
-    //backgroundColor: "#24507198",
-    //backgroundColor: '#FFFFFF98',
     marginTop: 18,
     paddingTop: 4,
     paddingBottom: 4,
     borderRadius: 10,
     //Sombra
-    shadowColor: "black",
-    shadowOffset: { width: 3, height: 3 },
+    shadowOffset: { width: 3, height: 5 },
     shadowOpacity: 0.3,
     shadowRadius: 3.84,
   },
@@ -125,8 +138,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    //color: "#7f71a0",
-    //color: "#ebecf2", //"#a5a4a4"
   },
   ContDescrip: {
     flex: 3,
@@ -134,21 +145,18 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginTop: 4.5,
-    //color: "#ebecf2",
     textAlign: "left",
     flex: 3,
     paddingBottom: 3,
   },
   card: {
-    //backgroundColor: "#b580ba",
     padding: 8,
     marginTop: 10,
     width: width * 0.46,
     height: height * 0.4,
     marginLeft: 10,
-    borderRadius: 20, //7
+    borderRadius: 10, //7
     //Sombra
-    shadowColor: "black",
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 3.84,
@@ -156,7 +164,6 @@ const styles = StyleSheet.create({
   },
   ContImage: {
     //Sombra
-    shadowColor: "#7c3593",
     shadowOffset: { width: 3, height: 12 },
     shadowOpacity: 0.5,
     shadowRadius: 3.84,
