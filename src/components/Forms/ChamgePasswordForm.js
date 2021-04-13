@@ -35,7 +35,7 @@ const ChangePasswordForm = ({ navigation }) => {
       <View style={styles.header}>
         <Text
           style={
-            state.darkMode === "light"
+            recipeState.darkMode === "light"
               ? [styles.h1, { color: "#245071" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -44,7 +44,7 @@ const ChangePasswordForm = ({ navigation }) => {
         </Text>
         <Text
           style={
-            state.darkMode === "light"
+            recipeState.darkMode === "light"
               ? [styles.h2, { color: "#245071" }]
               : [styles.h2, { color: "#fff" }]
           }
@@ -74,7 +74,7 @@ const ChangePasswordForm = ({ navigation }) => {
             title="Volver al inicio de sesión"
             paddingTop={50}
             size={20}
-            color={state.darkMode === "light" ? "#245071" : "#fff"}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
             callback={() => navigation.navigate("Login")}
           />
         </View>
