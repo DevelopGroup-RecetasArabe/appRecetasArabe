@@ -13,8 +13,6 @@ const Home = ({ navigation }) => {
     getRecipes();
   }, [refresh]);
 
-  useEffect(() => {}, [state.darkMode]);
-
   /*Función que controla el renderizado de mi app  */
   const handleRefresh = () => {
     setRefresh(!refresh);

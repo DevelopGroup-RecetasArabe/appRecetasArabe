@@ -7,7 +7,7 @@ const { height } = Dimensions.get("window");
 
 const ImageButton = ({ image, callback }) => {
   const { state } = useContext(RecipeContext);
-  useEffect(() => {}, [state.darkMode]);
+
   return (
     <View>
       <TouchableOpacity

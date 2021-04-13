@@ -14,8 +14,6 @@ const { width, height } = Dimensions.get("screen");
 const SignIn = ({ navigation }) => {
   const { state: recipeState } = useContext(RecipeContext);
 
-  useEffect(() => {}, [recipeState.darkMode]);
-
   const { state, signin, signInWithGoogle } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

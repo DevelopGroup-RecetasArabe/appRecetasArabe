@@ -23,8 +23,6 @@ const AddRecipes = ({ navigation }) => {
   const { state: recipeState, createRecipe } = useContext(RecipeContext);
   const { state } = useContext(AuthContext);
 
-  useEffect(() => {}, [recipeState.darkMode]);
-
   /*Variable para almacenar la imagen */
   const [image, setImage] = useState(null);
 

@@ -18,7 +18,6 @@ const InputText = ({
 }) => {
   const { state: recipeState } = useContext(RecipeContext);
 
-  useEffect(() => {}, [recipeState.darkMode]);
   return (
     <View style={styles.container}>
       <Input

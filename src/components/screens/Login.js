@@ -9,8 +9,6 @@ const { width, height } = Dimensions.get("screen");
 const Login = ({ navigation }) => {
   const { state: recipeState } = useContext(RecipeContext);
 
-  useEffect(() => {}, [recipeState.darkMode]);
-
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}

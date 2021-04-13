@@ -16,8 +16,6 @@ const { width, height } = Dimensions.get("window");
 const Card = ({ navigation, array }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
 
-  useEffect(() => {}, [state.darkMode]);
-
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
       <Text>No hay Recetas Agregadas</Text>

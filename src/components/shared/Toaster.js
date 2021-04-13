@@ -13,7 +13,6 @@ const { width, height } = Dimensions.get("window");
 
 const Toaster = ({ message, callback }) => {
   const { state: stateToster, setCurrentRecipe } = useContext(RecipeContext);
-  useEffect(() => {}, [stateToster.darkMode]);
 
   return (
     <View style={styles.position}>

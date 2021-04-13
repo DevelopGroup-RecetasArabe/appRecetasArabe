@@ -22,8 +22,6 @@ const SignUp = ({ navigation }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   //const [error, setError] = useState("");
 
-  useEffect(() => {}, [recipeState.darkMode]);
-
   // Verifica que los datos ingresados sean correctos
   const handleVerify = (input) => {
     if (input === "fullname") {

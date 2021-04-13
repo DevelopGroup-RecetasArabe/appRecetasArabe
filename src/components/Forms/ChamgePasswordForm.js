@@ -13,8 +13,6 @@ const ChangePasswordForm = ({ navigation }) => {
   const { changePassword } = useContext(AuthContext);
   const { state: recipeState } = useContext(RecipeContext);
 
-  useEffect(() => {}, [recipeState.darkMode]);
-
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   //const [error, setError] = useState("");
