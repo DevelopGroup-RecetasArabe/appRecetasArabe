@@ -8,7 +8,6 @@ import Toaster from "../shared/Toaster";
 
 const Home = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
-  const { state: userState } = useContext(Context);
   const { state, getRecipes, refreshHome, clearMessage } = useContext(
     RecipeContext
   );
@@ -17,9 +16,7 @@ const Home = ({ navigation }) => {
     getRecipes();
   }, [refresh]);
 
-  useEffect(() => {}, [userState.user.darkMode]);
-
-  console.log(userState.user.darkMode);
+  useEffect(() => {}, [state.darkMode]);
 
   const handleRefresh = () => {
     setRefresh(!refresh);

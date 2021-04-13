@@ -17,18 +17,22 @@ const Toaster = ({ message, callback }) => {
 
   return (
     <View style={styles.position}>
-      <View 
-      style={
-        stateToster.darkMode === "light"
-          ? [styles.toast, { backgroundColor: "#7c3593"}]
-          : [styles.toast, { backgroundColor: "#000"}]
-      }>
+      <View
+        style={
+          stateToster.darkMode === "light"
+            ? [styles.toast, { backgroundColor: "#7c3593" }]
+            : [styles.toast, { backgroundColor: "#000" }]
+        }
+      >
         <Text
           style={
             stateToster.darkMode === "light"
-              ? [styles.message, {color: "#fff"}]
-              : [styles.message, {color: "#fff"}]
-          }>{message}</Text>
+              ? [styles.message, { color: "#fff" }]
+              : [styles.message, { color: "#fff" }]
+          }
+        >
+          {message}
+        </Text>
         <View style={styles.positonX}>
           <Icon
             name="refresh"
@@ -54,8 +58,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     textAlign: "center",
     width: width * 0.5,
-    borderWidth:2,
-    borderColor: "red"
+    borderWidth: 2,
+    borderColor: "red",
   },
   message: {
     flex: 1,

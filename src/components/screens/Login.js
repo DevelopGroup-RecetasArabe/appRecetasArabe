@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, useColorScheme } from "react-native";
 import { Dimensions, StyleSheet, View, Image, Text } from "react-native";
 import SignIn from "../Forms/SignIn";
 import Logo from "../../assets/logo.png";
@@ -11,8 +11,14 @@ const { width, height } = Dimensions.get("screen");
 
 const Login = ({ navigation, route }) => {
   const { state } = useContext(AuthContext);
+  const { state: recipeState, darkMode } = useContext(RecipeContext);
+  const colorScheme = useColorScheme();
 
-  useEffect(() => {}, [state.user.darkMode]);
+  useEffect(() => {
+    darkMode(colorScheme);
+  }, []);
+
+  useEffect(() => {}, [recipeState.darkMode]);
 
   return (
     <LinearGradient
@@ -25,7 +31,7 @@ const Login = ({ navigation, route }) => {
         <View>
           <View
             style={
-              state.darkMode === "light"
+              recipeState.darkMode === "light"
                 ? [
                     styles.form,
                     { backgroundColor: "#ffffff", borderRadius: 10 },

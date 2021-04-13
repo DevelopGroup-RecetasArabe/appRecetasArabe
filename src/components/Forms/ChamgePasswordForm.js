@@ -12,8 +12,9 @@ const { width, height } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
   const { state: userState, changePassword } = useContext(AuthContext);
+  const { state: recipeState } = useContext(RecipeContext);
 
-  useEffect(() => {}, [userState.user.darkMode]);
+  useEffect(() => {}, [recipeState.darkMode]);
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);

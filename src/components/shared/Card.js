@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get("window");
 const Card = ({ navigation, array, recipeID, callbackDelete }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
   const { state: userState } = useContext(AuthContext);
-  useEffect(() => {}, [userState.user.darkMode]);
+  useEffect(() => {}, [state.darkMode]);
 
   const emptyFlatList = (
     <View style={styles.emptyNotes}>
@@ -79,7 +79,7 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
               >
                 <Text
                   style={
-                    userState.user.darkMode === "light"
+                    state.darkMode === "light"
                       ? [styles.title, { color: "#ebecf2" }]
                       : [styles.title, { color: "#000000" }]
                   }
@@ -90,7 +90,7 @@ const Card = ({ navigation, array, recipeID, callbackDelete }) => {
               <View style={styles.ContDescrip}>
                 <Text
                   style={
-                    userState.user.darkMode === "light"
+                    state.darkMode === "light"
                       ? [styles.description, { color: "#ebecf2" }]
                       : [styles.description, { color: "#ebecf2" }]
                   }

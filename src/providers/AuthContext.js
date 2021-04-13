@@ -25,11 +25,6 @@ const authReducer = (state, action) => {
       return { ...state, user: action.payload, loggedIn: true };
     case "signup":
       return { ...state, user: action.payload };
-    case "changeModeLight":
-      return {
-        ...state,
-        user: action.payload,
-      };
     default:
       return state;
   }
@@ -132,11 +127,11 @@ const signInWithGoogle = (dispatch) => async (mode) => {
       .then((response) => {
         const uid = response.user.uid;
         const name = response.user.displayName;
+        const email = response.user.email;
         const data = {
           id: uid,
           fullname: name,
           email,
-          darkMode: "",
         };
 
         firebase
@@ -182,7 +177,6 @@ const signup = (dispatch) => (fullname, email, password, navigation) => {
           dispatch({
             type: "signup",
             payload: data,
-            darkMode: "light",
           });
           navigation.navigate("Login");
         })
@@ -218,24 +212,6 @@ const changePassword = (dispatch) => (email, navigation) => {
     });
 };
 
-//Cambiar el modo light
-const changeModeLight = (dispatch) => (userId, email, fullname, mode) => {
-  const data = {
-    id: userId,
-    email,
-    fullname,
-    darkMode: mode,
-  };
-  firebase
-    .firestore()
-    .collection("users")
-    .doc(userId)
-    .update(data)
-    .then(() => {
-      dispatch({ type: "changeModeLight", payload: data });
-    });
-};
-
 // Exportar las funcionalidades requeridas al contexto
 export const { Provider, Context } = createDataContext(
   authReducer,
@@ -246,13 +222,11 @@ export const { Provider, Context } = createDataContext(
     signout,
     persistLogin,
     signInWithGoogle,
-    changeModeLight,
   },
   {
     user: {},
     errorMessage: "",
     loggedIn: false,
     loading: true,
-    darkMode: "light",
   }
 );

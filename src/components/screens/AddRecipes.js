@@ -24,7 +24,7 @@ const AddRecipes = ({ navigation }) => {
   const { state } = useContext(AuthContext);
   const [refresh, setRefresh] = useState(false);
 
-  useEffect(() => {}, [state.user.darkMode]);
+  useEffect(() => {}, [recipeState.darkMode]);
 
   /*Variable para almacenar la imagen */
   const [image, setImage] = useState(null);
@@ -123,14 +123,6 @@ const AddRecipes = ({ navigation }) => {
     setArrayPreparations([...arrayPreparations]);
   };
 
-  //Limpiar
-  const clear = () => {
-    setImage(null);
-    setTitle("");
-    setDescription("");
-    setArrayIngredients([]);
-    setArrayPreparations([]);
-  };
   return (
     <LinearGradient
       colors={
@@ -153,7 +145,7 @@ const AddRecipes = ({ navigation }) => {
         <View style={styles.formRecipes}>
           <View
             style={
-              state.user.darkMode === "light"
+              recipeState.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
@@ -166,7 +158,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Text
               style={
-                state.user.darkMode === "light"
+                recipeState.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -187,7 +179,7 @@ const AddRecipes = ({ navigation }) => {
             />
             <Text
               style={
-                state.user.darkMode === "light"
+                recipeState.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -198,7 +190,7 @@ const AddRecipes = ({ navigation }) => {
               placeholder={"Ejemplo: Rico platillo"}
               value={description}
               onChangeText={setDescription}
-              color={state.user.darkMode === "light" ? "#245071" : "#fff"}
+              color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("description");
               }}
@@ -213,7 +205,7 @@ const AddRecipes = ({ navigation }) => {
         ingredientes*/}
           <View
             style={
-              state.user.darkMode === "light"
+              recipeState.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
@@ -226,7 +218,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Text
               style={
-                state.user.darkMode === "light"
+                recipeState.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -284,7 +276,7 @@ const AddRecipes = ({ navigation }) => {
               <TouchableOpacity onPress={handleAddInputIngredient}>
                 <Text
                   style={
-                    state.user.darkMode === "light"
+                    recipeState.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -303,7 +295,7 @@ const AddRecipes = ({ navigation }) => {
               <TouchableOpacity onPress={handleDeleteInputIngredient}>
                 <Text
                   style={
-                    state.user.darkMode === "light"
+                    recipeState.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -325,7 +317,7 @@ const AddRecipes = ({ navigation }) => {
           {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
           <View
             style={
-              state.user.darkMode === "light"
+              recipeState.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
@@ -338,7 +330,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Text
               style={
-                state.user.darkMode === "light"
+                recipeState.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -396,7 +388,7 @@ const AddRecipes = ({ navigation }) => {
               <TouchableOpacity onPress={handleAddInputPreparation}>
                 <Text
                   style={
-                    state.user.darkMode === "light"
+                    recipeState.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -415,7 +407,7 @@ const AddRecipes = ({ navigation }) => {
               <TouchableOpacity onPress={handleDeleteInputPreparation}>
                 <Text
                   style={
-                    state.user.darkMode === "light"
+                    recipeState.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -463,7 +455,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Button
               title="Guardar"
-              color={recipeState.darkMode === "light" ? "#7c3593" : "#fff"}
+              color={recipeState.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 if (
                   image &&

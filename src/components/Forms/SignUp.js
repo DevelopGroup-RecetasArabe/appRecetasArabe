@@ -22,7 +22,7 @@ const SignUp = ({ navigation }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {}, [state.user.darkMode]);
+  useEffect(() => {}, [recipeState.darkMode]);
 
   // Verifica que los datos ingresados sean correctos
   const handleVerify = (input) => {

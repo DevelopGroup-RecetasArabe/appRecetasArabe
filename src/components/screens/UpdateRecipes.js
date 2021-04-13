@@ -150,7 +150,7 @@ const UpdateRecipes = ({ route, navigation }) => {
         <View style={styles.formRecipes}>
           <View
             style={
-              userState.user.darkMode === "light"
+              state.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
@@ -163,7 +163,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -174,7 +174,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               placeholder={"Ejemplo: Kibbe"}
               value={title}
               onChangeText={setTitle}
-              color={userState.user.darkMode === "light" ? "#245071" : "#fff"}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("title");
               }}
@@ -184,7 +184,7 @@ const UpdateRecipes = ({ route, navigation }) => {
             />
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -195,7 +195,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
               value={description}
               onChangeText={setDescription}
-              color={userState.user.darkMode === "light" ? "#245071" : "#fff"}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("description");
               }}
@@ -223,7 +223,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -277,7 +277,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               <TouchableOpacity onPress={handleAddInputIngredient}>
                 <Text
                   style={
-                    userState.user.darkMode === "light"
+                    state.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -314,7 +314,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
           <View
             style={
-              userState.user.darkMode === "light"
+              state.darkMode === "light"
                 ? [
                     styles.styleForm,
                     { backgroundColor: "#FFFFFF98", borderRadius: 10 },
@@ -327,7 +327,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.titles, { color: "black" }]
                   : [styles.titles, { color: "#fff" }]
               }
@@ -383,7 +383,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               <TouchableOpacity onPress={handleAddInputPreparation}>
                 <Text
                   style={
-                    userState.user.darkMode === "light"
+                    state.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -400,7 +400,7 @@ const UpdateRecipes = ({ route, navigation }) => {
               <TouchableOpacity onPress={handleDeleteInputPreparation}>
                 <Text
                   style={
-                    userState.user.darkMode === "light"
+                    state.darkMode === "light"
                       ? [styles.textIngredients, { color: "black" }]
                       : [styles.textIngredients, { color: "#fff" }]
                   }
@@ -446,7 +446,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Button
               title="Actualizar"
-              color={state.darkMode === "light" ? "#7c3593" : "#fff"}
+              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 updateRecipes(
                   title,

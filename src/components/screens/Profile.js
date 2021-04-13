@@ -10,29 +10,16 @@ const Profile = ({ navigation }) => {
   const { state: userState, signout, changeModeLight } = useContext(
     AuthContext
   );
-  const { state, darkMode, lightMode } = useContext(RecipeContext);
+  const { state: recipeState, darkMode } = useContext(RecipeContext);
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(recipeState.darkMode === "dark");
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     if (!isEnabled) {
-      darkMode();
-      changeModeLight(
-        userState.user.id,
-        userState.user.email,
-        userState.user.fullname,
-        "dark"
-      );
-      setIsEnabled(true);
+      darkMode("dark");
     } else {
-      lightMode();
-      changeModeLight(
-        userState.user.id,
-        userState.user.email,
-        userState.user.fullname,
-        "light"
-      );
+      darkMode("light");
     }
   };
 

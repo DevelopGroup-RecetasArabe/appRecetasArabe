@@ -9,7 +9,8 @@ const { width, height } = Dimensions.get("screen");
 
 const ChangePassword = ({ navigation }) => {
   const { state } = useContext(AuthContext);
-  useEffect(() => {}, [state.user.darkMode]);
+  const { state: recipeState } = useContext(RecipeContext);
+  useEffect(() => {}, [recipeState.darkMode]);
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}
@@ -20,7 +21,7 @@ const ChangePassword = ({ navigation }) => {
       <ScrollView style={styles.container}>
         <View
           style={
-            state.darkMode === "light"
+            recipeState.darkMode === "light"
               ? [styles.form, { backgroundColor: "#ffffff", borderRadius: 10 }]
               : [
                   styles.form,

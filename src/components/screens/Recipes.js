@@ -42,7 +42,7 @@ const Recipes = ({ route }) => {
   return (
     <ScrollView
       style={
-        userState.user.darkMode === "light"
+        state.darkMode === "light"
           ? [styles.container, { backgroundColor: "#fff" }]
           : [styles.container, { backgroundColor: "black" }]
       }
@@ -66,7 +66,7 @@ const Recipes = ({ route }) => {
       <View style={styles.formTitle}>
         <Text
           style={
-            userState.user.darkMode === "light"
+            state.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
@@ -75,7 +75,7 @@ const Recipes = ({ route }) => {
         </Text>
         <Text
           style={
-            userState.user.darkMode === "light"
+            state.darkMode === "light"
               ? [styles.p, { color: "black" }]
               : [styles.p, { color: "#fff" }]
           }
@@ -129,7 +129,7 @@ const Recipes = ({ route }) => {
             </View>
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.text, { color: "black" }]
                   : [styles.text, { color: "#fff" }]
               }
@@ -182,7 +182,7 @@ const Recipes = ({ route }) => {
             </View>
             <Text
               style={
-                userState.user.darkMode === "light"
+                state.darkMode === "light"
                   ? [styles.text, { color: "black" }]
                   : [styles.text, { color: "#fff" }]
               }
