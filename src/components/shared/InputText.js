@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Input, Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 const width = Dimensions.get("window").width;
 
 const InputText = ({
@@ -19,9 +18,8 @@ const InputText = ({
   callback,
 }) => {
   const { state: recipeState } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
 
-  useEffect(() => {}, [userState.user.darkMode]);
+  useEffect(() => {}, [recipeState.darkMode]);
   return (
     <View style={styles.container}>
       <Input
@@ -35,10 +33,10 @@ const InputText = ({
           />
         }
         placeholder={placeholder}
-        color={userState.user.darkMode === "light" ? "#245071" : "#fff"}
+        color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
         style={(styles.input, { borderRadius: 3 })}
         inputContainerStyle={
-          userState.user.darkMode === "light"
+          recipeState.darkMode === "light"
             ? {
                 borderBottomWidth: 1,
                 borderColor: "#090979",

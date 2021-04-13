@@ -455,7 +455,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Button
               title="Guardar"
-              color={recipeState.darkMode === "light" ? "#7c3593" : "#7c3593"}
+              color={recipeState.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 if (
                   image &&

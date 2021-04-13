@@ -24,8 +24,11 @@ const NavigationStack = () => {
     persistLogin();
   }, []);
 
+<<<<<<< HEAD
   console.log(colorScheme);
 
+=======
+>>>>>>> 9bdb7674bde6d531594f95f83d07b254e8c2c68a
   // Prevenir que se oculte la pantalla de splash
   SplashScreen.preventAutoHideAsync();
 
