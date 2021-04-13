@@ -1,12 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, View, Dimensions, ScrollView, Button } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import CardList from "../shared/CardList";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
 import Toaster from "../shared/Toaster";
-
-const { width, height } = Dimensions.get("window");
 
 const MyRecipes = ({ navigation }) => {
   const { state: userState } = useContext(AuthContext);
@@ -22,6 +20,7 @@ const MyRecipes = ({ navigation }) => {
     getRecipesByUserID(userState.user.id);
   }, [refresh]);
 
+  /*Función que controla el renderizado de mi app  */
   const handleRefresh = () => {
     setRefresh(!refresh);
     refreshMyRecipe();
@@ -29,7 +28,11 @@ const MyRecipes = ({ navigation }) => {
 
   return (
     <LinearGradient
-      colors={state.darkMode === "light" ? ["#245071", "#9921e8"] : ["#090979", "#bb00f7"]}
+      colors={
+        state.darkMode === "light"
+          ? ["#245071", "#9921e8"]
+          : ["#090979", "#bb00f7"]
+      }
       start={{ x: 0, y: 0.2 }}
       end={{ x: 1, y: 0.2 }}
       style={styles.container}
@@ -54,10 +57,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-    den: {
-      paddingTop: 10,
-      paddingBottom: 10,
-    },
+  den: {
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
 });
 
 export default MyRecipes;

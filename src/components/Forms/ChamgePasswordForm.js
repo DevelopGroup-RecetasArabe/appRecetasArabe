@@ -3,23 +3,23 @@ import { StyleSheet, View, Text, Dimensions } from "react-native";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import { validate } from "email-validator";
-import { firebase } from "../../Firebase";
 import Enlace from "../shared/Enlace";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
-  const { state: userState, changePassword } = useContext(AuthContext);
+  const { changePassword } = useContext(AuthContext);
   const { state: recipeState } = useContext(RecipeContext);
 
   useEffect(() => {}, [recipeState.darkMode]);
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
 
+  /*Función para verificar si hay campos vacios*/
   const handleVerify = (input) => {
     if (input === "email") {
       if (!email) setEmailError(true);
@@ -27,9 +27,12 @@ const ChangePasswordForm = ({ navigation }) => {
       else setEmailError(false);
     }
   };
+
+  /*Función para cambiar la contraseña por medio firebase*/
   const handleChangePassword = () => {
     if (email) changePassword(email);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

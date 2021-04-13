@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 
 const Enlace = ({
   title,

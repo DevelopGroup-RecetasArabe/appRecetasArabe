@@ -2,13 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 import ChangePasswordForm from "../Forms/ChamgePasswordForm";
 
 const { width, height } = Dimensions.get("screen");
 
 const ChangePassword = ({ navigation }) => {
-  const { state } = useContext(AuthContext);
   const { state: recipeState } = useContext(RecipeContext);
   useEffect(() => {}, [recipeState.darkMode]);
   return (

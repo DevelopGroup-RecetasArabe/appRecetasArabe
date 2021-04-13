@@ -2,15 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Dimensions, ScrollView } from "react-native";
 import Card from "../shared/Card";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext, Context } from "../../providers/AuthContext";
 import { LinearGradient } from "expo-linear-gradient";
 import Toaster from "../shared/Toaster";
 
 const Home = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
-  const { state, getRecipes, refreshHome, clearMessage } = useContext(
-    RecipeContext
-  );
+  const { state, getRecipes, refreshHome } = useContext(RecipeContext);
 
   useEffect(() => {
     getRecipes();
@@ -18,6 +15,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {}, [state.darkMode]);
 
+  /*Función que controla el renderizado de mi app  */
   const handleRefresh = () => {
     setRefresh(!refresh);
     refreshHome();
@@ -39,6 +37,7 @@ const Home = ({ navigation }) => {
           {state.created ? (
             <Toaster message={state.message} callback={handleRefresh} />
           ) : null}
+
           <Card array={state.recipes} navigation={navigation} />
         </View>
       </ScrollView>

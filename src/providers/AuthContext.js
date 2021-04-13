@@ -32,20 +32,13 @@ const authReducer = (state, action) => {
 
 // Permite el inicio de sesión mediante firebase con email y password
 const signin = (dispatch) => (email, password) => {
-  // Hacer la petición al API de firebasee
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((response) => {
-      // Obtener el Unique Identifier generado para cada usuario
-      // Firebase -> Authentication
       const uid = response.user.uid;
-
-      // Obtener la colección desde Firebase
       const usersRef = firebase.firestore().collection("users");
 
-      // Verificar que el usuario existe en Firebase authentication
-      // y también está almacenado en la colección de usuarios.
       usersRef
         .doc(uid)
         .get()
@@ -56,7 +49,6 @@ const signin = (dispatch) => (email, password) => {
               payload: "User does not exist in the database!",
             });
           } else {
-            // Llamar el reducer y enviarle los valores del usuario al estado
             dispatch({ type: "errorMessage", payload: "" });
             dispatch({ type: "signin", payload: firestoreDocument.data() });
           }
@@ -84,8 +76,6 @@ const signout = (dispatch) => () => {
 const persistLogin = (dispatch) => () => {
   const userRef = firebase.firestore().collection("users");
 
-  // Si el usuario ya se ha autenticado previamente, retornar
-  // la información del usuario, caso contrario,retonar un objeto vacío.
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       userRef
@@ -140,7 +130,6 @@ const signInWithGoogle = (dispatch) => async (mode) => {
           .doc(uid)
           .set(data)
           .then(() => {
-            console.log("hola");
             dispatch({ type: "signInWithGoogle", payload: data });
           })
           .catch((error) => {
@@ -155,21 +144,15 @@ const signup = (dispatch) => (fullname, email, password, navigation) => {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then((response) => {
-      // Obtener el Unique Identifier generado para cada usuario
-      // Firebase -> Authentication
       const uid = response.user.uid;
-
-      // Construir el objeto que le enviaremos a la collección de "users"
       const data = {
         id: uid,
         fullname,
         email,
       };
 
-      // Obtener la colección desde Firebase
       const usersRef = firebase.firestore().collection("users");
 
-      // Almacenar la información del usuario que se registra en Firestore
       usersRef
         .doc(uid)
         .set(data)

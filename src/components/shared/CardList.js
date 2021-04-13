@@ -11,13 +11,12 @@ import { Image } from "react-native-elements";
 import { Icon } from "react-native-elements";
 
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
 const CardList = ({ navigation, array, callbackDelete }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
+
   useEffect(() => {}, [state.darkMode]);
 
   const emptyFlatList = (

@@ -5,15 +5,12 @@ import Home from "../screens/Home";
 import MyRecipes from "../screens/MyRecipes";
 import Profile from "../screens/Profile";
 import AddRecipes from "../screens/AddRecipes";
-import { Context as AuthContext } from "../../providers/AuthContext";
-import Login from "../screens/Login";
-import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
+/*Declaración para Tab para asignar la funcion createBottomTabNavigator */
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
-  const { state, signout } = useContext(AuthContext);
   const { state: recipeState } = useContext(RecipeContext);
   useEffect(() => {}, [recipeState.darkMode]);
 

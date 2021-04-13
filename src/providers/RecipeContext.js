@@ -15,7 +15,6 @@ const recipeReducer = (state, action) => {
       return {
         ...state,
         recipes: [...recipes, action.payload],
-        created: true,
       };
     case "getRecipes":
       return { ...state, recipes: action.payload };
@@ -24,7 +23,7 @@ const recipeReducer = (state, action) => {
     case "updateRecipe ":
       return {
         ...state,
-        updated: true,
+
         recipesByUserID: state.recipesByUserID.map((recipe) => {
           if (recipe.id === action.payload.recipe.id) {
             return {
@@ -91,6 +90,7 @@ const createRecipe = (dispatch) => async (
           fullname,
         })
         .then(() => {
+          dispatch({ type: "updated", payload: true });
           dispatch({ type: "created", payload: true });
           dispatch({ type: "toastMessage", payload: "Receta Guardada" });
         })
@@ -161,6 +161,7 @@ const updateRecipes = (dispatch) => (
       dispatch({ type: "updateRecipes", payload: { recipe: data } });
       dispatch({ type: "toastMessage", payload: "Receta Actualizada" });
       dispatch({ type: "updated", payload: true });
+      dispatch({ type: "created", payload: true });
     })
     .catch((error) => {
       dispatch({ type: "toastMessage", payload: error.message });
@@ -176,6 +177,7 @@ const deleteRecipe = (dispatch) => (id) => {
     .then(() => {
       dispatch({ type: "toastMessage", payload: "Receta Borrada" });
       dispatch({ type: "updated", payload: true });
+      dispatch({ type: "created", payload: true });
     })
     .catch((error) => {
       dispatch({ type: "toastMessage", payload: error.message });

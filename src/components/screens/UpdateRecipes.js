@@ -3,7 +3,6 @@ import {
   Button,
   Text,
   View,
-  Platform,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -13,15 +12,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import ImageButton from "../shared/ImageButton";
 import { Input, Icon } from "react-native-elements";
-import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
-const UpdateRecipes = ({ route, navigation }) => {
+const UpdateRecipes = ({ navigation }) => {
   /*Funcion de crear la receta  */
   const { state, updateRecipes } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
 
   /*Variable para almacenar la imagen */
   const [image, setImage] = useState(null);
@@ -57,20 +54,6 @@ const UpdateRecipes = ({ route, navigation }) => {
       setArrayPreparations([...arrayPreparations]);
     }
   }, [state.currentRecipe]);
-
-  /*Permiso para la acceder a la carpeta*/
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
-      }
-    })();
-  }, []);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -110,6 +93,7 @@ const UpdateRecipes = ({ route, navigation }) => {
     setArrayPreparations([...arrayPreparations]);
   };
 
+  /*Funcion para verificar si lo campos estan vacíos */
   const handleVerify = (input) => {
     if (input === "title") {
       if (!title) setTitleError(true);
@@ -120,11 +104,13 @@ const UpdateRecipes = ({ route, navigation }) => {
     }
   };
 
+  /*Función para borrar cualquier input de Ingredientes */
   const handleDeleteByPositon = (position) => {
     arrayIngredients.splice(position, 1);
     setArrayIngredients([...arrayIngredients]);
   };
 
+  /*Función para borrar cualquier input de Preparaciones */
   const handleDeleteByPositonPreparation = (position) => {
     arrayPreparations.splice(position, 1);
     setArrayPreparations([...arrayPreparations]);
@@ -342,9 +328,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                       key={`preparacion${j}`}
                       placeholder={`Ej: Paso # ${j + 1}`}
                       value={arr}
-                      color={
-                        state.darkMode === "light" ? "#245071" : "#fff"
-                      }
+                      color={state.darkMode === "light" ? "#245071" : "#fff"}
                       onChangeText={(val) => {
                         arrayPreparations[j] = val;
                         setArrayPreparations([...arrayPreparations]);
@@ -446,7 +430,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Button
               title="Actualizar"
-              color={state.darkMode === "light" ? "#7c3593" : "#fff"}
+              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 updateRecipes(
                   title,

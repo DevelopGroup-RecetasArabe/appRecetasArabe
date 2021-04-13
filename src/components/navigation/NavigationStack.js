@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import { useColorScheme } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as SplashScreen from "expo-splash-screen";
 import { Context as AuthContext } from "../../providers/AuthContext";
-import { Context as RecipeContext } from "../../providers/RecipeContext";
 import Login from "../screens/Login";
 import NewUser from "../screens/NewUser";
 import ChangePassword from "../screens/ChangePassword";
@@ -15,20 +13,13 @@ import UpdateRecipes from "../screens/UpdateRecipes";
 const Stack = createStackNavigator();
 
 const NavigationStack = () => {
-  const { state, persistLogin, changeModeLight } = useContext(AuthContext);
-  const { state: recipeState, darkMode } = useContext(RecipeContext);
-  const colorScheme = useColorScheme();
+  const { state, persistLogin } = useContext(AuthContext);
 
   // Verificar si ya existen credenciales de autenticación
   useEffect(() => {
     persistLogin();
   }, []);
 
-<<<<<<< HEAD
-  console.log(colorScheme);
-
-=======
->>>>>>> 9bdb7674bde6d531594f95f83d07b254e8c2c68a
   // Prevenir que se oculte la pantalla de splash
   SplashScreen.preventAutoHideAsync();
 

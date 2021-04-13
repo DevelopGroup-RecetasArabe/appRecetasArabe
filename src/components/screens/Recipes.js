@@ -9,12 +9,12 @@ import {
   ScrollView,
 } from "react-native";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("window");
 
-const Recipes = ({ route }) => {
+const Recipes = () => {
   const { state } = useContext(RecipeContext);
+
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,8 +36,6 @@ const Recipes = ({ route }) => {
       }
     }
   }, [state.currentRecipe]);
-
-  console.log(arrayIngredients);
 
   return (
     <ScrollView

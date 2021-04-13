@@ -22,7 +22,6 @@ const AddRecipes = ({ navigation }) => {
   /*Funcion de crear la receta  */
   const { state: recipeState, createRecipe } = useContext(RecipeContext);
   const { state } = useContext(AuthContext);
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {}, [recipeState.darkMode]);
 
@@ -44,7 +43,6 @@ const AddRecipes = ({ navigation }) => {
   const [preparationError, setPreparationError] = useState([]);
 
   /*Limpieza de los inputs */
-
   const clear = () => {
     setImage(null);
     setTitle("");
@@ -455,7 +453,7 @@ const AddRecipes = ({ navigation }) => {
           >
             <Button
               title="Guardar"
-              color={recipeState.darkMode === "light" ? "#7c3593" : "#fff"}
+              color={recipeState.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 if (
                   image &&

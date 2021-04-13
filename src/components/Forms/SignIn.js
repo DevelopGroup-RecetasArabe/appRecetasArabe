@@ -1,12 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Button,
-  Dimensions,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import { validate } from "email-validator";
 import InputText from "../shared/InputText";
 import Enlace from "../shared/Enlace";
@@ -51,10 +44,12 @@ const SignIn = ({ navigation }) => {
     }
   };
 
+  /*Función para ingresar por medio de firebase */
   const handleSignin = () => {
     signin(email, password);
   };
 
+  /*Función para ingresar por medio de firebase con Google */
   const handleSignGoogle = () => {
     signInWithGoogle();
   };

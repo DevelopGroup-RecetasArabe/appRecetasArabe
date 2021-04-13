@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ScrollView } from "react-native";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 import {
   Dimensions,
   StyleSheet,
@@ -15,9 +13,9 @@ import { Icon } from "react-native-elements";
 
 const { width, height } = Dimensions.get("window");
 
-const Card = ({ navigation, array, recipeID, callbackDelete }) => {
+const Card = ({ navigation, array }) => {
   const { state, setCurrentRecipe } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
+
   useEffect(() => {}, [state.darkMode]);
 
   const emptyFlatList = (

@@ -1,18 +1,13 @@
 import React, { useContext, useEffect } from "react";
-import { ScrollView, useColorScheme } from "react-native";
-import { Dimensions, StyleSheet, View, Image, Text } from "react-native";
+import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
 import SignIn from "../Forms/SignIn";
-import Logo from "../../assets/logo.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
-import { Context as AuthContext } from "../../providers/AuthContext";
 
 const { width, height } = Dimensions.get("screen");
 
-const Login = ({ navigation, route }) => {
-  const { state } = useContext(AuthContext);
-  const { state: recipeState, darkMode } = useContext(RecipeContext);
-  const colorScheme = useColorScheme();
+const Login = ({ navigation }) => {
+  const { state: recipeState } = useContext(RecipeContext);
 
   useEffect(() => {}, [recipeState.darkMode]);
 

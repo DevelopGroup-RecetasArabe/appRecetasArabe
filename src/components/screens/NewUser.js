@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import SignUp from "../Forms/SignUp";
 import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
@@ -9,8 +9,7 @@ const { width, height } = Dimensions.get("screen");
 
 const NewUser = ({ navigation }) => {
   const { state } = useContext(RecipeContext);
-  const { state: userState } = useContext(AuthContext);
-  useEffect(() => {}, [userState.user.darkMode]);
+
   return (
     <LinearGradient
       colors={["#090979", "#bb00f7"]}

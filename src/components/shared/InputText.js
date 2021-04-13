@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Input, Icon } from "react-native-elements";
-import { LinearGradient } from "expo-linear-gradient";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 const width = Dimensions.get("window").width;
 

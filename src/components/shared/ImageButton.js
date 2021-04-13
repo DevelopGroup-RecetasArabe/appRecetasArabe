@@ -1,15 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View, Dimensions } from "react-native";
 import { Image, Icon } from "react-native-elements";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
-const { width, height } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 const ImageButton = ({ image, callback }) => {
   const { state } = useContext(RecipeContext);

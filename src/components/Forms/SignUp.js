@@ -7,11 +7,11 @@ import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import Enlace from "../shared/Enlace";
 
-const { width, height } = Dimensions.get("screen");
+const { width } = Dimensions.get("screen");
 
 const SignUp = ({ navigation }) => {
   const { state: recipeState } = useContext(RecipeContext);
-  const { state, signup } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,28 +20,24 @@ const SignUp = ({ navigation }) => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
 
   useEffect(() => {}, [recipeState.darkMode]);
 
   // Verifica que los datos ingresados sean correctos
   const handleVerify = (input) => {
     if (input === "fullname") {
-      // Verificar el nombre del usuario
       if (!fullname) setFullnameError(true);
       else setFullnameError(false);
     } else if (input === "email") {
-      // Verificar el correo electrónico
       if (!email) setEmailError(true);
       else if (!validate(email)) setEmailError(true);
       else setEmailError(false);
     } else if (input === "password") {
-      // Verificar la contraseña
       if (!password) setPasswordError(true);
       else if (password.length < 6) setPasswordError(true);
       else setPasswordError(false);
     } else if (input === "confirmPassword") {
-      // Verificar la confirmación de la contraseña
       if (!confirmPassword) setConfirmPasswordError(true);
       else if (confirmPassword !== password) setConfirmPasswordError(true);
       else setConfirmPasswordError(false);
