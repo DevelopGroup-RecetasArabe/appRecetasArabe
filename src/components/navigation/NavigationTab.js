@@ -29,7 +29,7 @@ const NavigationTab = () => {
               },
             }
           : {
-              activeTintColor: "#7c3593",
+              activeTintColor: "#B4975A",
               style: {
                 backgroundColor: "black",
               },
@@ -40,7 +40,7 @@ const NavigationTab = () => {
         name={"Home"}
         component={Home}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "Inicio",
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
           ),
@@ -52,7 +52,7 @@ const NavigationTab = () => {
         options={{
           tabBarLabel: "Mis recetas",
           tabBarIcon: ({ color }) => (
-            <Icon name="spoon" color={color} size={25} />
+            <Icon name="spoon" color={color} size={30} />
           ),
         }}
       />
@@ -60,9 +60,9 @@ const NavigationTab = () => {
         name={"AddRecipes"}
         component={AddRecipes}
         options={{
-          tabBarLabel: "Add",
+          tabBarLabel: "Añadir",
           tabBarIcon: ({ color }) => (
-            <Icon name="plus-circle" color={color} size={25} />
+            <Icon name="plus-circle" color={color} size={30} />
           ),
         }}
       />
@@ -70,9 +70,9 @@ const NavigationTab = () => {
         name={"Profile"}
         component={Profile}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Salir",
           tabBarIcon: ({ color }) => (
-            <Icon name="sign-out" color={color} size={25} />
+            <Icon name="sign-out" color={color} size={30} />
           ),
         }}
       />
