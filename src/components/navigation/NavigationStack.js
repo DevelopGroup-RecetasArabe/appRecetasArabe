@@ -26,10 +26,6 @@ const NavigationStack = () => {
 
   console.log(colorScheme);
 
-  useEffect(() => {
-    darkMode(colorScheme);
-  }, []);
-
   // Prevenir que se oculte la pantalla de splash
   SplashScreen.preventAutoHideAsync();
 

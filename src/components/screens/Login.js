@@ -14,10 +14,6 @@ const Login = ({ navigation, route }) => {
   const { state: recipeState, darkMode } = useContext(RecipeContext);
   const colorScheme = useColorScheme();
 
-  useEffect(() => {
-    darkMode(colorScheme);
-  }, []);
-
   useEffect(() => {}, [recipeState.darkMode]);
 
   return (

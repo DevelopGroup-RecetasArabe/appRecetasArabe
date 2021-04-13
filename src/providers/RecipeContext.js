@@ -233,6 +233,6 @@ export const { Provider, Context } = createDataContext(
     },
     created: false,
     updated: false,
-    darkMode: "light",
+    darkMode: "dark",
   }
 );

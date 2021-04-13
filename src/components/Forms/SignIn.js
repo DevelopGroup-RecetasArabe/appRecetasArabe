@@ -56,11 +56,7 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleSignGoogle = () => {
-    if (state.user.darkMode === "light") {
-      signInWithGoogle("light");
-    } else {
-      signInWithGoogle("dark");
-    }
+    signInWithGoogle();
   };
   return (
     <View style={styles.container}>
@@ -73,7 +69,7 @@ const SignIn = ({ navigation }) => {
       >
         <Text
           style={
-            state.user.darkMode === "light"
+            recipeState.darkMode === "light"
               ? [styles.h1, { color: "black" }]
               : [styles.h1, { color: "#fff" }]
           }
