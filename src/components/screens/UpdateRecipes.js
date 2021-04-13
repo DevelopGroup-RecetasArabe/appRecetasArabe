@@ -343,7 +343,7 @@ const UpdateRecipes = ({ route, navigation }) => {
                       placeholder={`Ej: Paso # ${j + 1}`}
                       value={arr}
                       color={
-                        userState.user.darkMode === "light" ? "#245071" : "#fff"
+                        state.darkMode === "light" ? "#245071" : "#fff"
                       }
                       onChangeText={(val) => {
                         arrayPreparations[j] = val;
@@ -446,7 +446,7 @@ const UpdateRecipes = ({ route, navigation }) => {
           >
             <Button
               title="Actualizar"
-              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
+              color={state.darkMode === "light" ? "#7c3593" : "#fff"}
               onPress={() => {
                 updateRecipes(
                   title,
