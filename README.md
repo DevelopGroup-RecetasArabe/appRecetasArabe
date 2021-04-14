@@ -9,12 +9,13 @@
   <br>
 </h1>
 >Lo que conocemos es un gota, lo que ignoramos es un oceano, asi que ayudanos con tus recetas arabes que conoces y aprende de las que desconoces.
+>
 ## Desarrolladores
  - Gustavo Cano
  - Carlos Navarro
  - Hugo Murillo
 <a>
-  ## Nosotros
+## Nosotros
 appRecetasArabe es una aplicación movil creada con React Native, utilizando Expo.cli y los conceptosde Node.js, se implemento React Hooks y un patrón de diseño basado en componentes, aplicando los principios de reutilización de código, se apllico CRUD al diseño y funcionalidad de la misma. Utilizamos Git como Sistema de Control de Versiones y GitHub como repositorio distribuido en la nube, 
   
   ## Objetivos
