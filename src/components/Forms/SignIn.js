@@ -7,6 +7,7 @@ import SharedButton from "../shared/SharedButton";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Logo from "../../assets/logo.png";
 import LogoDark from "../../assets/LogoDark2.png";
+import Alert from "../shared/Alert";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
@@ -24,6 +25,7 @@ const SignIn = ({ navigation }) => {
 
   useEffect(() => {
     setError(state.errorMessage);
+    setAlert(state.alert);
   }, [state.errorMessage]);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const SignIn = ({ navigation }) => {
       else setPasswordError(false);
     }
   };
-
+  console.log(state.alert);
   /*Función para ingresar por medio de firebase */
   const handleSignin = () => {
     signin(email, password);
@@ -75,7 +77,7 @@ const SignIn = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.formLogin}>
-        {alert ? <Text>Error!</Text> : null}
+        {state.alert ? <Alert type="error" title="Datos Incorrectos" /> : null}
         <InputText
           placeholder="Correo Electronico"
           icon="envelope"
@@ -108,7 +110,7 @@ const SignIn = ({ navigation }) => {
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
-        <View style={{ marginTop: 0 }}>
+        <View style={{ marginTop: 0, paddingTop: 0 }}>
           <SharedButton title="Iniciar Sesión" callback={handleSignin} />
         </View>
         <View style={{ marginTop: 12 }}>
@@ -139,8 +141,8 @@ const styles = StyleSheet.create({
   formLogin: {
     paddingTop: 20,
     paddingRight: 30,
-    paddingBottom: 20,
     paddingLeft: 30,
+    paddingBottom: 20,
   },
   header: {
     alignItems: "center",
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderLeftWidth: 5,
     borderRightWidth: 5,
-    paddingBottom: 15,
+    paddingBottom: 10,
 
     //Sombra
     shadowOffset: { width: 3, height: 4 },

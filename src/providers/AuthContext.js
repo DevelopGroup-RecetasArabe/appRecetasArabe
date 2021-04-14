@@ -8,6 +8,8 @@ const authReducer = (state, action) => {
   switch (action.type) {
     case "errorMessage":
       return { ...state, errorMessage: action.payload };
+    case "alert":
+      return {...state, alert: action.payload};
     case "signin":
       return { ...state, user: action.payload, loggedIn: true };
     case "signout":
@@ -48,14 +50,26 @@ const signin = (dispatch) => (email, password) => {
               type: "errorMessage",
               payload: "User does not exist in the database!",
             });
+            dispatch({
+              type: "alert",
+              payload: true,
+            });
           } else {
             dispatch({ type: "errorMessage", payload: "" });
             dispatch({ type: "signin", payload: firestoreDocument.data() });
+            dispatch({
+              type: "alert",
+              payload: false,
+            });
           }
         });
     })
     .catch((error) => {
       dispatch({ type: "errorMessage", payload: error.message });
+      dispatch({
+        type: "alert",
+        payload: true,
+      });
     });
 };
 
@@ -66,6 +80,7 @@ const signout = (dispatch) => () => {
     .signOut()
     .then(() => {
       dispatch({ type: "signout", payload: {} });
+      dispatch({ type: "alert", payload: false });
     })
     .catch((error) => {
       dispatch({ type: "errorMessage", payload: error.message });
@@ -211,5 +226,6 @@ export const { Provider, Context } = createDataContext(
     errorMessage: "",
     loggedIn: false,
     loading: true,
+    alert: false,
   }
 );
