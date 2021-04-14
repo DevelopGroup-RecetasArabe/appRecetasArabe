@@ -5,7 +5,7 @@
   <br>
   <a href="https://github.com/DevelopGroup-RecetasArabe/appRecetasArabe"><img src="https://i.pinimg.com/564x/53/f5/18/53f5185ac2c4275ef53daa3a05158e06.jpg" alt="Recetas Arabes" width="500"></a>
   <br>
-  Markdownify
+  Recetas Arabes
   <br>
 </h1>
 
@@ -15,4 +15,12 @@
  - Hugo Murillo
 <a>
   
-  ## Integrantes del grupo
+  ## Documentación
+  
+  
+  ## JS API
+
+```js
+let ref = firebase.storage().ref().child((``);
+ref.put(blob)
+```
