@@ -20,7 +20,7 @@
 <a>
   
   ## Nosotros
-appRecetasArabe es una aplicación movil creada con React Native, utilizando Expo.cli y los conceptos de Node.js, se implemento React Hooks y un patrón de diseño basado en componentes, aplicando los principios de reutilización de código, se apllico CRUD al diseño y funcionalidad de la misma. Utilizamos Git como Sistema de Control de Versiones y GitHub como repositorio distribuido en la nube.
+appRecetasArabe es una aplicación movil creada con React Native, utilizando Expo.cli y los conceptos de Node.js, se implemento React Hooks y un patrón de diseño basado en componentes, aplicando los principios de reutilización de código, se aplico CRUD al diseño y funcionalidad de la misma. Utilizamos Git como Sistema de Control de Versiones y GitHub como repositorio distribuido en la nube.
 
   ## Objetivos
   - Ampliar los conocimientos sobre Javascript, React Native, Hooks, Context API, diseño móvil, API’s y almacenamiento en la nube.
@@ -42,7 +42,7 @@ appRecetasArabe es una aplicación movil creada con React Native, utilizando Exp
             **[React Native Firebase | React Native Firebase (rnfirebase.io)]( https://rnfirebase.io/ )**
 - React Native elements: **[Getting Started | React Native Elements](https://reactnativeelements.com/docs/ )**
 - Código de referencias utilizados en mi proyecto:
-Para poder descargar las imágenes de firebase me apoye de la plataforma de youtube con el siguiente **[Video]( https://youtu.be/jy4hFM2hGkM )**
+Para poder descargar las imágenes de firebase nos apoyamos de la plataforma de youtube con el siguiente **[Video]( https://youtu.be/jy4hFM2hGkM )**
 
 Código que se uso:
 ```js
