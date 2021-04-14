@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 15,
-    marginBottom: 35,
+    marginBottom: 15,
   },
   form: {
     width: width * 0.75,

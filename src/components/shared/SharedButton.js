@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 30,
     color: "#fff",
-    padding: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
   txtBoton: {

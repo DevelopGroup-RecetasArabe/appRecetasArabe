@@ -108,7 +108,9 @@ const SignIn = ({ navigation }) => {
             callback={() => navigation.navigate("ChangePassword")}
           />
         </View>
-        <SharedButton title="Iniciar Sesión" callback={handleSignin} />
+        <View style={{ marginTop: 0 }}>
+          <SharedButton title="Iniciar Sesión" callback={handleSignin} />
+        </View>
         <View style={{ marginTop: 12 }}>
           <SharedButton title="Google" callback={handleSignGoogle} />
         </View>
@@ -135,8 +137,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   formLogin: {
-    padding: 30,
-    paddingTop: 25,
+    paddingTop: 20,
+    paddingRight: 30,
+    paddingBottom: 20,
+    paddingLeft: 30,
   },
   header: {
     alignItems: "center",
