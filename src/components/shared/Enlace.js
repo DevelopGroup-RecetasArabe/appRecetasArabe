@@ -30,7 +30,7 @@ const Enlace = ({
 
 const styles = StyleSheet.create({
   enlace: {
-    marginBottom: 30,
+    marginBottom: 10,
     paddingBottom: 10,
   },
 

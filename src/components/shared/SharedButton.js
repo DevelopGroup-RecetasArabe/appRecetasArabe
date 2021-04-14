@@ -27,9 +27,12 @@ const SharedButton = ({ title, size, colors, callback }) => {
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 30,
+    borderRadius: 20,
     color: "#fff",
-    padding: 15,
+    paddingTop: 10,
+    paddingRight:15,
+    paddingLeft:15,
+    paddingBottom:10,
   },
 
   txtBoton: {
