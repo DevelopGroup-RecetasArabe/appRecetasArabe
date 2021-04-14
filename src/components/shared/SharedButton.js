@@ -30,15 +30,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     color: "#fff",
     paddingTop: 10,
-<<<<<<< HEAD
-    paddingBottom: 10,
-    paddingLeft: 15,
     paddingRight: 15,
-=======
-    paddingRight:15,
-    paddingLeft:15,
-    paddingBottom:10,
->>>>>>> f1438f09942ef4537ff2141edb404598205cc69b
+    paddingLeft: 15,
+    paddingBottom: 10,
   },
 
   txtBoton: {
