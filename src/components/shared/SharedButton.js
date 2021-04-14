@@ -6,43 +6,39 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import { color } from "react-native-reanimated";
-
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
-
-//Recibe un titulo, el tamaño del boton, el color del boton y una funcion callback
+import { LinearGradient } from "expo-linear-gradient";
 
 const SharedButton = ({ title, size, colors, callback }) => {
   return (
     <View>
-      <TouchableOpacity
-        style={[styles.boton, { width: width * size, backgroundColor: colors }]}
-        onPress={callback}
+      <LinearGradient
+        colors={["#090979", "#bb00f7"]}
+        style={styles.button}
+        start={{ x: 0, y: 0.3 }}
+        end={{ x: 1, y: 0.5 }}
       >
-        <Text style={styles.txtBoton}>{title}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={callback}>
+          <Text style={styles.txtBoton}>{title}</Text>
+        </TouchableOpacity>
+      </LinearGradient>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  boton: {
-    justifyContent: "center",
-    alignContent: "center",
-    textAlign: "center",
+  button: {
+    borderRadius: 20,
     color: "#fff",
-    borderRadius: 5,
-    padding: 15,
-    shadowColor: "black",
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3.84,
+    paddingTop: 10,
+    paddingRight:15,
+    paddingLeft:15,
+    paddingBottom:10,
   },
+
   txtBoton: {
     textAlign: "center",
     color: "#fff",
-    fontSize: 16,
+    fontSize: 20,
   },
 });
 

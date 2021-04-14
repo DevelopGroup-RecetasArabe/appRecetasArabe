@@ -1,34 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Home from "../screens/Home";
 import MyRecipes from "../screens/MyRecipes";
 import Profile from "../screens/Profile";
 import AddRecipes from "../screens/AddRecipes";
-import { Context as AuthContext } from "../../providers/AuthContext";
-import Login from "../screens/Login";
-import { LinearGradient } from "expo-linear-gradient";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
+/*Declaración para Tab para asignar la funcion createBottomTabNavigator */
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => {
-  const { signout } = useContext(AuthContext);
+  const { state: recipeState } = useContext(RecipeContext);
+  useEffect(() => {}, [recipeState.darkMode]);
 
   return (
     <Tab.Navigator
       initialRouteName="MyRecipes"
-      tabBarOptions={{
-        activeTintColor: "#7c3593",
-        style: {
-          backgroundColor: "#fff",
-        },
-      }}
+      tabBarOptions={
+        recipeState.darkMode === "light"
+          ? {
+              activeTintColor: "#7c3593",
+              style: {
+                backgroundColor: "#fff",
+              },
+            }
+          : {
+              activeTintColor: "#B4975A",
+              style: {
+                backgroundColor: "black",
+              },
+            }
+      }
     >
       <Tab.Screen
         name={"Home"}
         component={Home}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "Inicio",
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={30} />
           ),
@@ -40,7 +49,7 @@ const NavigationTab = () => {
         options={{
           tabBarLabel: "Mis recetas",
           tabBarIcon: ({ color }) => (
-            <Icon name="spoon" color={color} size={25} />
+            <Icon name="spoon" color={color} size={30} />
           ),
         }}
       />
@@ -48,26 +57,19 @@ const NavigationTab = () => {
         name={"AddRecipes"}
         component={AddRecipes}
         options={{
-          tabBarLabel: "Add",
+          tabBarLabel: "Añadir",
           tabBarIcon: ({ color }) => (
-            <Icon name="plus-circle" color={color} size={25} />
+            <Icon name="plus-circle" color={color} size={30} />
           ),
         }}
       />
       <Tab.Screen
-        name={"Login"}
-        component={Login}
+        name={"Profile"}
+        component={Profile}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Salir",
           tabBarIcon: ({ color }) => (
-            <Icon
-              name="sign-out"
-              color={color}
-              size={25}
-              onPress={() => {
-                signout();
-              }}
-            />
+            <Icon name="sign-out" color={color} size={30} />
           ),
         }}
       />

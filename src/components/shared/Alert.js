@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { Dimensions, StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+const { width } = Dimensions.get("window");
 const Alert = ({ type, title }) => {
   let color = "";
   let background = "";
@@ -11,14 +11,6 @@ const Alert = ({ type, title }) => {
     background = "#FF8177";
     icon = "times-circle";
     color = "#FF0000";
-  } else if (type === "warning") {
-    background = "#fff4e5";
-    icon = "warning";
-    color = "D48C06";
-  } else if (type === "info") {
-    background = "#5F87FA";
-    icon = "info-circle";
-    color = "#0733B2";
   } else if (type === "success") {
     background = "#7AFF7A";
     icon = "check-circle";
@@ -35,15 +27,16 @@ const Alert = ({ type, title }) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    padding: 10,
+    marginLeft: width * 0.12,
+    marginRight: width * 0.12,
+    padding: 3,
     flexDirection: "row",
     justifyContent:'center',
     borderRadius: 15,
   },
   icon: {
     marginRight: 5,
-    fontSize: 20
+    fontSize: 20,
   },
 });
 

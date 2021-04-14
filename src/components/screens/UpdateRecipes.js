@@ -3,7 +3,6 @@ import {
   Button,
   Text,
   View,
-  Platform,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -13,54 +12,52 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import ImageButton from "../shared/ImageButton";
 import { Input, Icon } from "react-native-elements";
-import { Context as AuthContext } from "../../providers/AuthContext";
 import { Context as RecipeContext } from "../../providers/RecipeContext";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
-const UpdateRecipes = ({ route, navigation }) => {
-  const { arrayRecipes } = route.params;
-
+const UpdateRecipes = ({ navigation }) => {
   /*Funcion de crear la receta  */
-  const { updateRecipes } = useContext(RecipeContext);
-  const { state } = useContext(AuthContext);
+  const { state, updateRecipes } = useContext(RecipeContext);
 
   /*Variable para almacenar la imagen */
-  const [image, setImage] = useState(arrayRecipes.getImage);
-
-  /*Variables controlar el agregar y destruit los text inputs*/
-  const [count, setCount] = useState(arrayRecipes.arrayIngredients.length);
-  const [count2, setCount2] = useState(arrayRecipes.arrayPreparations.length);
-  const [deleteIngredient, setDeleteIngredient] = useState(false);
-  const [deletePreparation, setDeletePreparation] = useState(false);
+  const [image, setImage] = useState(null);
 
   /*Variables para el formulario*/
-  const [title, setTitle] = useState(arrayRecipes.title);
+  const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState(false);
-  const [description, setDescription] = useState(arrayRecipes.description);
+  const [description, setDescription] = useState("");
   const [descriptionError, setDescriptionError] = useState(false);
 
   /*Objeto de ingrediente y de preparaciones*/
-  const [arrayIngredients] = useState(arrayRecipes.arrayIngredients);
-  const [arrayPreparations] = useState(arrayRecipes.arrayPreparations);
+  const [arrayIngredients, setArrayIngredients] = useState([]);
+  const [arrayPreparations, setArrayPreparations] = useState([]);
 
-  /*Permiso para la acceder a la carpeta*/
+  /*Controlar si hay un error en cada input*/
+  const [ingredientError, setIngredientError] = useState([]);
+  const [preparationError, setPreparationError] = useState([]);
+
   useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
+    if (state.currentRecipe.id) {
+      setImage(state.currentRecipe.getImage);
+      setTitle(state.currentRecipe.title);
+      setDescription(state.currentRecipe.description);
+
+      for (let i = 0; i < state.currentRecipe.arrayIngredients.length; i++) {
+        arrayIngredients[i] = state.currentRecipe.arrayIngredients[i];
       }
-    })();
-  }, []);
+      setArrayIngredients([...arrayIngredients]);
+
+      for (let i = 0; i < state.currentRecipe.arrayPreparations.length; i++) {
+        arrayPreparations[i] = state.currentRecipe.arrayPreparations[i];
+      }
+      setArrayPreparations([...arrayPreparations]);
+    }
+  }, [state.currentRecipe]);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -74,39 +71,29 @@ const UpdateRecipes = ({ route, navigation }) => {
     }
   };
 
-  /*Eliminar un paso del ingrediente */
-  useEffect(() => {}, [deleteIngredient]);
-  useEffect(() => {}, [deletePreparation]);
-
   /*Agregar inputs de los ingredientes por medio de un boton */
   const handleAddInputIngredient = () => {
-    arrayIngredients[count] = "";
-    const increment = count + 1;
-    setCount(increment);
+    setArrayIngredients([...arrayIngredients, ""]);
   };
+
   /*Eliminar el inputs de los ingredientes por medio de un boton*/
   const handleDeleteInputIngredient = () => {
-    const decrement = count - 1;
-    setCount(decrement);
-    setDeleteIngredient(!deleteIngredient);
     arrayIngredients.pop();
+    setArrayIngredients([...arrayIngredients]);
   };
 
   /*Agregar inputs por medio de la preparacion de un boton */
   const handleAddInputPreparation = () => {
-    arrayPreparations[count2] = "";
-    const increment = count2 + 1;
-    setCount2(increment);
+    setArrayPreparations([...arrayPreparations, ""]);
   };
 
   /*Eliminar el inputs por medio de un boton*/
   const handleDeleteInputPreparation = () => {
-    const decrement = count2 - 1;
-    setCount2(decrement);
-    setDeletePreparation(!deletePreparation);
     arrayPreparations.pop();
+    setArrayPreparations([...arrayPreparations]);
   };
 
+  /*Funcion para verificar si lo campos estan vacíos */
   const handleVerify = (input) => {
     if (input === "title") {
       if (!title) setTitleError(true);
@@ -117,16 +104,29 @@ const UpdateRecipes = ({ route, navigation }) => {
     }
   };
 
+  /*Función para borrar cualquier input de Ingredientes */
+  const handleDeleteByPositon = (position) => {
+    arrayIngredients.splice(position, 1);
+    setArrayIngredients([...arrayIngredients]);
+  };
+
+  /*Función para borrar cualquier input de Preparaciones */
+  const handleDeleteByPositonPreparation = (position) => {
+    arrayPreparations.splice(position, 1);
+    setArrayPreparations([...arrayPreparations]);
+  };
+
   return (
     <LinearGradient
-        //colors={["#245071", "#7c3593", "#245071"]}
-        //colors={["#a4508b", "#7c3593", "#a4508b"]}
-        //colors={["#5f72be","#9921e8"]}
-        colors={["#245071","#9921e8"]}
-        start={{ x: 0, y: 0.2 }}
-        end={{ x: 1, y: 0.2 }}
-        style={styles.container}
-      >
+      colors={
+        state.darkMode === "light"
+          ? ["#245071", "#9921e8"]
+          : ["#090979", "#bb00f7"]
+      }
+      start={{ x: 0, y: 0.2 }}
+      end={{ x: 1, y: 0.2 }}
+      style={styles.container}
+    >
       <ScrollView style={styles.container}>
         {/*Image Picker*/}
         <View style={styles.recipeImage}>
@@ -134,12 +134,33 @@ const UpdateRecipes = ({ route, navigation }) => {
         </View>
         {/*Formulario de recetas*/}
         <View style={styles.formRecipes}>
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Nombre de la receta</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "#00000098", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Nombre de la receta
+            </Text>
             <Input
               placeholder={"Ejemplo: Kibbe"}
               value={title}
               onChangeText={setTitle}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("title");
               }}
@@ -147,11 +168,20 @@ const UpdateRecipes = ({ route, navigation }) => {
                 titleError ? "Por favor ingrese el nombre de la receta" : null
               }
             />
-            <Text style={styles.titles}>Descripcion de la receta</Text>
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Descripcion de la receta
+            </Text>
             <Input
               placeholder={"Ejemplo: Rico platillos arabes en tu cocina"}
               value={description}
               onChangeText={setDescription}
+              color={state.darkMode === "light" ? "#245071" : "#fff"}
               onBlur={() => {
                 handleVerify("description");
               }}
@@ -164,75 +194,247 @@ const UpdateRecipes = ({ route, navigation }) => {
           </View>
           {/*Generar un textInput por medio de un boton para ingresar
           ingredientes*/}
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Ingredientes</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "#00000098", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Ingredientes
+            </Text>
             <>
               {arrayIngredients.map((arr, i) => (
-                <Input
-                  key={`ingredients${i}`}
-                  placeholder={arrayIngredients[i]}
-                  color={"black"}
-                  onChangeText={(val) => {
-                    arrayIngredients[i] = val;
-                    console.log(arrayIngredients);
-                  }}
-                />
+                <View key={i} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`ingredients${i}`}
+                      placeholder={"Ej: 1 kilo de harina"}
+                      value={arr}
+                      color={state.darkMode === "light" ? "#245071" : "#fff"}
+                      onChangeText={(val) => {
+                        arrayIngredients[i] = val;
+                        setArrayIngredients([...arrayIngredients]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayIngredients[i]) {
+                          ingredientError[i] = true;
+                          setIngredientError([...ingredientError]);
+                        } else {
+                          ingredientError[i] = false;
+                          setIngredientError([...ingredientError]);
+                        }
+                      }}
+                      errorMessage={
+                        ingredientError[i] === true
+                          ? "Ingrese un ingrediente porfavor"
+                          : null
+                      }
+                    />
+                  </View>
+                  <Icon
+                    key={`close${i}`}
+                    name="close"
+                    type=""
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                    font-awesome
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositon(i);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
               <TouchableOpacity onPress={handleAddInputIngredient}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar
-                  Ingrediente
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="plus"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                  />
+                  Agregar Ingrediente
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputIngredient}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="trash" type="font-awesome" size={15} /> Borrar
-                  Ingrediente
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="trash"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                  />{" "}
+                  Borrar Ingrediente
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {/*Generar un textInput por medio de un boton para ingresar paso a paso las preparaciones*/}
-          <View style={styles.styleForm}>
-            <Text style={styles.titles}>Preparaciones</Text>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.styleForm,
+                    { backgroundColor: "#FFFFFF98", borderRadius: 10 },
+                  ]
+                : [
+                    styles.styleForm,
+                    { backgroundColor: "#00000098", borderRadius: 10 },
+                  ]
+            }
+          >
+            <Text
+              style={
+                state.darkMode === "light"
+                  ? [styles.titles, { color: "black" }]
+                  : [styles.titles, { color: "#fff" }]
+              }
+            >
+              Preparaciones
+            </Text>
             <>
               {arrayPreparations.map((arr, j) => (
-                <Input
-                  key={`preparacion${j}`}
-                  color={"black"}
-                  placeholder={arrayPreparations[j]}
-                  placeholder={arrayPreparations[j]}
-                  onChangeText={(val) => {
-                    arrayPreparations[j] = val;
-                  }}
-                />
+                <View key={j} style={styles.fil}>
+                  <View style={styles.colum}>
+                    <Input
+                      key={`preparacion${j}`}
+                      placeholder={`Ej: Paso # ${j + 1}`}
+                      value={arr}
+                      color={state.darkMode === "light" ? "#245071" : "#fff"}
+                      onChangeText={(val) => {
+                        arrayPreparations[j] = val;
+                        setArrayPreparations([...arrayPreparations]);
+                      }}
+                      onBlur={() => {
+                        if (!arrayPreparations[j]) {
+                          preparationError[j] = true;
+                          setPreparationError([...preparationError]);
+                        } else {
+                          preparationError[j] = false;
+                          setPreparationError([...preparationError]);
+                        }
+                      }}
+                      errorMessage={
+                        preparationError[j] === true
+                          ? "Ingrese un paso porfavor"
+                          : null
+                      }
+                    />
+                  </View>
+                  <Icon
+                    key={`close${j}`}
+                    name="close"
+                    type=""
+                    font-awesome
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                    size={30}
+                    onPress={() => {
+                      handleDeleteByPositonPreparation(j);
+                    }}
+                  />
+                </View>
               ))}
             </>
             <View style={styles.styleIngredients}>
               <TouchableOpacity onPress={handleAddInputPreparation}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="plus" type="font-awesome" size={15} /> Agregar Paso
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="plus"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                  />{" "}
+                  Agregar Paso
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleDeleteInputPreparation}>
-                <Text style={styles.textIngredients}>
-                  <Icon name="trash" type="font-awesome" size={15} /> Borrar Paso
+                <Text
+                  style={
+                    state.darkMode === "light"
+                      ? [styles.textIngredients, { color: "black" }]
+                      : [styles.textIngredients, { color: "#fff" }]
+                  }
+                >
+                  <Icon
+                    name="trash"
+                    type="font-awesome"
+                    size={15}
+                    color={state.darkMode === "light" ? "black" : "#B4975A"}
+                  />{" "}
+                  Borrar Paso
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.button}>
+          <View
+            style={
+              state.darkMode === "light"
+                ? [
+                    styles.Button,
+                    {
+                      backgroundColor: "#FFFFFF98",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+                : [
+                    styles.Button,
+                    {
+                      backgroundColor: "#00000098",
+                      borderRadius: 20,
+                      marginLeft: width * 0.12,
+                      marginRight: width * 0.12,
+                      marginTop: 15,
+                      marginBottom: 25,
+                    },
+                  ]
+            }
+          >
             <Button
               title="Actualizar"
-              color="#7c3593"
+              color={state.darkMode === "light" ? "#7c3593" : "#7c3593"}
               onPress={() => {
                 updateRecipes(
                   title,
-                  arrayRecipes.id,
+                  state.currentRecipe.id,
                   description,
                   arrayIngredients,
                   arrayPreparations,
@@ -251,13 +453,13 @@ const UpdateRecipes = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     padding: 8,
-    margin:0
+    margin: 0,
   },
   recipeImage: {
     borderRadius: 40,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     //Sombra
     shadowColor: "black",
     shadowOffset: { width: 3, height: 5 },
@@ -268,15 +470,22 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   styleForm: {
-    backgroundColor: "#FFFFFF98",
+    //backgroundColor: "#FFFFFF98",
     padding: 10,
-    borderRadius: 10,
+    //borderRadius: 10,
     marginTop: 15,
     marginBottom: 12,
   },
   titles: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 15,
+  },
+  fil: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  colum: {
+    width: "90%",
   },
   styleIngredients: {
     flex: 1,
@@ -289,13 +498,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    marginTop: 15,
-    marginBottom: 15,
-    backgroundColor: '#FFFFFF98',
-    borderRadius: 20,
-    fontWeight: 'bold',
-    marginLeft: width * 0.12,
-    marginRight:width * 0.12,
+    fontWeight: "bold",
   },
 });
 

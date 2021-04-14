@@ -1,47 +1,65 @@
-import React from "react";
-import { Dimensions, StyleSheet, View, Image } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
 import SignIn from "../Forms/SignIn";
-import Logo from "../../assets/logo.png";
+import { LinearGradient } from "expo-linear-gradient";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
 
 const { width, height } = Dimensions.get("screen");
 
-const Login = ({ navigation, route }) => {
+const Login = ({ navigation }) => {
+  const { state: recipeState } = useContext(RecipeContext);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.mini}>
-        <Image
-          style={styles.logo}
-          source={Logo}
-        />
-        <SignIn navigation={navigation} />
-      </View>
-    </View>
+    <LinearGradient
+      colors={["#090979", "#bb00f7"]}
+      style={styles.container}
+      start={{ x: 0, y: 0.3 }}
+      end={{ x: 1, y: 0.5 }}
+    >
+      <ScrollView>
+        <View>
+          <View
+            style={
+              recipeState.darkMode === "light"
+                ? [
+                    styles.form,
+                    { backgroundColor: "#ffffff", borderRadius: 10 },
+                  ]
+                : [
+                    styles.form,
+                    { backgroundColor: "#00000070", borderRadius: 10 },
+                  ]
+            }
+          >
+            <SignIn navigation={navigation} />
+          </View>
+        </View>
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#ebcf2',
-    backgroundColor: "#b580ba",
-    alignItems: "center",
-    justifyContent: "center",
+    height: height,
   },
-  mini: {
+
+  form: {
     flex: 1,
-    borderRadius: 20,
-    alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    width: width * 0.8,
-    marginTop: height * 0.1,
-    marginBottom: height * 0.1,
-  },
-  logo: {
-    borderRadius: 20,
-    width: width * 0.35,
-    height: height * 0.2,
+    alignContent: "center",
+    alignSelf: "center",
+    marginTop: height * 0.05,
+    marginBottom: height * 0.05,
+    width: width * 0.9,
+    height: height * 0.9,
+
+    //Sombra
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.32,
+    shadowRadius: 3.9,
   },
 });
 export default Login;

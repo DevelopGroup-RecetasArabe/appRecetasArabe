@@ -1,19 +1,23 @@
-import React, { useContext, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import InputText from "../shared/InputText";
 import SharedButton from "../shared/SharedButton";
 import { validate } from "email-validator";
-import { firebase } from "../../Firebase";
+import Enlace from "../shared/Enlace";
 import { Context as AuthContext } from "../../providers/AuthContext";
+import { Context as RecipeContext } from "../../providers/RecipeContext";
+
+const { width } = Dimensions.get("window");
 
 const ChangePasswordForm = ({ navigation }) => {
   const { changePassword } = useContext(AuthContext);
+  const { state: recipeState } = useContext(RecipeContext);
 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
 
-  //Verifica el correo electronico
+  /*Función para verificar si hay campos vacios*/
   const handleVerify = (input) => {
     if (input === "email") {
       if (!email) setEmailError(true);
@@ -22,19 +26,37 @@ const ChangePasswordForm = ({ navigation }) => {
     }
   };
 
-  //Manda la opcion de reset password por medio del correo
+  /*Función para cambiar la contraseña por medio firebase*/
   const handleChangePassword = () => {
-    if (email) {
-      changePassword(email, navigation);
-    }
+    if (email) changePassword(email);
   };
+
   return (
-    <View>
-      <View style={styles.inputs}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h1, { color: "#245071" }]
+              : [styles.h1, { color: "#fff" }]
+          }
+        >
+          Recuperar Contraseña
+        </Text>
+        <Text
+          style={
+            recipeState.darkMode === "light"
+              ? [styles.h2, { color: "#245071" }]
+              : [styles.h2, { color: "#fff" }]
+          }
+        >
+          ¡Hey! te hace falta el ingrediente mas importante, ingresa tu correo
+          para recuperarlo
+        </Text>
+      </View>
+      <View style={styles.form}>
         <InputText
-          title="Correo Electronico:"
-          borderBottom={1}
-          color={"#245071"}
+          placeholder="Correo Electronico"
           icon="envelope"
           value={email}
           set={setEmail}
@@ -44,28 +66,42 @@ const ChangePasswordForm = ({ navigation }) => {
           error={emailError}
           menssageError={"Por favor ingrese su correo"}
         />
-      </View>
-
-      <View style={styles.but}>
         <SharedButton
           title="Restablecer Contraseña"
-          colors={"#7c3593"}
-          size={0.5}
           callback={handleChangePassword}
         />
+        <View style={styles.enlace}>
+          <Enlace
+            title="Volver al inicio de sesión"
+            paddingTop={50}
+            size={20}
+            color={recipeState.darkMode === "light" ? "#245071" : "#fff"}
+            callback={() => navigation.navigate("Login")}
+          />
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  inputs: {
-    paddingTop: 15,
-    justifyContent: "center",
+  container: {
+    padding: 30,
   },
-  but: {
-    paddingTop: 20,
-    alignItems: "center",
+  h1: {
+    fontSize: 25,
+    paddingBottom: 10,
+  },
+  h2: {
+    fontSize: 15,
+    marginBottom: 45,
+  },
+  form: {
+    width: width * 0.75,
+    paddingTop: 80,
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
   },
 });
 

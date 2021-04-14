@@ -4,11 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as SplashScreen from "expo-splash-screen";
 import { Context as AuthContext } from "../../providers/AuthContext";
 import Login from "../screens/Login";
+import NewUser from "../screens/NewUser";
 import ChangePassword from "../screens/ChangePassword";
 import NavigationTab from "./NavigationTab";
 import Recipes from "../screens/Recipes";
 import UpdateRecipes from "../screens/UpdateRecipes";
-import NewUser from "../screens/NewUser";
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,9 @@ const NavigationStack = () => {
   SplashScreen.preventAutoHideAsync();
 
   // Ocultar la pantalla de splash al verificar que existe un token de inicio
-  if (!state.loading) SplashScreen.hideAsync();
+  if (!state.loading) {
+    SplashScreen.hideAsync();
+  }
 
   return (
     <NavigationContainer>
@@ -41,14 +43,6 @@ const NavigationStack = () => {
                   headerTintColor: "#fff",
                   headerTitleAlign: "center",
                 }}
-                initialParams={{
-                  id: "",
-                  arrayPreparations: [],
-                  description: "",
-                  title: "",
-                  arrayIngredients: [],
-                  imagen: "",
-                }}
               />
               <Stack.Screen
                 name="Recipes"
@@ -58,19 +52,16 @@ const NavigationStack = () => {
                   //headerStyle: { backgroundColor: "#fff" },
                   headerStyle: { backgroundColor: "#7c3593" },
                   //headerTransparent: true,
-                  headerTintColor: "#fff"
+                  headerTintColor: "#fff",
                 }}
               />
               <Stack.Screen
                 name="UpdateRecipes"
                 component={UpdateRecipes}
-                initialParams={{
-                  arrayRecipes: [],
-                }}
                 options={{
                   headerTitle: "",
                   headerStyle: { backgroundColor: "#7c3593" },
-                  headerTintColor: "#fff"
+                  headerTintColor: "#fff",
                 }}
               />
             </Stack.Navigator>
@@ -81,8 +72,16 @@ const NavigationStack = () => {
                 component={Login}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="NewUser" component={NewUser} />
-              <Stack.Screen name="ChangePassword" component={ChangePassword} />
+              <Stack.Screen
+                name="NewUser"
+                component={NewUser}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ChangePassword"
+                component={ChangePassword}
+                options={{ headerShown: false }}
+              />
             </Stack.Navigator>
           )}
         </>
