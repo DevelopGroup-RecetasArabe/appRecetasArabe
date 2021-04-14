@@ -8,7 +8,7 @@
   Recetas Arabes
   <br>
 </h1>
-> Lo que conocemos es un gota, lo que ignoramos es un oceano, asi que ayudanos con tus recetas arabes que conoces y aprende de las que desconoces.
+_Lo que conocemos es un gota, lo que ignoramos es un oceano, asi que ayudanos con tus recetas arabes que conoces y aprende de las que desconoces._
 <br>
 
 ## Desarrolladores
