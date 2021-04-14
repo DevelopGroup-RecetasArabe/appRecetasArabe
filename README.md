@@ -8,13 +8,13 @@
   Recetas Arabes
   <br>
 </h1>
-_Lo que conocemos es un gota, lo que ignoramos es un oceano, asi que ayudanos con tus recetas arabes que conoces y aprende de las que desconoces._
+ **Lo que conocemos es un gota, lo que ignoramos es un oceano, asi que ayudanos con tus recetas arabes que conoces y aprende de las que desconoces**
 <br>
 
 ## Desarrolladores
- - Gustavo Cano
- - Carlos Navarro
- - Hugo Murillo
+ - Gustavo Cano **[gustavocano23](https://github.com/gustavocano23)**
+ - Carlos Navarro **[Carloscuadra1400](https://github.com/Carloscuadra1400)**
+ - Hugo Murillo **[huguito17](https://github.com/huguito17)**
 <a>
   
 ## Nosotros
