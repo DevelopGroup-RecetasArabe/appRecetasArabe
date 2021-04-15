@@ -13,6 +13,7 @@
   <a href="#"><img src="https://seeklogo.com/images/N/nodejs-logo-FBE122E377-seeklogo.com.png" alt="Node.js" width="50"></a> •
   <a href="#"><img src="https://iconape.com/wp-content/files/kd/291769/png/expo-logo.png" alt="Expo" width="50"></a> •
   <a href="#"><img src="https://iconape.com/wp-content/png_logo_vector/git-icon.png" alt="Git" width="50"></a> •
+  <a href="#"><img src="http://www.consorciomadisac.com/images/includes/icons8-firebase-480.png" alt="Firebase" width="50"></a> •
   <a href="#"><img src="https://cdn2.downdetector.com/static/uploads/logo/github.logo.png" alt="GitHub" width="50"></a> •
   <a href="#"><img src="https://www.returngis.net/wp-content/uploads/2015/11/VS-Code.png" alt="Visual Code" width="50"></a>
 </p>
@@ -29,7 +30,7 @@
 <a>
   
   ## Nosotros
-appRecetasArabe es una aplicación movil creada con React Native, utilizando Expo.cli y los conceptos de Node.js, se implemento React Hooks y un patrón de diseño basado en componentes, aplicando los principios de reutilización de código, se aplico CRUD al diseño y funcionalidad de la misma. Utilizamos Git como Sistema de Control de Versiones y GitHub como repositorio distribuido en la nube.
+appRecetasArabe es una aplicación movil creada con React Native, utilizando Expo.cli, los conceptos de Node.js y Firebase, se implemento React Hooks y un patrón de diseño basado en componentes, aplicando los principios de reutilización de código, se aplico CRUD al diseño y funcionalidad de la misma. Utilizamos Git como Sistema de Control de Versiones y GitHub como repositorio distribuido en la nube.
 
   ## Objetivos
   - Ampliar los conocimientos sobre Javascript, React Native, Hooks, Context API, diseño móvil, API’s y almacenamiento en la nube.
